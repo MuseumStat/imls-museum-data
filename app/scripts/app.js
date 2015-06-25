@@ -24,7 +24,8 @@
      */
     angular.module('imls', [
         'imls.config',
-        'imls.views.home'
+        'imls.views.home',
+        'imls.views.about'
     ])
     .config(DefaultRoutingConfig)
     .config(LogConfig);
