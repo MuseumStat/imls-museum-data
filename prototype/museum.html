@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+	<title>Museum – Philadelphia Museum of Art</title>
+	
+	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+	<link rel="stylesheet" href="/assets/css/main.css">
+	<link rel="stylesheet" href="/assets/css/vendors/animate/animate.css">
+	<link rel="stylesheet" href="/assets/font/fontello/css/museum-db.css">
+
+	<!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+</head>
+<body class="museum-page">
+	<div class="brand">
+		<a class="logo" href="/"><img srcset="/assets/img/2x/logo@2x.png 2x" src="/assets/img/logo.png" ></a>
+	</div> <!-- /.brand -->
+	
+	<div class="map-container">
+		<div id="map"></div>
+	</div> <!-- /.map-container -->
+	
+	<div class="action-bar">
+		<div class="museum-info">
+			<div class="row">
+				<div class="col-md-9 col-sm-12">
+					<a class="back-to-results" href="/search-results.html"><i class="md-icon-left-big"></i></a>
+					<h1>Philadelphia Museum of Art </h1>
+					<h5>2600 Benjamin Franklin Pkwy, Philadelphia, PA 19130</h5>
+					<ul class="social-media list-inline">
+						<li><a href="#"><i class="md-icon-facebook"></i></a></li>
+						<li><a href="#"><i class="md-icon-twitter"></i></a></li>
+						<li><a href="#"><i class="md-icon-gplus"></i></a></li>
+						<li><a href="#"><i class="md-icon-yelp"></i></a></li>
+						<li><a href="#"><i class="md-icon-foursquare"></i></a></li>
+						<li><a href="#"><i class="md-icon-pinterest"></i></a></li>
+					</ul> <!-- /.social-icons -->
+				</div>
+				<div class="col-md-3 col-sm-12">
+					<ul class="list-unstyled">
+						<li><strong>Category:</strong> Art</li>
+						<li><strong>Phone:</strong> 215-763-8100</li>
+						<li><a href="#">Visit Museum Website</a></li>
+						<li><a href="#">Submit Museum Update</a></li>
+						<li>
+							<div class="dropdown">
+								<span href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Download Museum Info <i class="md-icon-down-mini"></i>
+									<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+								    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Full Report</a></li>
+								    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" data-toggle="modal" data-target="#myModal">Museum Row</a></li>
+								  </ul>
+								</span>
+							</div>
+						</li>
+						<li><a href="#">Print This Report</a></li>
+					</ul>
+				</div>
+			</div>
+		</div> <!-- /.museum-info -->
+		<div class="museum-boundary">
+			<p>Edit Museum Boundary</p>
+			<form class="form-inline">
+				<div class="action-group">
+					<div class="form-group">
+				    <select class="form-control">
+							<option>3 Mile Raduis</option>
+							<option>5 Mile Raduis</option>
+							<option>10 Mile Raduis</option>
+				    </select>
+				  </div>
+			  </div>
+					
+				<div class="action-group">
+					<div class="form-group">
+				    <button type="button" class="form-control mapExpand" data-toggle="tooltip" data-placement="bottom" title="Draw Custom Polygon"><i class="md-icon-polygon-draw"></i></button>
+				  </div>
+			  </div>
+			  <div class="action-group">
+				  <div class="form-group">
+				    <button type="button" class="form-control mapExpand" data-toggle="tooltip" data-placement="bottom" title="Draw Circle Polygon"><i class="md-icon-polygon-circle"></i></button>
+				  </div>
+			  </div>
+			</form>
+		</div> <!-- /museum-boundary -->
+	</div> <!-- /.action-bar -->
+
+	<section class="main-content">
+		<div class="container-fluid">
+			<div role="tabpanel">
+				<ul class="nav nav-tabs nav-justified" role="tablist">
+					<li role="presentation" class="active"><a href="#people" aria-controls="people" role="tab" data-toggle="tab">People</a></li>
+					<li role="presentation"><a href="#households" aria-controls="households" role="tab" data-toggle="tab">Households</a></li>
+					<li role="presentation"><a href="#similarmuseums" aria-controls="similarmuseums" role="tab" data-toggle="tab">Similar Museums</a></li>
+				</ul>
+
+				<div class="tab-content">
+					<div role="tabpanel" class="tab-pane fade in active" id="people">
+						<div class="row">
+							<div class="col-md-4">
+								<div class="chart-graph">
+									<h4>Population</h4>
+									<span class="numerical">6,545</span>
+								</div>
+							</div> <!-- /.col -->
+							<div class="col-md-4">
+								<div class="chart-graph">
+									<h4>Race/Ethnicity</h4>
+									<img src="assets/img/charts/race.png">
+								</div>
+							</div> <!-- /.col -->
+							<div class="col-md-4">
+								<div class="chart-graph">
+									<h4>Gender</h4>
+									<img src="assets/img/charts/gender.png">
+								</div>
+							</div> <!-- /.col -->
+						</div> <!-- /.row -->
+						<div class="row">
+							<div class="col-md-4">
+								<div class="chart-graph">
+									<h4>Education Attained</h4>
+									<img src="assets/img/charts/education.png">
+								</div>
+							</div> <!-- /.col -->
+							<div class="col-md-4">
+								<div class="chart-graph">
+									<h4>Foreign Born Population</h4>
+									<img src="assets/img/charts/foreign-born.png">
+								</div>
+							</div> <!-- /.col -->
+							<div class="col-md-4">
+								<div class="chart-graph">
+									<h4>Employment Status</h4>
+									<img src="assets/img/charts/employment.png">
+								</div>
+							</div> <!-- /.col -->
+						</div> <!-- /.row -->
+					</div> <!-- /.tab-pane #people -->
+
+					<div role="tabpanel" class="tab-pane fade" id="households">
+						<div class="row">
+							<div class="col-md-4">
+								<div class="chart-graph">
+									<h4>Median Home Value</h4>
+									<span class="numerical">$239,850</span>
+								</div>
+							</div> <!-- /.col -->
+							<div class="col-md-4">
+								<div class="chart-graph">
+									<h4>Home Values</h4>
+									<img src="assets/img/charts/race.png">
+								</div>
+							</div> <!-- /.col -->
+							<div class="col-md-4">
+								<div class="chart-graph">
+									<h4>Per Capita Income</h4>
+									<span class="numerical">$28,100</span>
+								</div>
+							</div> <!-- /.col -->
+						</div> <!-- /.row -->
+						<div class="row">
+							<div class="col-md-4">
+								<div class="chart-graph">
+									<h4>Household Tenure</h4>
+									<img src="assets/img/charts/household-tenure.png">
+								</div>
+							</div> <!-- /.col -->
+							<div class="col-md-4">
+								<div class="chart-graph">
+									<h4>Poverty</h4>
+									<img src="assets/img/charts/poverty.png">
+								</div>
+							</div> <!-- /.col -->
+						</div> <!-- /.row -->
+					</div> <!-- /.tab-pane #households -->
+
+					<div role="tabpanel" class="tab-pane fade" id="similarmuseums">
+						
+					</div> <!-- /.tab-pane #similarmuseums -->
+				</div>
+			</div>
+		</div> <!-- /.container-fluid -->
+	</section> <!-- /.main-content -->
+
+	<footer>
+		<div class="footer-section-main">
+			<div class="container-fluid">
+				<a class="logo" href="/"><img srcset="/assets/img/2x/logo@2x.png 2x" src="/assets/img/logo.png" ></a>
+
+				<nav>
+					<a href="/">Home</a>
+					<a href="/about.html">About</a>
+					<a href="/contact.html">Contact</a>
+				</nav>
+			</div>
+		</div>
+		<div class="footer-section-secondary">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-md-4">
+						<h3>Contact</h3>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt. Duis aute irure dolor in reprehenderit in voluptate fugiat esse cillum dolore eu fugiat nulla pariatur fugiat reprehenderit. </p>
+						<a href="#" class="btn btn-primary">Contact Us</a>
+					</div>
+					<div class="col-md-4">
+						<h3>About</h3>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur velit. </p>
+					</div>
+					<div class="col-md-4">
+						<h3>Full Report</h3>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur voluptate. </p>
+						<a href="#" class="btn btn-primary">Download Report</a>
+					</div>
+				</div>
+			</div> <!-- /.container-fluid -->
+		</div>
+	</footer> <!-- /footer -->
+
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	    	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	      <div class="modal-body">
+					<h1 class="text-center">Download</h1>
+					<select class="form-control">
+						<option>Full Report</option>
+						<option>Only Museum</option>
+					</select>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-primary">Download</button>
+	      </div>
+	    </div><!-- /.modal-content -->
+	  </div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+
+	<!-- JS -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	<script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+	<script src="/assets/js/leaflet.js"></script>
+	<script src="/assets/js/application.js"></script>
+  <script src="assets/js/vendor/bootstrap/bootstrap.min.js"></script>
+</body>
+</html>

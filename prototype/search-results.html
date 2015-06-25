@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+	<title>Drexel Museums Database - Search Results</title>
+	
+	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+	<link rel="stylesheet" href="/assets/css/main.css">
+	<link rel="stylesheet" href="/assets/css/vendors/animate/animate.css">
+	<link rel="stylesheet" href="/assets/font/fontello/css/museum-db.css">
+
+	<!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+	<div class="brand">
+		<a class="logo" href="/"><img srcset="/assets/img/2x/logo@2x.png 2x" src="/assets/img/logo.png" ></a>
+	</div> <!-- /.brand -->
+	
+	<div class="map-container">
+		<div id="map"></div>
+	</div> <!-- /.map-container -->
+	
+	<div class="action-bar">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-4">
+					<h3>18 Results Found</h3>
+				</div>
+				<div class="col-md-8 text-right">
+					<form class="form-inline">
+						<div class="action-group">
+							<div class="form-group search-bar">
+						    <div class="input-group">
+							    <label class="input-group-addon" for="searchInput"><i class="md-icon-search"></i></label>
+							    <input type="text" class="form-control search-field" id="searchInput" placeholder="Search">
+						    </div>
+						  </div>
+
+						  <div class="form-group">
+						    <button type="button" class="form-control" data-toggle="tooltip" data-placement="bottom" title="Your Location"><i class="md-icon-location"></i></button>
+						  </div>
+							
+							<div class="form-group">
+						    <button type="button" class="form-control mapExpand" data-toggle="tooltip" data-placement="bottom" title="Draw Custom Polygon"><i class="md-icon-polygon-draw"></i></button>
+						  </div>
+
+						  <div class="form-group">
+						    <button type="button" class="form-control mapExpand" data-toggle="tooltip" data-placement="bottom" title="Draw Circle Polygon"><i class="md-icon-polygon-circle"></i></button>
+						  </div>
+						</div>
+						
+						<div class="action-group">
+							<div class="form-group">
+								<button type="button" class="form-control" data-toggle="tooltip" data-placement="bottom" title="Filter Results"><i class="md-icon-filter"></i></button>
+							</div>
+						</div>
+					  <button type="submit" class="btn btn-primary">Search</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div> <!-- /.action-bar -->
+
+	<section class="main-content">
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Museum Name <i class="md-icon-sort table-sort"></i></th>
+					<th>Address <i class="md-icon-sort table-sort"></i></th>
+					<th>County <i class="md-icon-sort table-sort"></i></th>
+					<th>Type <i class="md-icon-sort table-sort"></i></th>
+					<th>Revenue <i class="md-icon-sort table-sort"></i></th>
+					<th width="230px"></th>
+				</tr>
+			</thead> <!-- /thead -->
+			
+			<tbody>
+				<tr>
+					<td>Philadelphia Museum of Art</td>
+					<td>2600 Benjamin Franklin Pkwy.</td>
+					<td>Philadelphia</td>
+					<td>Art</td>
+					<td>$5,302,000</td>
+					<td><a href="/museum.html" class="btn btn-info">View</a></td>
+				</tr>
+				<tr>
+					<td>Philadelphia Museum of Art</td>
+					<td>2600 Benjamin Franklin Pkwy.</td>
+					<td>Philadelphia</td>
+					<td>Art</td>
+					<td>$5,302,000</td>
+					<td><a href="#" class="btn btn-info">View</a></td>
+				</tr>
+				<tr>
+					<td>Philadelphia Museum of Art</td>
+					<td>2600 Benjamin Franklin Pkwy.</td>
+					<td>Philadelphia</td>
+					<td>Art</td>
+					<td>$5,302,000</td>
+					<td><a href="#" class="btn btn-info">View</a></td>
+				</tr>
+				<tr>
+					<td>Philadelphia Museum of Art</td>
+					<td>2600 Benjamin Franklin Pkwy.</td>
+					<td>Philadelphia</td>
+					<td>Art</td>
+					<td>$5,302,000</td>
+					<td><a href="#" class="btn btn-info">View</a></td>
+				</tr>
+				<tr>
+					<td>Philadelphia Museum of Art</td>
+					<td>2600 Benjamin Franklin Pkwy.</td>
+					<td>Philadelphia</td>
+					<td>Art</td>
+					<td>$5,302,000</td>
+					<td><a href="#" class="btn btn-info">View</a></td>
+				</tr>
+				<tr>
+					<td>Philadelphia Museum of Art</td>
+					<td>2600 Benjamin Franklin Pkwy.</td>
+					<td>Philadelphia</td>
+					<td>Art</td>
+					<td>$5,302,000</td>
+					<td><a href="#" class="btn btn-info">View</a></td>
+				</tr>
+				<tr>
+					<td>Philadelphia Museum of Art</td>
+					<td>2600 Benjamin Franklin Pkwy.</td>
+					<td>Philadelphia</td>
+					<td>Art</td>
+					<td>$5,302,000</td>
+					<td><a href="#" class="btn btn-info">View</a></td>
+				</tr>
+				<tr>
+					<td>Philadelphia Museum of Art</td>
+					<td>2600 Benjamin Franklin Pkwy.</td>
+					<td>Philadelphia</td>
+					<td>Art</td>
+					<td>$5,302,000</td>
+					<td><a href="#" class="btn btn-info">View</a></td>
+				</tr>
+				<tr>
+					<td>Philadelphia Museum of Art</td>
+					<td>2600 Benjamin Franklin Pkwy.</td>
+					<td>Philadelphia</td>
+					<td>Art</td>
+					<td>$5,302,000</td>
+					<td><a href="#" class="btn btn-info">View</a></td>
+				</tr>
+				<tr>
+					<td>Philadelphia Museum of Art</td>
+					<td>2600 Benjamin Franklin Pkwy.</td>
+					<td>Philadelphia</td>
+					<td>Art</td>
+					<td>$5,302,000</td>
+					<td><a href="#" class="btn btn-info">View</a></td>
+				</tr>
+			</tbody> <!-- /tbody -->
+		</table> <!-- /table -->
+
+		<div class="container-fluid text-center">
+			<nav>
+			  <ul class="pagination">
+			    <li>
+			      <a href="#" aria-label="Previous">
+			        <span aria-hidden="true">&laquo;</span>
+			      </a>
+			    </li>
+			    <li class="active"><a href="#">1</a></li>
+			    <li><a href="#">2</a></li>
+			    <li><a href="#">3</a></li>
+			    <li><a href="#">4</a></li>
+			    <li><a href="#">5</a></li>
+			    <li>
+			      <a href="#" aria-label="Next">
+			        <span aria-hidden="true">&raquo;</span>
+			      </a>
+			    </li>
+			  </ul>
+			</nav>
+		</div>
+	</section> <!-- /.main-content -->
+
+	<footer>
+		<div class="footer-section-main">
+			<div class="container-fluid">
+				<a class="logo" href="/"><img srcset="/assets/img/2x/logo@2x.png 2x" src="/assets/img/logo.png" ></a>
+
+				<nav>
+					<a href="/">Home</a>
+					<a href="/about.html">About</a>
+					<a href="/contact.html">Contact</a>
+				</nav>
+			</div>
+		</div>
+		<div class="footer-section-secondary">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-md-4">
+						<h3>Contact</h3>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt. Duis aute irure dolor in reprehenderit in voluptate fugiat esse cillum dolore eu fugiat nulla pariatur fugiat reprehenderit. </p>
+						<a href="#" class="btn btn-primary">Contact Us</a>
+					</div>
+					<div class="col-md-4">
+						<h3>About</h3>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur velit. </p>
+					</div>
+					<div class="col-md-4">
+						<h3>Full Report</h3>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur voluptate. </p>
+						<a href="#" class="btn btn-primary">Download Report</a>
+					</div>
+				</div>
+			</div> <!-- /.container-fluid -->
+		</div>
+	</footer> <!-- /footer -->
+
+	<!-- JS -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	<script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+	<script src="/assets/js/leaflet.js"></script>
+	<script src="/assets/js/application.js"></script>
+  <script src="assets/js/vendor/bootstrap/bootstrap.min.js"></script>
+</body>
+</html>
