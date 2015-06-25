@@ -12,7 +12,8 @@
     }
 
     angular.module('imls.views.home', [
-        'ui.router'
+        'ui.router',
+        'imls.views.footer'
     ])
     .config(StateConfig);
 })();

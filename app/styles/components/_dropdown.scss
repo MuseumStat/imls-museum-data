@@ -1,0 +1,38 @@
+.dropdown {
+
+	.dropdown-toggle {
+		transition: .2s ease color;
+
+		&:focus, &.focus {
+			text-decoration: none;
+		}
+	}
+}
+
+.dropdown.open {
+	position: relative;
+
+	.dropdown-toggle {
+		background: $white;
+		padding: 10px;
+		left: -10px;
+		position: relative;
+		color: $brand-primary;
+		border-radius: 5px 5px 0 0;
+		border: 1px solid $base-darker;
+	}
+
+	.dropdown-menu {
+		border-radius: 0 0 5px 5px;
+		border-color: $base-darker;
+		border-top: 1px solid $border-color;
+		margin: 0;
+		left: -1px;
+		right: -1px;
+		display: block;
+
+		a {
+			color: $brand-primary;
+		}
+	}
+}
