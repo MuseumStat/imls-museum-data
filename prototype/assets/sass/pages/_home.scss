@@ -1,0 +1,17 @@
+.home-page {
+
+	.action-bar {
+		text-align: center;
+	}
+
+	.main-content {
+		padding: 50px 0;
+		text-align: center;	
+	}
+
+	@include respond-to('laptop-up') {
+		.action-bar.fixed + .main-content {
+			padding-top: 155px;
+		}
+	}
+}

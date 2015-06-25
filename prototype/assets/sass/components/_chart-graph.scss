@@ -1,0 +1,18 @@
+.chart-graph {
+	color: $base;
+	margin-bottom: 70px;
+
+	h4 {
+		margin-bottom: 30px;
+	}
+	
+	.numerical {
+		@include font-size(60);
+		font-weight: 700;
+		color: $base-light;
+	}
+
+	img {
+		max-width: 100%;
+	}
+}
