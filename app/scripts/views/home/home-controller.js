@@ -13,7 +13,7 @@
         initialize();
 
         function initialize() {
-            ctl.helloWorld = 'Hello World';
+            ctl.error = false;
         }
     }
 

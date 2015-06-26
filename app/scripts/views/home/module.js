@@ -12,7 +12,9 @@
     }
 
     angular.module('imls.views.home', [
-        'ui.router'
+        'ui.router',
+        'imls.brand',
+        'imls.views.footer'
     ])
     .config(StateConfig);
 })();

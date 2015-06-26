@@ -13,6 +13,8 @@
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
+    <link rel="stylesheet" href="styles/fonts/fontello/css/museum-db.css"
+    <link rel="stylesheet" href="https://cartodb-libs.global.ssl.fastly.net/cartodb.js/v3/3.15/themes/css/cartodb.css" />
   </head>
   <body ng-app="imls">
     <!--[if lt IE 7]>
@@ -32,21 +34,34 @@
        ga('send', 'pageview');
     </script>
 
+    <script src="https://cartodb-libs.global.ssl.fastly.net/cartodb.js/v3/3.15/cartodb.js"></script>
+
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-animate/angular-animate.js"></script>
     <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
-    <script src="bower_components/angular-strap/dist/angular-strap.js"></script>
-    <script src="bower_components/angular-strap/dist/angular-strap.tpl.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
         <script src="scripts/config.js"></script>
+        <script src="scripts/affix/module.js"></script>
+        <script src="scripts/affix/action-bar-affix-directive.js"></script>
+        <script src="scripts/brand/module.js"></script>
+        <script src="scripts/brand/brand-directive.js"></script>
+        <script src="scripts/views/footer/module.js"></script>
+        <script src="scripts/views/footer/footer-directive.js"></script>
         <script src="scripts/views/home/module.js"></script>
         <script src="scripts/views/home/home-controller.js"></script>
+        <script src="scripts/views/about/module.js"></script>
+        <script src="scripts/views/about/about-controller.js"></script>
+        <script src="scripts/views/contact/module.js"></script>
+        <script src="scripts/views/contact/contact-controller.js"></script>
+        <script src="scripts/views/museum/module.js"></script>
+        <script src="scripts/views/museum/museum-controller.js"></script>
         <script src="scripts/app.js"></script>
         <!-- endbuild -->
 </body>
