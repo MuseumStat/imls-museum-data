@@ -26,7 +26,8 @@
         'imls.config',
         'imls.views.home',
         'imls.views.about',
-        'imls.views.contact'
+        'imls.views.contact',
+        'imls.views.museum'
     ])
     .config(DefaultRoutingConfig)
     .config(LogConfig);

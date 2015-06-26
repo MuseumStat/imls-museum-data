@@ -13,6 +13,7 @@
 
     angular.module('imls.views.contact', [
         'ui.router',
+        'imls.brand',
         'imls.views.footer'
     ])
     .config(StateConfig);

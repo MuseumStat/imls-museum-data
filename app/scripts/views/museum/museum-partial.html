@@ -1,0 +1,172 @@
+<div class="museum-page">
+
+    <imls-brand></imls-brand>
+
+    <div class="map-container">
+        <div id="map"></div>
+    </div> <!-- /.map-container -->
+
+    <div class="action-bar">
+        <div class="museum-info">
+            <div class="row">
+                <div class="col-md-9 col-sm-12">
+                    <a class="back-to-results" ui-sref="home"><i class="md-icon-left-big"></i></a>
+                    <h1>Philadelphia Museum of Art </h1>
+                    <h5>2600 Benjamin Franklin Pkwy, Philadelphia, PA 19130</h5>
+                    <ul class="social-media list-inline">
+                        <li><a href="#"><i class="md-icon-facebook"></i></a></li>
+                        <li><a href="#"><i class="md-icon-twitter"></i></a></li>
+                        <li><a href="#"><i class="md-icon-gplus"></i></a></li>
+                        <li><a href="#"><i class="md-icon-yelp"></i></a></li>
+                        <li><a href="#"><i class="md-icon-foursquare"></i></a></li>
+                        <li><a href="#"><i class="md-icon-pinterest"></i></a></li>
+                    </ul> <!-- /.social-icons -->
+                </div>
+                <div class="col-md-3 col-sm-12">
+                    <ul class="list-unstyled">
+                        <li><strong>Category:</strong> Art</li>
+                        <li><strong>Phone:</strong> 215-763-8100</li>
+                        <li><a href="#">Visit Museum Website</a></li>
+                        <li><a href="#">Submit Museum Update</a></li>
+                        <li>
+                            <div class="dropdown">
+                                <span href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Download Museum Info <i class="md-icon-down-mini"></i>
+                                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Full Report</a></li>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" data-toggle="modal" data-target="#myModal">Museum Row</a></li>
+                                  </ul>
+                                </span>
+                            </div>
+                        </li>
+                        <li><a href="#">Print This Report</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div> <!-- /.museum-info -->
+        <div class="museum-boundary">
+            <p>Edit Museum Boundary</p>
+            <form class="form-inline">
+                <div class="action-group">
+                    <div class="form-group">
+                    <select class="form-control">
+                            <option>3 Mile Raduis</option>
+                            <option>5 Mile Raduis</option>
+                            <option>10 Mile Raduis</option>
+                    </select>
+                  </div>
+              </div>
+
+                <div class="action-group">
+                    <div class="form-group">
+                    <button type="button" class="form-control mapExpand" data-toggle="tooltip" data-placement="bottom" title="Draw Custom Polygon"><i class="md-icon-polygon-draw"></i></button>
+                  </div>
+              </div>
+              <div class="action-group">
+                  <div class="form-group">
+                    <button type="button" class="form-control mapExpand" data-toggle="tooltip" data-placement="bottom" title="Draw Circle Polygon"><i class="md-icon-polygon-circle"></i></button>
+                  </div>
+              </div>
+            </form>
+        </div> <!-- /museum-boundary -->
+    </div> <!-- /.action-bar -->
+
+    <section class="main-content">
+        <div class="container-fluid">
+            <div role="tabpanel">
+                <ul class="nav nav-tabs nav-justified" role="tablist">
+                    <li role="presentation" class="active"><a href="#people" aria-controls="people" role="tab" data-toggle="tab">People</a></li>
+                    <li role="presentation"><a href="#households" aria-controls="households" role="tab" data-toggle="tab">Households</a></li>
+                    <li role="presentation"><a href="#similarmuseums" aria-controls="similarmuseums" role="tab" data-toggle="tab">Similar Museums</a></li>
+                </ul>
+
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane fade in active" id="people">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="chart-graph">
+                                    <h4>Population</h4>
+                                    <span class="numerical">6,545</span>
+                                </div>
+                            </div> <!-- /.col -->
+                            <div class="col-md-4">
+                                <div class="chart-graph">
+                                    <h4>Race/Ethnicity</h4>
+                                    <img src="assets/img/charts/race.png">
+                                </div>
+                            </div> <!-- /.col -->
+                            <div class="col-md-4">
+                                <div class="chart-graph">
+                                    <h4>Gender</h4>
+                                    <img src="assets/img/charts/gender.png">
+                                </div>
+                            </div> <!-- /.col -->
+                        </div> <!-- /.row -->
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="chart-graph">
+                                    <h4>Education Attained</h4>
+                                    <img src="assets/img/charts/education.png">
+                                </div>
+                            </div> <!-- /.col -->
+                            <div class="col-md-4">
+                                <div class="chart-graph">
+                                    <h4>Foreign Born Population</h4>
+                                    <img src="assets/img/charts/foreign-born.png">
+                                </div>
+                            </div> <!-- /.col -->
+                            <div class="col-md-4">
+                                <div class="chart-graph">
+                                    <h4>Employment Status</h4>
+                                    <img src="assets/img/charts/employment.png">
+                                </div>
+                            </div> <!-- /.col -->
+                        </div> <!-- /.row -->
+                    </div> <!-- /.tab-pane #people -->
+
+                    <div role="tabpanel" class="tab-pane fade" id="households">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="chart-graph">
+                                    <h4>Median Home Value</h4>
+                                    <span class="numerical">$239,850</span>
+                                </div>
+                            </div> <!-- /.col -->
+                            <div class="col-md-4">
+                                <div class="chart-graph">
+                                    <h4>Home Values</h4>
+                                    <img src="assets/img/charts/race.png">
+                                </div>
+                            </div> <!-- /.col -->
+                            <div class="col-md-4">
+                                <div class="chart-graph">
+                                    <h4>Per Capita Income</h4>
+                                    <span class="numerical">$28,100</span>
+                                </div>
+                            </div> <!-- /.col -->
+                        </div> <!-- /.row -->
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="chart-graph">
+                                    <h4>Household Tenure</h4>
+                                    <img src="assets/img/charts/household-tenure.png">
+                                </div>
+                            </div> <!-- /.col -->
+                            <div class="col-md-4">
+                                <div class="chart-graph">
+                                    <h4>Poverty</h4>
+                                    <img src="assets/img/charts/poverty.png">
+                                </div>
+                            </div> <!-- /.col -->
+                        </div> <!-- /.row -->
+                    </div> <!-- /.tab-pane #households -->
+
+                    <div role="tabpanel" class="tab-pane fade" id="similarmuseums">
+
+                    </div> <!-- /.tab-pane #similarmuseums -->
+                </div>
+            </div>
+        </div> <!-- /.container-fluid -->
+    </section> <!-- /.main-content -->
+
+    <imls-footer></imls-footer>
+</div>
