@@ -14,6 +14,7 @@
     angular.module('imls.views.museum', [
         'ui.router',
         'ui.bootstrap',
+        'imls.affix',
         'imls.brand',
         'imls.views.footer'
     ])
