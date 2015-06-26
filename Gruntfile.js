@@ -179,7 +179,11 @@ module.exports = function (grunt) {
     wiredep: {
       app: {
         src: ['<%= yeoman.app %>/index.html'],
-        exclude: ['bower_components/bootstrap-sass-official/assets/javascripts/bootstrap.js'],
+        exclude: [
+            'bower_components/bootstrap-sass-official/assets/javascripts/bootstrap.js',
+            // Leaflet provided by cartodb.js
+            'bower_components/leaflet-dist/*'
+        ],
         ignorePath:  /\.\.\//
       },
       test: {

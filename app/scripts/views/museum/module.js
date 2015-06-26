@@ -16,6 +16,7 @@
         'ui.bootstrap',
         'imls.affix',
         'imls.brand',
+        'imls.map',
         'imls.views.footer'
     ])
     .config(StateConfig);
