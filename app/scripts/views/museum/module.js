@@ -13,6 +13,7 @@
 
     angular.module('imls.views.museum', [
         'ui.router',
+        'ui.bootstrap',
         'imls.brand',
         'imls.views.footer'
     ])

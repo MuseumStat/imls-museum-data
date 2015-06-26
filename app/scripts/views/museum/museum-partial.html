@@ -26,19 +26,20 @@
                     <ul class="list-unstyled">
                         <li><strong>Category:</strong> Art</li>
                         <li><strong>Phone:</strong> 215-763-8100</li>
-                        <li><a href="#">Visit Museum Website</a></li>
-                        <li><a href="#">Submit Museum Update</a></li>
+                        <li><a>Visit Museum Website</a></li>
+                        <li><a>Submit Museum Update</a></li>
                         <li>
-                            <div class="dropdown">
-                                <span href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Download Museum Info <i class="md-icon-down-mini"></i>
+                            <div class="dropdown" dropdown>
+                                <span class="dropdown-toggle" dropdown-toggle>
+                                    Download Museum Info <i class="md-icon-down-mini"></i>
                                     <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Full Report</a></li>
-                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" data-toggle="modal" data-target="#myModal">Museum Row</a></li>
-                                  </ul>
+                                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Full Report</a></li>
+                                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#" data-toggle="modal" data-target="#myModal">Museum Row</a></li>
+                                    </ul>
                                 </span>
                             </div>
                         </li>
-                        <li><a href="#">Print This Report</a></li>
+                        <li><a ng-click="museum.onPrintClicked()">Print This Report</a></li>
                     </ul>
                 </div>
             </div>
@@ -49,9 +50,9 @@
                 <div class="action-group">
                     <div class="form-group">
                     <select class="form-control">
-                            <option>3 Mile Raduis</option>
-                            <option>5 Mile Raduis</option>
-                            <option>10 Mile Raduis</option>
+                            <option>3 Mile Radius</option>
+                            <option>5 Mile Radius</option>
+                            <option>10 Mile Radius</option>
                     </select>
                   </div>
               </div>
@@ -72,15 +73,9 @@
 
     <section class="main-content">
         <div class="container-fluid">
-            <div role="tabpanel">
-                <ul class="nav nav-tabs nav-justified" role="tablist">
-                    <li role="presentation" class="active"><a href="#people" aria-controls="people" role="tab" data-toggle="tab">People</a></li>
-                    <li role="presentation"><a href="#households" aria-controls="households" role="tab" data-toggle="tab">Households</a></li>
-                    <li role="presentation"><a href="#similarmuseums" aria-controls="similarmuseums" role="tab" data-toggle="tab">Similar Museums</a></li>
-                </ul>
-
-                <div class="tab-content">
-                    <div role="tabpanel" class="tab-pane fade in active" id="people">
+                <tabset justified="true">
+                    <tab class="tab-pane fade in">
+                        <tab-heading>People</tab-heading>
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="chart-graph">
@@ -91,13 +86,13 @@
                             <div class="col-md-4">
                                 <div class="chart-graph">
                                     <h4>Race/Ethnicity</h4>
-                                    <img src="assets/img/charts/race.png">
+                                    <img src="/images/charts/race.png">
                                 </div>
                             </div> <!-- /.col -->
                             <div class="col-md-4">
                                 <div class="chart-graph">
                                     <h4>Gender</h4>
-                                    <img src="assets/img/charts/gender.png">
+                                    <img src="/images/charts/gender.png">
                                 </div>
                             </div> <!-- /.col -->
                         </div> <!-- /.row -->
@@ -105,25 +100,26 @@
                             <div class="col-md-4">
                                 <div class="chart-graph">
                                     <h4>Education Attained</h4>
-                                    <img src="assets/img/charts/education.png">
+                                    <img src="/images/charts/education.png">
                                 </div>
                             </div> <!-- /.col -->
                             <div class="col-md-4">
                                 <div class="chart-graph">
                                     <h4>Foreign Born Population</h4>
-                                    <img src="assets/img/charts/foreign-born.png">
+                                    <img src="/images/charts/foreign-born.png">
                                 </div>
                             </div> <!-- /.col -->
                             <div class="col-md-4">
                                 <div class="chart-graph">
                                     <h4>Employment Status</h4>
-                                    <img src="assets/img/charts/employment.png">
+                                    <img src="/images/charts/employment.png">
                                 </div>
                             </div> <!-- /.col -->
                         </div> <!-- /.row -->
-                    </div> <!-- /.tab-pane #people -->
+                    </tab> <!-- /.tab-pane #people -->
 
-                    <div role="tabpanel" class="tab-pane fade" id="households">
+                    <tab class="tab-pane fade in">
+                        <tab-heading>Households</tab-heading>
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="chart-graph">
@@ -134,7 +130,7 @@
                             <div class="col-md-4">
                                 <div class="chart-graph">
                                     <h4>Home Values</h4>
-                                    <img src="assets/img/charts/race.png">
+                                    <img src="/images/charts/race.png">
                                 </div>
                             </div> <!-- /.col -->
                             <div class="col-md-4">
@@ -148,23 +144,22 @@
                             <div class="col-md-4">
                                 <div class="chart-graph">
                                     <h4>Household Tenure</h4>
-                                    <img src="assets/img/charts/household-tenure.png">
+                                    <img src="/images/charts/household-tenure.png">
                                 </div>
                             </div> <!-- /.col -->
                             <div class="col-md-4">
                                 <div class="chart-graph">
                                     <h4>Poverty</h4>
-                                    <img src="assets/img/charts/poverty.png">
+                                    <img src="/images/charts/poverty.png">
                                 </div>
                             </div> <!-- /.col -->
                         </div> <!-- /.row -->
-                    </div> <!-- /.tab-pane #households -->
-
-                    <div role="tabpanel" class="tab-pane fade" id="similarmuseums">
-
-                    </div> <!-- /.tab-pane #similarmuseums -->
-                </div>
-            </div>
+                    </tab> <!-- /.tab-pane #households -->
+                    <tab class="tab-pane fade in">
+                        <tab-heading>Similar Museums</tab-heading>
+                        TODO: Fill Content
+                    </tab>
+                </tabset>
         </div> <!-- /.container-fluid -->
     </section> <!-- /.main-content -->
 
