@@ -38,6 +38,8 @@ module.exports = function(config) {
       'app/scripts/affix/action-bar-affix-directive.js',
       'app/scripts/brand/module.js',
       'app/scripts/brand/brand-directive.js',
+      'app/scripts/map/module.js',
+      'app/scripts/map/cartodb-vis-directive.js',
       'app/scripts/views/footer/module.js',
       'app/scripts/views/footer/footer-directive.js',
       'app/scripts/views/home/module.js',
