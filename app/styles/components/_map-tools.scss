@@ -12,14 +12,6 @@
 		cursor: pointer;
 	}
 
-    .leaflet-control.leaflet-draw {
-        margin-top: 86px;
-        margin-right: 20px;
-        a {
-            background-color: white;
-        }
-    }
-
     div.cartodb-zoom,
     div.cartodb-tiles-loader {
         float: right;
@@ -27,7 +19,7 @@
     }
 
     div.cartodb-tiles-loader {
-        margin-top: 30px;
+        margin-top: 0;
     }
 
     div.cartodb-legend-stack {
