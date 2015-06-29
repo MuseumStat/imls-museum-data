@@ -13,6 +13,7 @@
 
     angular.module('imls.views.home', [
         'ui.router',
+        'imls.geocoder',
         'imls.brand',
         'imls.map',
         'imls.views.footer'

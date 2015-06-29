@@ -32,6 +32,10 @@
 	}
 
 	a:not(.btn), 
+	// Reduce border radius on search typeahead
+	.dropdown-menu {
+		border-radius: 10px;
+	}
 	.dropdown-toggle {
 		color: $brand-primary;
 		cursor: pointer;
