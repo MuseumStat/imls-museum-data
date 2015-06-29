@@ -1,33 +1,23 @@
-<div class="home-page">
+<div class="home-page" ng-class="{'map-expanded': home.mapExpanded}">
     <imls-brand></imls-brand>
 
-    <!-- TODO: Directive -->
-    <div class="map-container">
-        <div id="map"></div>
-    </div> <!-- /.map-container -->
+    <cartodb-vis></cartodb-vis>
 
     <div class="action-bar">
         <div class="container-fluid">
             <form class="form-inline">
                 <div class="action-group">
                     <div class="form-group search-bar">
-                    <div class="input-group">
-                        <label class="input-group-addon" for="searchInput"><i class="md-icon-search"></i></label>
-                        <input type="text" class="form-control search-field" id="searchInput" placeholder="Search">
+                        <div class="input-group">
+                            <label class="input-group-addon" for="searchInput"><i class="md-icon-search"></i></label>
+                            <input type="text" class="form-control search-field" id="searchInput" placeholder="Search">
+                        </div>
                     </div>
-                  </div>
 
                     <div class="form-group">
-                    <button type="button" class="form-control" data-toggle="tooltip" data-placement="bottom" title="Your Location"><i class="md-icon-location"></i></button>
-                  </div>
+                        <button type="button" class="form-control" data-toggle="tooltip" data-placement="bottom" title="Your Location"><i class="md-icon-location"></i></button>
+                    </div>
 
-                    <div class="form-group">
-                    <button type="button" class="form-control mapExpand" data-toggle="tooltip" data-placement="bottom" title="Draw Custom Polygon"><i class="md-icon-polygon-draw"></i></button>
-                  </div>
-
-                  <div class="form-group">
-                    <button type="button" class="form-control mapExpand" data-toggle="tooltip" data-placement="bottom" title="Draw Circle Polygon"><i class="md-icon-polygon-circle"></i></button>
-                  </div>
                 </div>
                 <a ui-sref="museum({museum: 'ABCD'})" class="btn btn-primary">Search</a>
               <!-- <button type="submit" class="btn btn-primary">Search</button> -->

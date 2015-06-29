@@ -6,7 +6,7 @@
      * Controller for the imls app home view
      */
     /* ngInject */
-    function HomeController() {
+    function HomeController($log, $scope, $timeout) {
 
         var ctl = this;
 
@@ -14,10 +14,10 @@
 
         function initialize() {
             ctl.error = false;
+            ctl.mapExpanded = false;
         }
     }
 
     angular.module('imls.views.home')
     .controller('HomeController', HomeController);
-
 })();

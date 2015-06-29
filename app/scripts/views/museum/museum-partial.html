@@ -1,10 +1,7 @@
-<div class="museum-page">
+<div class="museum-page" ng-class="{'map-expanded': museum.mapExpanded}">
 
     <imls-brand></imls-brand>
-
-    <div class="map-container">
-        <div id="map"></div>
-    </div> <!-- /.map-container -->
+    <cartodb-vis></cartodb-vis>
 
     <div class="action-bar" action-bar-affix>
         <div class="museum-info">
@@ -49,24 +46,38 @@
             <form class="form-inline">
                 <div class="action-group">
                     <div class="form-group">
-                    <select class="form-control">
+                        <select class="form-control">
                             <option>3 Mile Radius</option>
                             <option>5 Mile Radius</option>
                             <option>10 Mile Radius</option>
-                    </select>
-                  </div>
-              </div>
+                        </select>
+                    </div>
+                </div>
 
                 <div class="action-group">
                     <div class="form-group">
-                    <button type="button" class="form-control mapExpand" data-toggle="tooltip" data-placement="bottom" title="Draw Custom Polygon"><i class="md-icon-polygon-draw"></i></button>
-                  </div>
-              </div>
-              <div class="action-group">
-                  <div class="form-group">
-                    <button type="button" class="form-control mapExpand" data-toggle="tooltip" data-placement="bottom" title="Draw Circle Polygon"><i class="md-icon-polygon-circle"></i></button>
-                  </div>
-              </div>
+                        <button type="button" 
+                                class="form-control mapExpand" 
+                                data-toggle="tooltip" 
+                                data-placement="bottom" 
+                                ng-click="museum.onStartDrawPolygon()"
+                                title="Draw Custom Polygon">
+                            <i class="md-icon-polygon-draw"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="action-group">
+                    <div class="form-group">
+                        <button type="button" 
+                                class="form-control mapExpand" 
+                                data-toggle="tooltip" 
+                                data-placement="bottom" 
+                                ng-click="museum.onStartDrawCircle()"
+                                title="Draw Circle Polygon">
+                            <i class="md-icon-polygon-circle"></i>
+                        </button>
+                    </div>
+                </div>
             </form>
         </div> <!-- /museum-boundary -->
     </div> <!-- /.action-bar -->

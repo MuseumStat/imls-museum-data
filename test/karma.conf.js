@@ -28,6 +28,8 @@ module.exports = function(config) {
       'bower_components/angular-animate/angular-animate.js',
       'bower_components/angular-ui-router/release/angular-ui-router.js',
       'bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
+      'bower_components/leaflet-dist/leaflet.js',
+      'bower_components/leaflet-draw/dist/leaflet.draw-src.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       'test/mock/**/*.js',
@@ -36,6 +38,8 @@ module.exports = function(config) {
       'app/scripts/affix/action-bar-affix-directive.js',
       'app/scripts/brand/module.js',
       'app/scripts/brand/brand-directive.js',
+      'app/scripts/map/module.js',
+      'app/scripts/map/cartodb-vis-directive.js',
       'app/scripts/views/footer/module.js',
       'app/scripts/views/footer/footer-directive.js',
       'app/scripts/views/home/module.js',
