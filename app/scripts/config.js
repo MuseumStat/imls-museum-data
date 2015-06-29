@@ -6,6 +6,16 @@
      * @type {Object}
      */
     var config = {
+        bounds: {
+            northEast: {
+                lat: 49.384,
+                lng: -66.8854 
+            },
+            southWest: {
+                lat: 24.3963,
+                lng: -124.849 
+            }
+        },
         cartodb: {
             visId: 'a4ed4438-ffec-11e4-8b9a-0e9d821ea90d',
             account: 'azavea-demo'
