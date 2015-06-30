@@ -22,10 +22,17 @@
                     </div>
 
                     <div class="form-group">
-                        <button type="button" class="form-control" data-toggle="tooltip" data-placement="bottom" title="Your Location"><i class="md-icon-location"></i></button>
+                        <button type="button"
+                                class="form-control"
+                                data-toggle="tooltip"
+                                data-placement="bottom"
+                                ng-click="home.onLocationClicked()"
+                                title="Your Location">
+                            <i class="md-icon-location"></i>
+                        </button>
                     </div>
                 </div>
-                <a ui-sref="museum({museum: 'ABCD'})" class="btn btn-primary">Search</a>
+                <a ng-click="home.onSearchClicked()" class="btn btn-primary">Search</a>
             </form> <!-- /form -->
         </div> <!-- /.container-fluid -->
     </div> <!-- /.action-bar -->

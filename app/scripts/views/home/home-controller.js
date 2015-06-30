@@ -6,7 +6,7 @@
      * Controller for the imls app home view
      */
     /* ngInject */
-    function HomeController($log, $q, Geocoder, Museum) {
+    function HomeController($log, $q, $geolocation, Geocoder, Museum) {
 
         var ctl = this;
 
@@ -16,8 +16,28 @@
             ctl.error = false;
             ctl.mapExpanded = false;
 
+            ctl.onLocationClicked = onLocationClicked;
+            ctl.onSearchClicked = onSearchClicked;
             ctl.search = search;
             ctl.suggest = suggest;
+        }
+
+        function onLocationClicked() {
+            $geolocation.getCurrentPosition({
+                enableHighAccuracy: true,
+                maximumAge: 0
+            }).then(requestNearbyMuseums)
+            .catch(function (error) {
+                $log.error(error);
+                ctl.error = true;
+            });
+        }
+
+        function onSearchClicked() {
+            search({
+                text: ctl.searchText,
+                magicKey: null
+            });
         }
 
         function suggest(item) {
@@ -55,6 +75,10 @@
                 ctl.error = true;
                 $log.error(error);
             });
+        }
+
+        function requestNearbyMuseums(position) {
+            $log.info(position);
         }
     }
 
