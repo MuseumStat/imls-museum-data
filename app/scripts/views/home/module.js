@@ -12,6 +12,7 @@
     }
 
     angular.module('imls.views.home', [
+        'ngGeolocation',
         'ui.router',
         'imls.geocoder',
         'imls.museum',
