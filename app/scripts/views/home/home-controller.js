@@ -7,78 +7,80 @@
      */
     /* ngInject */
     function HomeController($log, $q, $geolocation, Geocoder, Museum) {
-
         var ctl = this;
 
         initialize();
 
         function initialize() {
-            ctl.error = false;
-            ctl.mapExpanded = false;
+            ctl.list = [];
+            ctl.states = {
+                DISCOVER: 0,
+                LIST: 1,
+                ERROR: 2
+            };
+            ctl.pageState = ctl.states.DISCOVER;
 
             ctl.onLocationClicked = onLocationClicked;
             ctl.onSearchClicked = onSearchClicked;
+            ctl.onTypeaheadSelected = onTypeaheadSelected;
             ctl.search = search;
-            ctl.suggest = suggest;
         }
 
         function onLocationClicked() {
             $geolocation.getCurrentPosition({
                 enableHighAccuracy: true,
                 maximumAge: 0
-            }).then(requestNearbyMuseums)
+            }).then(function (position) {
+                requestNearbyMuseums({
+                    x: position.coords.longitude,
+                    y: position.coords.latitude
+                });
+            })
             .catch(function (error) {
                 $log.error(error);
-                ctl.error = true;
+                ctl.pageState = ctl.states.ERROR;
             });
         }
 
         function onSearchClicked() {
-            search({
-                text: ctl.searchText,
-                magicKey: null
-            });
+            search(ctl.searchText);
         }
 
-        function suggest(item) {
-            var dfd = $q.defer();
-            ctl.error = false;
-            Geocoder.suggest(item).then(function(results) {
-                if (!results.length) {
-                    ctl.error = true;
-                }
-                dfd.resolve(results);
-            }).catch(function (error) {
-                ctl.error = true;
-                dfd.reject(error);
-            });
-            return $q.all([dfd.promise, Museum.suggest(item)]).then(function (results) {
-                console.log(results);
+        function search(text) {
+            return $q.all([Geocoder.search(text), Museum.suggest(text)]).then(function (results) {
+                $log.info(results);
                 return _.flatten(results);
-            });
-        }
-
-        function search(selection) {
-            $log.debug(selection);
-            if (selection.ismuseum) {
-                $log.debug('selection is museum');
-                return;
-            }
-            Geocoder.search(selection.text, selection.magicKey)
-            .then(function (result) {
-                if (result.length) {
-                    $log.debug(result);
-                } else {
-                    ctl.error = true;
-                }
             }).catch(function (error) {
-                ctl.error = true;
+                ctl.pageState = ctl.states.ERROR;
                 $log.error(error);
             });
         }
 
+        function onTypeaheadSelected(item) {
+            if (item.ismuseum) {
+                requestNearbyMuseums({
+                    x: item.longitude,
+                    y: item.latitude
+                });
+            } else if (item.feature) {
+                // TODO: Additional handling to pass extent to requestNearbyMuseums?
+                requestNearbyMuseums(item.feature.geometry);
+            } else {
+                $log.error('No valid handlers for typeahead item:', item);
+                ctl.pageState = ctl.states.ERROR;
+            }
+        }
+
+        // position is an object with x and y keys
         function requestNearbyMuseums(position) {
-            $log.info(position);
+            Museum.list(position, 0.5).then(function (rows) {
+                ctl.list = rows;
+                ctl.pageState = ctl.states.LIST;
+            }).catch(function (error) {
+                $log.error(error);
+                ctl.pageState = ctl.states.ERROR;
+            });
+
         }
     }
 
