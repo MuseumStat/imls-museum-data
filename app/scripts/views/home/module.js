@@ -14,6 +14,7 @@
     angular.module('imls.views.home', [
         'ui.router',
         'imls.geocoder',
+        'imls.museum',
         'imls.brand',
         'imls.map',
         'imls.views.footer'

@@ -41,6 +41,8 @@ module.exports = function(config) {
       'app/scripts/brand/brand-directive.js',
       'app/scripts/geocoder/module.js',
       'app/scripts/geocoder/geocoder-service.js',
+      'app/scripts/museum/module.js',
+      'app/scripts/museum/museum-service.js',
       'app/scripts/map/module.js',
       'app/scripts/map/cartodb-vis-directive.js',
       'app/scripts/views/footer/module.js',
