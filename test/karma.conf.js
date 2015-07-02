@@ -31,6 +31,8 @@ module.exports = function(config) {
       'bower_components/leaflet-dist/leaflet.js',
       'bower_components/leaflet-draw/dist/leaflet.draw-src.js',
       'bower_components/lodash/lodash.js',
+      'bower_components/ngGeolocation/ngGeolocation.js',
+      'bower_components/angular-smart-table/dist/smart-table.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       'test/mock/**/*.js',

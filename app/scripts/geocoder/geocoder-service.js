@@ -58,7 +58,7 @@
             };
             var params = angular.extend({}, defaults, options);
             if (magicKey) {
-                options.magicKey = magicKey;
+                params.magicKey = magicKey;
             }
             var dfd = $q.defer();
             $http.get(searchUrl, {

@@ -3,42 +3,92 @@
 
     <cartodb-vis></cartodb-vis>
 
-    <div class="action-bar">
+    <div class="action-bar" action-bar-affix>
         <div class="container-fluid">
-            <form class="form-inline">
-                <div class="action-group">
-                    <div class="form-group search-bar">
-                        <div class="input-group">
-                            <label class="input-group-addon" for="searchInput"><i class="md-icon-search"></i></label>
-                            <input type="text"
-                                   placeholder="Search"
-                                   class="form-control search-field"
-                                   ng-model="home.searchText"
-                                   typeahead="location as location.text for location in home.suggest($viewValue)"
-                                   typeahead-on-select="home.search($item)"
-                                   typeahead-wait-ms="300"
-                                   typeahead-min-length="3" />
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <button type="button" class="form-control" data-toggle="tooltip" data-placement="bottom" title="Your Location"><i class="md-icon-location"></i></button>
-                    </div>
+            <div class="row">
+                <div class="col-md-4" ng-if="home.pageState === home.states.LIST">
+                    <h3>{{ home.list.length }} Results Found</h3>
                 </div>
-                <a ui-sref="museum({museum: 'ABCD'})" class="btn btn-primary">Search</a>
-            </form> <!-- /form -->
+                <div ng-class="{
+                    'col-md-8': home.pageState === home.states.LIST,
+                    'text-right': home.pageState === home.states.LIST,
+                    'col-md-12': home.pageState === home.states.DISCOVER }">
+                    <form class="form-inline">
+                        <div class="action-group">
+                            <div class="form-group search-bar">
+                                <div class="input-group">
+                                    <label class="input-group-addon" for="searchInput"><i class="md-icon-search"></i></label>
+                                    <input type="text"
+                                           placeholder="Search"
+                                           class="form-control search-field"
+                                           ng-model="home.searchText"
+                                           typeahead="location as location.name for location in home.search($viewValue)"
+                                           typeahead-on-select="home.onTypeaheadSelected($item)"
+                                           typeahead-wait-ms="300"
+                                           typeahead-min-length="3" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <button type="button"
+                                        class="form-control"
+                                        data-toggle="tooltip"
+                                        data-placement="bottom"
+                                        ng-click="home.onLocationClicked()"
+                                        title="Your Location">
+                                    <i class="md-icon-location"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <a ng-click="home.onSearchClicked()" class="btn btn-primary">Search</a>
+                    </form> <!-- /form -->
+                </div>
+            </div>
         </div> <!-- /.container-fluid -->
     </div> <!-- /.action-bar -->
 
     <section class="main-content">
-        <div class="container-fluid" ng-if="!home.error">
+        <div class="container-fluid" ng-if="home.pageState === home.states.DISCOVER">
             <img class="museum-icon" src="/images/museum-icon.svg">
             <h2>Discover Museums by Address, <br> City, Zip or Museum Name</h2>
         </div>
-        <div class="container-fluid" ng-if="home.error">
+        <div class="container-fluid" ng-if="home.pageState === home.states.ERROR">
             <img class="museum-icon" src="/images/museum-icon.svg">
             <h2>Sorry, your search has returned no museums. <br> Please refine your search.</h2>
         </div>
+        <table st-table="home.safeList" st-safe-src="home.list" ng-if="home.pageState === home.states.LIST" class="table table-striped">
+            <thead>
+                <tr>
+                    <th st-sort="commonname">Museum Name <i class="md-icon-sort table-sort"></i></th>
+                    <th st-sort="adaddress">Address <i class="md-icon-sort table-sort"></i></th>
+                    <th st-sort="adcity">City/State <i class="md-icon-sort table-sort"></i></th>
+                    <th st-sort="discipl">Type <i class="md-icon-sort table-sort"></i></th>
+                    <th st-sort="revenue">Revenue <i class="md-icon-sort table-sort"></i></th>
+                    <th width="230px"></th>
+                </tr>
+            </thead> <!-- /thead -->
+            <tbody>
+                <tr ng-repeat="row in home.safeList">
+                    <td>{{ ::row.commonname }}</td>
+                    <td>{{ ::row.adaddress }}</td>
+                    <td>{{ ::row.adcity }}, {{ ::row.adstate }}</td>
+                    <td>{{ ::row.discipl }}</td>
+                    <td>{{ ::row.revenue | currency }}</td>
+                    <td><a ui-sref="museum({ museum: row.cartodb_id })" class="btn btn-info">View</a></td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="6" class="text-center">
+                        <div st-pagination=""
+                             st-template="/scripts/views/home/pagination-partial.html"
+                             st-items-by-page="home.rowsPerPage"
+                             st-displayed-pages="5">
+                        </div>
+                    </td>
+                </tr>
+        </tfoot>
+        </table>
     </section> <!-- /.main-content -->
 
     <imls-footer></imls-footer>

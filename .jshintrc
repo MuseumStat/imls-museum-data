@@ -20,6 +20,8 @@
   "globals": {
     "angular": false,
     "cartodb": false,
-    "jQuery": false
+    "jQuery": false,
+    "_": false,
+    "L": false
   }
 }
