@@ -7,20 +7,22 @@
 
         var strFormatRegex = new RegExp('{(.*?)}', 'g');
 
-        var suggestTemplate = '' +
-            'SELECT {id} as id, {name} as name, ' +
-                'ST_X({geom}) as longitude, ' +
-                'ST_Y({geom}) as latitude, true as ismuseum ' +
-            'FROM {tablename} ' +
-            'WHERE ' +
-                '{name} ILIKE \'%{text}%\' or ' +
-                '{legalname} ILIKE \'%{text}%\' or ' +
-                '{altname} ILIKE \'%{text}%\'' +
-            'LIMIT {limit}';
-        var listTemplate = '' +
-            'SELECT cartodb_id, commonname, adaddress, adcity, adstate, revenue, discipl ' +
-            'FROM {tablename} ' +
-            'WHERE ST_DWithin({geom}, ST_SetSRID(ST_MakePoint({x}, {y}), {srid}), {radius})';
+        var suggestTemplate = [
+            'SELECT {id} as id, {name} as name, ',
+                'ST_X({geom}) as longitude, ',
+                'ST_Y({geom}) as latitude, true as ismuseum ',
+            'FROM {tablename} ',
+            'WHERE ',
+                '{name} ILIKE \'%{text}%\' or ',
+                '{legalname} ILIKE \'%{text}%\' or ',
+                '{altname} ILIKE \'%{text}%\'',
+            'LIMIT {limit}'
+        ].join('');
+        var listTemplate = [
+            'SELECT cartodb_id, commonname, adaddress, adcity, adstate, revenue, discipl ',
+            'FROM {tablename} ',
+            'WHERE ST_DWithin({geom}, ST_SetSRID(ST_MakePoint({x}, {y}), {srid}), {radius})'
+        ].join('');
 
         var sql = new cartodb.SQL({ user: Config.cartodb.account });
         var cols = {
@@ -28,7 +30,7 @@
             name: 'commonname',
             altname: 'altname',
             legalname: 'legalname',
-            geom: 'the_geom',
+            geom: 'the_geom'
         };
 
         var module = {

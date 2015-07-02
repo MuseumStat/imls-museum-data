@@ -21,6 +21,7 @@
     "angular": false,
     "cartodb": false,
     "jQuery": false,
-    "_": false
+    "_": false,
+    "L": false
   }
 }

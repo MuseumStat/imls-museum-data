@@ -15,12 +15,14 @@
 
         function initialize() {
             ctl.list = [];
+            ctl.safeList = [];
             ctl.states = {
                 DISCOVER: 0,
                 LIST: 1,
-                ERROR: 2
+                ERROR: -1
             };
             ctl.pageState = ctl.states.DISCOVER;
+            ctl.rowsPerPage = 10;
 
             ctl.onLocationClicked = onLocationClicked;
             ctl.onSearchClicked = onSearchClicked;

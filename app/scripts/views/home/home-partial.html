@@ -56,7 +56,7 @@
             <img class="museum-icon" src="/images/museum-icon.svg">
             <h2>Sorry, your search has returned no museums. <br> Please refine your search.</h2>
         </div>
-        <table st-table="home.list" ng-if="home.pageState === home.states.LIST" class="table table-striped">
+        <table st-table="home.safeList" st-safe-src="home.list" ng-if="home.pageState === home.states.LIST" class="table table-striped">
             <thead>
                 <tr>
                     <th st-sort="commonname">Museum Name <i class="md-icon-sort table-sort"></i></th>
@@ -68,7 +68,7 @@
                 </tr>
             </thead> <!-- /thead -->
             <tbody>
-                <tr ng-repeat="row in home.list">
+                <tr ng-repeat="row in home.safeList">
                     <td>{{ ::row.commonname }}</td>
                     <td>{{ ::row.adaddress }}</td>
                     <td>{{ ::row.adcity }}, {{ ::row.adstate }}</td>
@@ -77,6 +77,17 @@
                     <td><a ui-sref="museum({ museum: row.cartodb_id })" class="btn btn-info">View</a></td>
                 </tr>
             </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="6" class="text-center">
+                        <div st-pagination=""
+                             st-template="/scripts/views/home/pagination-partial.html"
+                             st-items-by-page="home.rowsPerPage"
+                             st-displayed-pages="5">
+                        </div>
+                    </td>
+                </tr>
+        </tfoot>
         </table>
     </section> <!-- /.main-content -->
 
