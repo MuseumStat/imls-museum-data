@@ -9,6 +9,8 @@
     function HomeController($log, $q, $geolocation, Geocoder, Museum) {
         var ctl = this;
 
+        var SEARCH_DIST_DECIMAL_DEGREES = 0.1;
+
         initialize();
 
         function initialize() {
@@ -73,9 +75,13 @@
 
         // position is an object with x and y keys
         function requestNearbyMuseums(position) {
-            Museum.list(position, 0.5).then(function (rows) {
-                ctl.list = rows;
-                ctl.pageState = ctl.states.LIST;
+            Museum.list(position, SEARCH_DIST_DECIMAL_DEGREES).then(function (rows) {
+                if (rows.length) {
+                    ctl.list = rows;
+                    ctl.pageState = ctl.states.LIST;
+                } else {
+                    ctl.pageState = ctl.states.ERROR;
+                }
             }).catch(function (error) {
                 $log.error(error);
                 ctl.pageState = ctl.states.ERROR;

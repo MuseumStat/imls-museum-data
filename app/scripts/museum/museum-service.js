@@ -18,7 +18,7 @@
                 '{altname} ILIKE \'%{text}%\'' +
             'LIMIT {limit}';
         var listTemplate = '' +
-            'SELECT commonname, adaddress, adcity, adstate, income, discipl ' +
+            'SELECT cartodb_id, commonname, adaddress, adcity, adstate, revenue, discipl ' +
             'FROM {tablename} ' +
             'WHERE ST_DWithin({geom}, ST_SetSRID(ST_MakePoint({x}, {y}), {srid}), {radius})';
 

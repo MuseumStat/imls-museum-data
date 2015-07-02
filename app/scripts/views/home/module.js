@@ -13,6 +13,7 @@
 
     angular.module('imls.views.home', [
         'ngGeolocation',
+        'smart-table',
         'ui.router',
         'imls.geocoder',
         'imls.museum',
