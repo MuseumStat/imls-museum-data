@@ -6,10 +6,11 @@
      * Controller for the imls app home view
      */
     /* ngInject */
-    function HomeController($log, $q, $geolocation, Geocoder, Museum) {
+    function HomeController($log, $q, $scope, $geolocation, Geocoder, Museum) {
         var ctl = this;
 
-        var SEARCH_DIST_DECIMAL_DEGREES = 0.1;
+        var SEARCH_DIST_METERS = 1609.34;  // 1 mile
+        var SEARCH_MAP_ZOOM = 14;
 
         initialize();
 
@@ -28,6 +29,10 @@
             ctl.onSearchClicked = onSearchClicked;
             ctl.onTypeaheadSelected = onTypeaheadSelected;
             ctl.search = search;
+            ctl.map = null;
+            $scope.$on('imls:vis:ready', function (e, vis, map) {
+                ctl.map = map;
+            });
         }
 
         function onLocationClicked() {
@@ -77,7 +82,8 @@
 
         // position is an object with x and y keys
         function requestNearbyMuseums(position) {
-            Museum.list(position, SEARCH_DIST_DECIMAL_DEGREES).then(function (rows) {
+            ctl.map.setView([position.y, position.x], SEARCH_MAP_ZOOM);
+            Museum.list(position, SEARCH_DIST_METERS).then(function (rows) {
                 if (rows.length) {
                     ctl.list = rows;
                     ctl.pageState = ctl.states.LIST;

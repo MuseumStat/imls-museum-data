@@ -21,7 +21,9 @@
         var listTemplate = [
             'SELECT cartodb_id, commonname, adaddress, adcity, adstate, revenue, discipl ',
             'FROM {tablename} ',
-            'WHERE ST_DWithin({geom}, ST_SetSRID(ST_MakePoint({x}, {y}), {srid}), {radius})'
+            'WHERE ST_DWithin({geom}::geography, ST_SetSRID(ST_MakePoint({x}, {y}), {srid})::geography, {radius}) ',
+            'ORDER BY ',
+            '  ST_Distance({geom}::geography, ST_SetSRID(ST_MakePoint({x}, {y}), {srid})::geography)'
         ].join('');
 
         var sql = new cartodb.SQL({ user: Config.cartodb.account });
@@ -62,7 +64,7 @@
         /**
          * List all museums within a given radius of position
          * @param  {object} position object with x and y keys, in lat/lon decimal degrees
-         * @param  {float} radius    radius to pull results, in decimal degrees
+         * @param  {float} radius    radius to pull results, in meters
          * @return {promise}         resolves with array of database results, or error
          */
         function list(position, radius) {
