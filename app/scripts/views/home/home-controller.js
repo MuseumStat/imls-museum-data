@@ -9,6 +9,8 @@
     function HomeController($log, $q, $scope, $geolocation, Geocoder, Museum) {
         var ctl = this;
 
+        var map = null;
+
         var SEARCH_DIST_METERS = 1609.34;  // 1 mile
         var SEARCH_MAP_ZOOM = 14;
 
@@ -29,9 +31,8 @@
             ctl.onSearchClicked = onSearchClicked;
             ctl.onTypeaheadSelected = onTypeaheadSelected;
             ctl.search = search;
-            ctl.map = null;
-            $scope.$on('imls:vis:ready', function (e, vis, map) {
-                ctl.map = map;
+            $scope.$on('imls:vis:ready', function (e, vis, newMap) {
+                map = newMap;
             });
         }
 
@@ -82,7 +83,7 @@
 
         // position is an object with x and y keys
         function requestNearbyMuseums(position) {
-            ctl.map.setView([position.y, position.x], SEARCH_MAP_ZOOM);
+            map.setView([position.y, position.x], SEARCH_MAP_ZOOM);
             Museum.list(position, SEARCH_DIST_METERS).then(function (rows) {
                 if (rows.length) {
                     ctl.list = rows;
