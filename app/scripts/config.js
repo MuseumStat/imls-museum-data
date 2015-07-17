@@ -19,7 +19,8 @@
         cartodb: {
             visId: 'a4ed4438-ffec-11e4-8b9a-0e9d821ea90d',
             account: 'azavea-demo',
-            tableName: 'mudf15q1int'
+            tableName: 'mudf15q1int',
+            acsTableName: 'seattle_area_tracts'
         },
         typeahead: {
             results: 10
