@@ -3,9 +3,7 @@
     'use strict';
 
     /* ngInject */
-    function ACS ($log, $q, Config) {
-
-        var strFormatRegex = new RegExp('{(.*?)}', 'g');
+    function ACS ($log, $q, Config, Util) {
 
         var cartodbsql = new cartodb.SQL({ user: Config.cartodb.account });
         var cols = {
@@ -29,7 +27,7 @@
          * column name.
          * @param {Number} x
          * @param {Number} y
-         * @param radius
+         * @param {Number} radius radius in meters
          * @return {string} SQL containing a {geom} token to replaced with
          *     geometry column name
          */
@@ -62,15 +60,15 @@
                 'WHERE ',
                 where,
             ].join('');
-            var query = strFormat(queryTemplate, {
-                tablename: Config.cartodb.acsTableName,
+            var query = Util.strFormat(queryTemplate, {
+                tablename: Config.cartodb.tractsTableName,
                 geom: cols.geom,
                 state: cols.state,
                 county: cols.county,
                 tract: cols.tract,
                 srid: 4326
             });
-            return makeRequest(query).then(function (result) {
+            return Util.makeRequest(cartodbsql, query).then(function (result) {
                 var tractGroups = _(result).groupBy(function (tract) { // group by state+county
                     return 'state:' + tract.state + '+county:' + tract.county;
                 }).mapValues(function (tracts) { // tract objects to comma delimited values
@@ -87,27 +85,6 @@
 
         function getPolygon(points) {
             return getACSData(polygonWhere(points));
-        }
-
-        function makeRequest(query) {
-            $log.info(query);
-            var dfd = $q.defer();
-            cartodbsql.execute(query).done(function (data) {
-                dfd.resolve(data.rows);
-            }).error(function (error) {
-                dfd.reject(error);
-            });
-            return dfd.promise;
-        }
-
-        function strFormat(str, params) {
-            if (!params) {
-                return;
-            }
-            return str.replace(strFormatRegex, function (m, n) {
-                var val = params[n];
-                return (typeof val === 'function') ? val() : val;
-            });
         }
     }
 
