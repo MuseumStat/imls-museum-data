@@ -5,7 +5,7 @@
      * Controller for the imls app home view
      */
     /* ngInject */
-    function MuseumController($log, $scope, $timeout, $window) {
+    function MuseumController($log, $scope, $timeout, $window, ACS) {
         var ctl = this;
 
         var MAP_SLIDE_TRANSITION_MS = 400;
@@ -50,13 +50,19 @@
 
         function onDrawCreated(event) {
             $log.debug(event);
+            var layer = event.layer;
+            var acsRequest;
             if (event.layerType === 'polygon') {
-                // TODO: Do something with polygon
+                acsRequest = ACS.getPolygon(layer.toGeoJSON().geometry.coordinates[0]);
                 setMapExpanded(false);
             } else if (event.layerType === 'circle') {
-                // TODO: Do something with circle
+                var latlng = layer.getLatLng();
+                acsRequest = ACS.getRadius(latlng.lng, latlng.lat, layer.getRadius());
                 setMapExpanded(false);
             }
+            acsRequest.then(function () {
+                // TODO: do something with results
+            });
         }
 
         function setMapExpanded(isExpanded) {

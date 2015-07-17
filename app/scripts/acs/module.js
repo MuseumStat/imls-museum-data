@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('imls.museum', [
+    angular.module('imls.acs', [
         'imls.util',
         'imls.config'
     ]);

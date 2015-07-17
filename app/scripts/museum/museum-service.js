@@ -3,9 +3,7 @@
     'use strict';
 
     /* ngInject */
-    function Museum ($log, $q, Config) {
-
-        var strFormatRegex = new RegExp('{(.*?)}', 'g');
+    function Museum ($log, $q, Config, Util) {
 
         var suggestTemplate = [
             'SELECT {id} as id, {name} as name, ',
@@ -48,7 +46,7 @@
          * @return {promise}      resolved with array of database results, or error
          */
         function suggest(text) {
-            var query = strFormat(suggestTemplate, {
+            var query = Util.strFormat(suggestTemplate, {
                 tablename: Config.cartodb.tableName,
                 id: cols.id,
                 name: cols.name,
@@ -58,7 +56,7 @@
                 limit: Config.typeahead.results,
                 text: text
             });
-            return makeRequest(query);
+            return Util.makeRequest(sql, query);
         }
 
         /**
@@ -68,7 +66,7 @@
          * @return {promise}         resolves with array of database results, or error
          */
         function list(position, radius) {
-            var query = strFormat(listTemplate, {
+            var query = Util.strFormat(listTemplate, {
                 tablename: Config.cartodb.tableName,
                 geom: cols.geom,
                 x: position.x,
@@ -76,28 +74,7 @@
                 srid: 4326,
                 radius: radius
             });
-            return makeRequest(query);
-        }
-
-        function makeRequest(query) {
-            $log.info(query);
-            var dfd = $q.defer();
-            sql.execute(query).done(function (data) {
-                dfd.resolve(data.rows);
-            }).error(function (error) {
-                dfd.reject(error);
-            });
-            return dfd.promise;
-        }
-
-        function strFormat(str, params) {
-            if (!params) {
-                return;
-            }
-            return str.replace(strFormatRegex, function (m, n) {
-                var val = params[n];
-                return (typeof val === 'function') ? val() : val;
-            });
+            return Util.makeRequest(sql, query);
         }
     }
 
