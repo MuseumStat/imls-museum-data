@@ -14,7 +14,7 @@
                             TODO: Create address via filter, so we can use proper version of the address
                                   There is a physical, geocoded, and source address in the response
                          -->
-                        <h5>{{ ::museum.museum.gaddress }}, {{ ::museum.museum.gcity }}, {{ ::museum.museum.gstate }} {{ ::museum.museum.gzip }}</h5>
+                        <h5>{{ ::museum.museum | imlsAddress }}</h5>
                         <ul class="social-media list-inline">
                             <li><a href="#"><i class="md-icon-facebook"></i></a></li>
                             <li><a href="#"><i class="md-icon-twitter"></i></a></li>
@@ -30,7 +30,7 @@
                         <!-- TODO: Verify this value and make it more useful to user -->
                         <li><strong>Category:</strong> {{ ::museum.museum.discipl }}</li>
                         <!-- TODO: Filter to properly format phone number -->
-                        <li><strong>Phone:</strong> {{ ::museum.museum.phone }}</li>
+                        <li><strong>Phone:</strong> {{ ::museum.museum.phone | tel }}</li>
                         <!-- TODO: Verify for bad data -->
                         <li><a href="{{ ::museum.museum.weburl }}" target="_blank">Visit Museum Website</a></li>
                         <li><a>Submit Museum Update</a></li>
