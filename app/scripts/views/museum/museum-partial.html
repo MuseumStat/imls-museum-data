@@ -10,7 +10,7 @@
                     <div ng-if="museum.museum">
                         <a class="back-to-results" ui-sref="home"><i class="md-icon-left-big"></i></a>
                         <h1>{{ ::museum.museum.commonname }} </h1>
-                        <!-- 
+                        <!--
                             TODO: Create address via filter, so we can use proper version of the address
                                   There is a physical, geocoded, and source address in the response
                          -->
@@ -55,20 +55,20 @@
             <form class="form-inline">
                 <div class="action-group">
                     <div class="form-group">
-                        <select class="form-control">
-                            <option>1 Mile Radius</option>
-                            <option>3 Mile Radius</option>
-                            <option>5 Mile Radius</option>
+                        <select ng-model="museum.acsRadius"
+                                ng-change="museum.onRadiusChanged()"
+                                ng-options="opt.value as opt.label for opt in museum.acsRadiusOptions"
+                                class="form-control">
                         </select>
                     </div>
                 </div>
 
                 <div class="action-group">
                     <div class="form-group">
-                        <button type="button" 
-                                class="form-control mapExpand" 
-                                data-toggle="tooltip" 
-                                data-placement="bottom" 
+                        <button type="button"
+                                class="form-control mapExpand"
+                                data-toggle="tooltip"
+                                data-placement="bottom"
                                 ng-click="museum.onStartDrawPolygon()"
                                 title="Draw Custom Polygon">
                             <i class="md-icon-polygon-draw"></i>
@@ -77,10 +77,10 @@
                 </div>
                 <div class="action-group">
                     <div class="form-group">
-                        <button type="button" 
-                                class="form-control mapExpand" 
-                                data-toggle="tooltip" 
-                                data-placement="bottom" 
+                        <button type="button"
+                                class="form-control mapExpand"
+                                data-toggle="tooltip"
+                                data-placement="bottom"
                                 ng-click="museum.onStartDrawCircle()"
                                 title="Draw Circle Polygon">
                             <i class="md-icon-polygon-circle"></i>
