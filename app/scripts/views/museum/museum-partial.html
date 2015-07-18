@@ -7,23 +7,32 @@
         <div class="museum-info">
             <div class="row">
                 <div class="col-md-9 col-sm-12">
-                    <a class="back-to-results" ui-sref="home"><i class="md-icon-left-big"></i></a>
-                    <h1>Philadelphia Museum of Art </h1>
-                    <h5>2600 Benjamin Franklin Pkwy, Philadelphia, PA 19130</h5>
-                    <ul class="social-media list-inline">
-                        <li><a href="#"><i class="md-icon-facebook"></i></a></li>
-                        <li><a href="#"><i class="md-icon-twitter"></i></a></li>
-                        <li><a href="#"><i class="md-icon-gplus"></i></a></li>
-                        <li><a href="#"><i class="md-icon-yelp"></i></a></li>
-                        <li><a href="#"><i class="md-icon-foursquare"></i></a></li>
-                        <li><a href="#"><i class="md-icon-pinterest"></i></a></li>
-                    </ul> <!-- /.social-icons -->
+                    <div ng-if="museum.museum">
+                        <a class="back-to-results" ui-sref="home"><i class="md-icon-left-big"></i></a>
+                        <h1>{{ ::museum.museum.commonname }} </h1>
+                        <!-- 
+                            TODO: Create address via filter, so we can use proper version of the address
+                                  There is a physical, geocoded, and source address in the response
+                         -->
+                        <h5>{{ ::museum.museum.gaddress }}, {{ ::museum.museum.gcity }}, {{ ::museum.museum.gstate }} {{ ::museum.museum.gzip }}</h5>
+                        <ul class="social-media list-inline">
+                            <li><a href="#"><i class="md-icon-facebook"></i></a></li>
+                            <li><a href="#"><i class="md-icon-twitter"></i></a></li>
+                            <li><a href="#"><i class="md-icon-gplus"></i></a></li>
+                            <li><a href="#"><i class="md-icon-yelp"></i></a></li>
+                            <li><a href="#"><i class="md-icon-foursquare"></i></a></li>
+                            <li><a href="#"><i class="md-icon-pinterest"></i></a></li>
+                        </ul> <!-- /.social-icons -->
+                    </div>
                 </div>
                 <div class="col-md-3 col-sm-12">
                     <ul class="list-unstyled">
-                        <li><strong>Category:</strong> Art</li>
-                        <li><strong>Phone:</strong> 215-763-8100</li>
-                        <li><a>Visit Museum Website</a></li>
+                        <!-- TODO: Verify this value and make it more useful to user -->
+                        <li><strong>Category:</strong> {{ ::museum.museum.discipl }}</li>
+                        <!-- TODO: Filter to properly format phone number -->
+                        <li><strong>Phone:</strong> {{ ::museum.museum.phone }}</li>
+                        <!-- TODO: Verify for bad data -->
+                        <li><a href="{{ ::museum.museum.weburl }}" target="_blank">Visit Museum Website</a></li>
                         <li><a>Submit Museum Update</a></li>
                         <li>
                             <div class="dropdown" dropdown>

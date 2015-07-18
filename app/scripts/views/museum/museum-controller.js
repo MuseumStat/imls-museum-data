@@ -5,7 +5,8 @@
      * Controller for the imls app home view
      */
     /* ngInject */
-    function MuseumController($log, $scope, $timeout, $window, ACS) {
+    function MuseumController($log, $scope, $stateParams, $timeout, $window, 
+                              Config, ACS, Museum) {
         var ctl = this;
 
         var MAP_SLIDE_TRANSITION_MS = 400;
@@ -30,6 +31,17 @@
             map = newMap;
 
             map.on('draw:created', onDrawCreated);
+
+            Museum.detail($stateParams.museum).then(setMuseum).catch(function (error) {
+                $log.error('Error loading museum', $stateParams.museum, error);
+            }); 
+        }
+
+        function setMuseum(rows) {
+            ctl.museum = rows[0];
+            var center = L.latLng(ctl.museum.latitude, ctl.museum.longitude);
+            map.setView(center, Config.detailZoom);
+            $log.info(ctl.museum);
         }
 
         function onPrintClicked() {
