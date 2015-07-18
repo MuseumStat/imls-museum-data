@@ -42,6 +42,8 @@
             var center = L.latLng(ctl.museum.latitude, ctl.museum.longitude);
             map.setView(center, Config.detailZoom);
             $log.info(ctl.museum);
+            var ONE_MILE_IN_M = 1609.344;
+            ACS.getRadius(center.lng, center.lat, ONE_MILE_IN_M).then(onACSDataComplete, onACSDataError);
         }
 
         function onPrintClicked() {
@@ -61,7 +63,6 @@
         }
 
         function onDrawCreated(event) {
-            $log.debug(event);
             var layer = event.layer;
             var acsRequest;
             if (event.layerType === 'polygon') {
@@ -72,9 +73,7 @@
                 acsRequest = ACS.getRadius(latlng.lng, latlng.lat, layer.getRadius());
                 setMapExpanded(false);
             }
-            acsRequest.then(function () {
-                // TODO: do something with results
-            });
+            acsRequest.then(onACSDataComplete, onACSDataError);
         }
 
         function setMapExpanded(isExpanded) {
@@ -82,6 +81,14 @@
             $timeout(function () {
                 map.invalidateSize();
             }, MAP_SLIDE_TRANSITION_MS);
+        }
+
+        function onACSDataComplete(data) {
+            $log.info(data);
+        }
+
+        function onACSDataError(error) {
+            $log.error('ACS Data Load:', error);
         }
     }
 
