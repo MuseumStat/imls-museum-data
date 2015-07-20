@@ -120,8 +120,7 @@
         }
 
         function onACSDataComplete(data) {
-            $log.info(data);
-            $log.info(ACSAggregate.sum(data));
+            ctl.acsData = data;
         }
 
         function onACSDataError(error) {
