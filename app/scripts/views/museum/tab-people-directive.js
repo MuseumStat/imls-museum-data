@@ -59,12 +59,13 @@
             }];
             if (!ctl.charts[key]) {
                 var chart = nv.models.discreteBarChart()
-                    .x(function(d) { return d.label; })
+                    .x(function(d) { return d.label.substr(0,8) + '...'; })
                     .y(function(d) { return d.value; })
+                    .tooltipContent(function(d) {
+                        return '<b>' + d.data.label + ': </b>' + d.data.value;
+                    })
                     .staggerLabels(true)
                     .color(function () { return '#7779b1'; })
-                    //.staggerLabels(historicalBarChart[0].values.length > 8)
-                    //.showValues(true)
                     .margin({right: 10});
                 nv.utils.windowResize(chart.update);
                 ctl.charts[key] = chart;
