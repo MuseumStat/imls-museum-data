@@ -23,6 +23,7 @@
             'ORDER BY ',
             '  ST_Distance({geom}::geography, ST_SetSRID(ST_MakePoint({x}, {y}), {srid})::geography)'
         ].join('');
+        var detailTemplate = 'SELECT * from {tablename} WHERE cartodb_id = {cartodbId}';
 
         var sql = new cartodb.SQL({ user: Config.cartodb.account });
         var cols = {
@@ -35,7 +36,8 @@
 
         var module = {
             suggest: suggest,
-            list: list
+            list: list,
+            detail: detail
         };
 
         return module;
@@ -73,6 +75,14 @@
                 y: position.y,
                 srid: 4326,
                 radius: radius
+            });
+            return Util.makeRequest(sql, query);
+        }
+
+        function detail(museumId) {
+            var query = Util.strFormat(detailTemplate, {
+                tablename: Config.cartodb.tableName,
+                cartodbId: museumId
             });
             return Util.makeRequest(sql, query);
         }

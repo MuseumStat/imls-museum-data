@@ -16,6 +16,7 @@
                 lng: -124.849 
             }
         },
+        detailZoom: 14,
         cartodb: {
             visId: 'a4ed4438-ffec-11e4-8b9a-0e9d821ea90d',
             account: 'azavea-demo',

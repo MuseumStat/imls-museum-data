@@ -18,6 +18,7 @@
         'imls.affix',
         'imls.brand',
         'imls.map',
+        'imls.museum',
         'imls.views.footer'
     ])
     .config(StateConfig);

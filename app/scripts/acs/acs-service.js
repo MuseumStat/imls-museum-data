@@ -3,7 +3,7 @@
     'use strict';
 
     /* ngInject */
-    function ACS ($log, $q, Config, Util) {
+    function ACS ($log, $http, $q, Config, ACSVariables, Util) {
 
         var cartodbsql = new cartodb.SQL({ user: Config.cartodb.account });
         var cols = {
@@ -13,6 +13,7 @@
             tract: 'tract',
             geom: 'the_geom'
         };
+        var acsUrl = 'http://api.census.gov/data/2013/acs5';
 
         var module = {
             getPolygon: getPolygon,
@@ -68,14 +69,38 @@
                 tract: cols.tract,
                 srid: 4326
             });
-            return Util.makeRequest(cartodbsql, query).then(function (result) {
+
+            return Util.makeRequest(cartodbsql, query)
+            .then(function (result) {
                 var tractGroups = _(result).groupBy(function (tract) { // group by state+county
                     return 'state:' + tract.state + '+county:' + tract.county;
                 }).mapValues(function (tracts) { // tract objects to comma delimited values
                     return _.map(tracts, function (tract) { return tract.tract; }).join(',');
                 }).value();
-                $log.debug(tractGroups);
-                // TODO: query census api and return data
+
+                var acsQueries = [];
+                var acsQueries = _.map(tractGroups, function (value, key) {
+                    return $http.get(acsUrl, {
+                        cache: true,
+                        params: {
+                            get: _.keys(ACSVariables).join(','), 
+                            for: 'tract:' + value,
+                            in: key
+                        }
+                    });
+                });
+                return $q.all(acsQueries);
+            // Transform data into json object with all data from multiple results aggregated 
+            //  into a single array
+            }).then(function (results) {
+                var allData = _.reduce(results, function (total, n) {
+                    return total.concat(n.data.slice(1));
+                }, []);
+                var data = {
+                    headers: results.length ? results[0].data[0] : [],
+                    data: allData
+                };
+                return data;
             });
         }
 
