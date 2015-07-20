@@ -8,8 +8,8 @@
         initialize();
 
         function initialize() {
-            ctl.acsVariables = acsVariables;
-            $log.info(ctl.data);
+            ctl.acsVariables = ACSVariables;
+            ctl.sumData = ACSAggregate.sum(ctl.data);
         }
     }
 

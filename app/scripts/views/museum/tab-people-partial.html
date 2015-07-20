@@ -1,30 +1,28 @@
 <div class="row">
     <div class="col-md-4">
         <div class="chart-graph">
-            <h4>Population</h4>
-            <span class="numerical">6,545</span>
-            <h4>Female</h4>
-            <span class="numerical">6,545</span>
+            <h4>Total Population</h4>
+            <span class="numerical">{{ people.sumData['B01001_001E'] | number }}</span>
         </div>
     </div> <!-- /.col -->
     <div class="col-md-4">
         <div class="chart-graph">
-            <h4>Race/Ethnicity</h4>
-            <img src="/images/charts/race.png">
+            <h4>Population Under 18 Years Old</h4>
+            <span class="numerical">{{ people.sumData['B09001_001E'] | number }}</span>
         </div>
     </div> <!-- /.col -->
     <div class="col-md-4">
         <div class="chart-graph">
-            <h4>Gender</h4>
-            <img src="/images/charts/gender.png">
+            <h4>Total People in Poverty</h4>
+            <span class="numerical">{{ people.sumData['B17001_001E'] | number }}</span>
         </div>
     </div> <!-- /.col -->
-</div> <!-- /.row -->
+</div>
 <div class="row">
     <div class="col-md-4">
         <div class="chart-graph">
-            <h4>Education Attained</h4>
-            <img src="/images/charts/education.png">
+            <h4>Total Households</h4>
+            <span class="numerical">{{ people.sumData['B11001_001E'] | number }}</span>
         </div>
     </div> <!-- /.col -->
     <div class="col-md-4">
