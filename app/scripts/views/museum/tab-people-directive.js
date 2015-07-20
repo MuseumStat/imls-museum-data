@@ -2,14 +2,24 @@
     'use strict';
 
     /* ngInject */
-    function PeopleTabController($log, ACSAggregate, ACSVariables) {
+    function PeopleTabController($log, $scope, ACSAggregate, ACSVariables) {
         var ctl = this;
 
         initialize();
 
         function initialize() {
             ctl.acsVariables = ACSVariables;
-            ctl.sumData = ACSAggregate.sum(ctl.data);
+            onSumDataChanged(ctl.data);
+
+            $scope.$watch(function () { return ctl.data; }, onSumDataChanged);
+        }
+
+        function onSumDataChanged(newData) {
+            $log.info('PeopleTabController.onSumDataChanged', newData);
+            if (newData && newData.headers && newData.data) {
+                ctl.data = newData;
+                ctl.sumData = ACSAggregate.sum(ctl.data);
+            }
         }
     }
 
