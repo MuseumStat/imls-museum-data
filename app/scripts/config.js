@@ -9,19 +9,22 @@
         bounds: {
             northEast: {
                 lat: 49.384,
-                lng: -66.8854 
+                lng: -66.8854
             },
             southWest: {
                 lat: 24.3963,
-                lng: -124.849 
+                lng: -124.849
             }
         },
-        detailZoom: 14,
         cartodb: {
             visId: 'a4ed4438-ffec-11e4-8b9a-0e9d821ea90d',
             account: 'azavea-demo',
             tableName: 'mudf15q1int',
             tractsTableName: 'seattle_area_tracts'
+        },
+        detailZoom: 14,
+        factual: {
+            apiKey: 'yourkeyhere'
         },
         typeahead: {
             results: 10
