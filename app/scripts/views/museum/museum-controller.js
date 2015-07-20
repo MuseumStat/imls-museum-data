@@ -6,7 +6,7 @@
      */
     /* ngInject */
     function MuseumController($log, $scope, $stateParams, $timeout, $window,
-                              Config, ACS, Museum) {
+                              FactualAPI, Config, ACS, Museum) {
         var ctl = this;
 
         var MAP_SLIDE_TRANSITION_MS = 400;
@@ -64,6 +64,9 @@
             ctl.museum = rows[0];
             $log.info(ctl.museum);
             onRadiusChanged();
+            FactualAPI.crosswalk(ctl.museum.factual_id).then(function(data) {
+                $log.info('Factual:', data);
+            });
         }
 
         function onPrintClicked() {
