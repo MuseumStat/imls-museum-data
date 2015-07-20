@@ -7,6 +7,7 @@
     var ACSVariables = {
 
         /* People Tab */
+        // Population -- number
         'B01001_001E':   'Total',
 
         // Population by Gender -- pie

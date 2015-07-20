@@ -6,7 +6,7 @@
      */
     /* ngInject */
     function MuseumController($log, $scope, $stateParams, $timeout, $window,
-                              Config, ACS, Museum) {
+                              Config, ACS, ACSAggregate, Museum) {
         var ctl = this;
 
         var MAP_SLIDE_TRANSITION_MS = 400;
@@ -121,6 +121,7 @@
 
         function onACSDataComplete(data) {
             $log.info(data);
+            $log.info(ACSAggregate.sum(data));
         }
 
         function onACSDataError(error) {
