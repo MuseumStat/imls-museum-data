@@ -6,7 +6,7 @@
      */
     /* ngInject */
     function MuseumController($log, $scope, $stateParams, $timeout, $window,
-                              Config, ACS, Museum) {
+                              FactualAPI, Config, ACS, Museum) {
         var ctl = this;
 
         var MAP_SLIDE_TRANSITION_MS = 400;

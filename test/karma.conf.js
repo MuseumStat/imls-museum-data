@@ -41,6 +41,8 @@ module.exports = function(config) {
       'app/scripts/affix/*.js',
       'app/scripts/brand/module.js',
       'app/scripts/brand/*.js',
+      'app/scripts/factual/module.js',
+      'app/scripts/factual/*.js',
       'app/scripts/geocoder/module.js',
       'app/scripts/geocoder/*.js',
       'app/scripts/museum/module.js',

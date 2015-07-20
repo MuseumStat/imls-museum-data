@@ -11,9 +11,16 @@
         });
     }
 
+    /* ngInject */
+    function FactualConfig(FactualAPIProvider, Config) {
+        FactualAPIProvider.setKey(Config.factual.apiKey);
+    }
+
     angular.module('imls.views.museum', [
         'ui.router',
         'ui.bootstrap',
+        'imls.config',
+        'api.factual',
         'imls.acs',
         'imls.affix',
         'imls.brand',
@@ -21,5 +28,6 @@
         'imls.museum',
         'imls.views.footer'
     ])
-    .config(StateConfig);
+    .config(StateConfig)
+    .config(FactualConfig);
 })();
