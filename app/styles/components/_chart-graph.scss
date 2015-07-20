@@ -5,7 +5,11 @@
 	h4 {
 		margin-bottom: 30px;
 	}
-	
+
+	svg {
+		height: 225px;
+	}
+
 	.numerical {
 		@include font-size(60);
 		font-weight: 700;
