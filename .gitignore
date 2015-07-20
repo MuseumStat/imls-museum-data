@@ -5,3 +5,5 @@ dist
 bower_components
 .DS_Store
 *.swp
+
+app/scripts/config.js
