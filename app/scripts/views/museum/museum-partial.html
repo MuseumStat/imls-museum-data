@@ -15,14 +15,7 @@
                                   There is a physical, geocoded, and source address in the response
                          -->
                         <h5>{{ ::museum.museum | imlsAddress }}</h5>
-                        <ul class="social-media list-inline">
-                            <li><a href="#"><i class="md-icon-facebook"></i></a></li>
-                            <li><a href="#"><i class="md-icon-twitter"></i></a></li>
-                            <li><a href="#"><i class="md-icon-gplus"></i></a></li>
-                            <li><a href="#"><i class="md-icon-yelp"></i></a></li>
-                            <li><a href="#"><i class="md-icon-foursquare"></i></a></li>
-                            <li><a href="#"><i class="md-icon-pinterest"></i></a></li>
-                        </ul> <!-- /.social-icons -->
+                        <imls-social-links ng-if="museum.museum" factual-id="museum.museum.factual_id" ></imls-social-links>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-12">

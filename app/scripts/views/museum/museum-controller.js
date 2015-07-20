@@ -64,9 +64,6 @@
             ctl.museum = rows[0];
             $log.info(ctl.museum);
             onRadiusChanged();
-            FactualAPI.crosswalk(ctl.museum.factual_id).then(function(data) {
-                $log.info('Factual:', data);
-            });
         }
 
         function onPrintClicked() {

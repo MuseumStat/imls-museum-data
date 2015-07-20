@@ -16,7 +16,7 @@
         this.$get = FactualAPIFactory;
 
         /* ngInject */
-        function FactualAPIFactory($http) {
+        function FactualAPIFactory($http, $log) {
 
             var module = {
                 crosswalk: crosswalk
@@ -43,6 +43,9 @@
                     params: angular.extend({}, {
                         KEY: key
                     }, params)
+                }).then(function(response) {
+                    $log.info(response.data);
+                    return response.data;
                 });
             }
         }
