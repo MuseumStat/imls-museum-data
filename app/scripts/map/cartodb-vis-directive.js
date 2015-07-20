@@ -9,7 +9,8 @@
         var defaultOptions = {
             shareable: false,
             search: false,
-            fullscreen: false
+            fullscreen: false,
+            scrollwheel: false
         };
         var ctl = this;
         var url;
