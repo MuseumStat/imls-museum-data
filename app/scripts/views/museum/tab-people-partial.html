@@ -1,8 +1,8 @@
 <div class="row">
     <div class="col-md-4">
         <div class="chart-graph">
-            <h4>Total Population</h4>
-            <span class="numerical">{{ people.sumData['B01001_001E'] | number }}</span>
+            <h4>Race</h4>
+            <div id="bar-chart-race"><svg></svg></div>
         </div>
     </div> <!-- /.col -->
     <div class="col-md-4">
@@ -21,14 +21,8 @@
 <div class="row">
     <div class="col-md-4">
         <div class="chart-graph">
-            <h4>Total Households</h4>
-            <span class="numerical">{{ people.sumData['B11001_001E'] | number }}</span>
-        </div>
-    </div> <!-- /.col -->
-    <div class="col-md-4">
-        <div class="chart-graph">
-            <h4>Race</h4>
-            <div id="bar-chart-race"><svg></svg></div>
+            <h4>Total Population</h4>
+            <span class="numerical">{{ people.sumData['B01001_001E'] | number }}</span>
         </div>
     </div> <!-- /.col -->
     <div class="col-md-4">
@@ -38,11 +32,3 @@
         </div>
     </div> <!-- /.col -->
 </div> <!-- /.row -->
-<div class="row">
-    <div class="col-md-4">
-        <div class="chart-graph">
-            <h4>Household Languages</h4>
-            <div id="bar-chart-household-language"><svg></svg></div>
-        </div>
-    </div> <!-- /.col -->
-</div>

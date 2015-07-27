@@ -98,44 +98,10 @@
                         <tab-heading>People</tab-heading>
                         <imls-tab-people ng-if="museum.acsData" data="museum.acsData"></imls-tab-people>
                     </tab> <!-- /.tab-pane #people -->
-
                     <tab class="tab-pane fade in">
                         <tab-heading>Households</tab-heading>
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="chart-graph">
-                                    <h4>Median Home Value</h4>
-                                    <span class="numerical">$239,850</span>
-                                </div>
-                            </div> <!-- /.col -->
-                            <div class="col-md-4">
-                                <div class="chart-graph">
-                                    <h4>Home Values</h4>
-                                    <img src="/images/charts/race.png">
-                                </div>
-                            </div> <!-- /.col -->
-                            <div class="col-md-4">
-                                <div class="chart-graph">
-                                    <h4>Per Capita Income</h4>
-                                    <span class="numerical">$28,100</span>
-                                </div>
-                            </div> <!-- /.col -->
-                        </div> <!-- /.row -->
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="chart-graph">
-                                    <h4>Household Tenure</h4>
-                                    <img src="/images/charts/household-tenure.png">
-                                </div>
-                            </div> <!-- /.col -->
-                            <div class="col-md-4">
-                                <div class="chart-graph">
-                                    <h4>Poverty</h4>
-                                    <img src="/images/charts/poverty.png">
-                                </div>
-                            </div> <!-- /.col -->
-                        </div> <!-- /.row -->
-                    </tab> <!-- /.tab-pane #households -->
+                        <imls-tab-households ng-if="museum.acsData" data="museum.acsData"></imls-tab-households>
+                    </tab>
                     <tab class="tab-pane fade in">
                         <tab-heading>Similar Museums</tab-heading>
                         TODO: Fill Content

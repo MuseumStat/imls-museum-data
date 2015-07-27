@@ -2,7 +2,7 @@
     'use strict';
 
     /* ngInject */
-    function PeopleTabController($log, $scope, ACSAggregate, ACSVariables) {
+    function PeopleTabController($log, $scope, ACSAggregate, ACSGraphs, ACSVariables) {
         var ctl = this;
 
         var raceVariables = [
@@ -21,15 +21,6 @@
             'B23025_006E',
             'B23025_007E'
         ];
-        var houseLangVariables = [
-            'B16002_002E',
-            'B16002_003E',
-            'B16002_006E',
-            'B16002_009E',
-            'B16002_012E'
-        ];
-
-        var raceBarChart = null;
 
         initialize();
 
@@ -46,42 +37,11 @@
                 ctl.data = newData;
                 ctl.sumData = ACSAggregate.sum(ctl.data);
 
-                drawBarChart('race', generateSeries(ctl.sumData, raceVariables));
-                drawBarChart('employment', generateSeries(ctl.sumData, employmentVariables));
-                drawBarChart('household-language', generateSeries(ctl.sumData, houseLangVariables));
+                ACSGraphs.drawBarChart('race',
+                                       ACSGraphs.generateSeries(ctl.sumData, raceVariables));
+                ACSGraphs.drawBarChart('employment',
+                                       ACSGraphs.generateSeries(ctl.sumData, employmentVariables));
             }
-        }
-
-        function drawBarChart(key, series) {
-            var datum = [{
-                key: key,
-                values: series
-            }];
-            if (!ctl.charts[key]) {
-                var chart = nv.models.discreteBarChart()
-                    .x(function(d) { return d.label.substr(0,8) + '...'; })
-                    .y(function(d) { return d.value; })
-                    .tooltipContent(function(d) {
-                        return '<b>' + d.data.label + ': </b>' + d.data.value;
-                    })
-                    .staggerLabels(true)
-                    .color(function () { return '#7779b1'; })
-                    .margin({right: 10});
-                nv.utils.windowResize(chart.update);
-                ctl.charts[key] = chart;
-            }
-            d3.select('#bar-chart-' + key + ' svg')
-                .datum(datum)
-                .call(ctl.charts[key]);
-        }
-
-        function generateSeries(data, variables) {
-            return _.map(variables, function (variable) {
-                return {
-                    value: data[variable],
-                    label: ACSVariables[variable]
-                };
-            });
         }
     }
 
