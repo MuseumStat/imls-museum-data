@@ -18,10 +18,12 @@
   "trailing": true,
   "smarttabs": true,
   "globals": {
+    "_": false,
     "angular": false,
+    "d3": false,
     "cartodb": false,
     "jQuery": false,
-    "_": false,
-    "L": false
+    "L": false,
+    "nv": false
   }
 }
