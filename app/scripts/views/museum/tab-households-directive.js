@@ -2,7 +2,7 @@
     'use strict';
 
     /* ngInject */
-    function HouseholdsTabController($log, $scope, ACSAggregate, ACSGraphs, ACSVariables) {
+    function HouseholdsTabController($log, $scope, ACSGraphs, ACSVariables) {
         var ctl = this;
 
         var houseLangVariables = [
@@ -18,18 +18,15 @@
         function initialize() {
             ctl.acsVariables = ACSVariables;
 
-            $scope.$watch(function () { return ctl.data; }, onSumDataChanged);
+            $scope.$watch(function () { return ctl.data; }, onDataChanged);
         }
 
-        function onSumDataChanged(newData) {
-            $log.info($scope);
-            $log.info('HouseholdsTabController.onSumDataChanged', newData);
-            if (newData && newData.headers && newData.data) {
+        function onDataChanged(newData) {
+            if (newData) {
                 ctl.data = newData;
-                ctl.sumData = ACSAggregate.sum(ctl.data);
 
                 ACSGraphs.drawBarChart('household-language',
-                                       ACSGraphs.generateSeries(ctl.sumData, houseLangVariables));
+                                       ACSGraphs.generateSeries(ctl.data, 'sum', houseLangVariables));
             }
         }
     }

@@ -2,7 +2,7 @@
     'use strict';
 
     /* ngInject */
-    function PeopleTabController($log, $scope, ACSAggregate, ACSGraphs, ACSVariables) {
+    function PeopleTabController($log, $scope, ACSGraphs, ACSVariables) {
         var ctl = this;
 
         var raceVariables = [
@@ -28,19 +28,17 @@
             ctl.acsVariables = ACSVariables;
             ctl.charts = {};
 
-            $scope.$watch(function () { return ctl.data; }, onSumDataChanged);
+            $scope.$watch(function () { return ctl.data; }, onDataChanged);
         }
 
-        function onSumDataChanged(newData) {
-            $log.info('PeopleTabController.onSumDataChanged', newData);
-            if (newData && newData.headers && newData.data) {
+        function onDataChanged(newData) {
+            if (newData) {
                 ctl.data = newData;
-                ctl.sumData = ACSAggregate.sum(ctl.data);
 
                 ACSGraphs.drawBarChart('race',
-                                       ACSGraphs.generateSeries(ctl.sumData, raceVariables));
+                                       ACSGraphs.generateSeries(ctl.data, 'sum', raceVariables));
                 ACSGraphs.drawBarChart('employment',
-                                       ACSGraphs.generateSeries(ctl.sumData, employmentVariables));
+                                       ACSGraphs.generateSeries(ctl.data, 'sum', employmentVariables));
             }
         }
     }

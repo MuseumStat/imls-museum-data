@@ -36,10 +36,10 @@
                 .call(charts[key]);
         }
 
-        function generateSeries(data, variables) {
+        function generateSeries(data, key, variables) {
             return _.map(variables, function (variable) {
                 return {
-                    value: data[variable],
+                    value: data[variable][key],
                     label: ACSVariables[variable]
                 };
             });

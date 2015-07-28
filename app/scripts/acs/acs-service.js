@@ -54,6 +54,22 @@
             ].join('');
         }
 
+        /**
+         * Retrieve, filter and transform ACS data into a useful, aggregated format for our purposes
+         *
+         * The response from this function call will take the form:
+         * {
+         *     'ACSVariable': {
+         *         sum: number,     // Sum of all tracts in response
+         *         avg: number,     // Avg of all tracts in response
+         *         popAvg: number   // Population weighted avg of all tracts in response
+         *     },
+         *     ...
+         * }
+         *
+         * @param  {string} where Valid sql where clause used for filtering the requested data
+         * @return {promise}      Promise which resolves to an object of the format described above
+         */
         function getACSData(where) {
             var queryTemplate = [
                 'SELECT {state} as state, {county} as county, {tract} as tract ',
@@ -78,29 +94,48 @@
                     return _.map(tracts, function (tract) { return tract.tract; }).join(',');
                 }).value();
 
-                var acsQueries = [];
                 var acsQueries = _.map(tractGroups, function (value, key) {
                     return $http.get(acsUrl, {
                         cache: true,
                         params: {
-                            get: _.keys(ACSVariables).join(','), 
+                            get: _.keys(ACSVariables).join(','),
                             for: 'tract:' + value,
                             in: key
                         }
                     });
                 });
                 return $q.all(acsQueries);
-            // Transform data into json object with all data from multiple results aggregated 
-            //  into a single array
+            // Transform data into json object with all data from multiple results aggregated
+            //  into a single array, each tract has a sum/avg value to use in charts
             }).then(function (results) {
-                var allData = _.reduce(results, function (total, n) {
-                    return total.concat(n.data.slice(1));
-                }, []);
-                var data = {
-                    headers: results.length ? results[0].data[0] : [],
-                    data: allData
-                };
-                return data;
+
+                // TODO: Cleaner way to do this set of transforms?
+                var rawData = _.drop(results[0].data);
+                var headers = _.first(results[0].data);
+                headers = _.without(headers, 'state', 'county', 'tract');
+                var objData = {};
+                angular.forEach(headers, function (key, i) {
+                    if (!objData[key]) {
+                        objData[key] = [];
+                    }
+                    angular.forEach(rawData, function (dataRow) {
+                        objData[key].push(dataRow[i]);
+                    });
+                });
+
+                // Take values for each individual tract and aggregate
+                return _.mapValues(objData, function (row) {
+                    var sum = _.reduce(row, function (sum, n) {
+                        var val = parseFloat(n);
+                        return isNaN(val) ? sum : sum + val;
+                    }, 0);
+                    var avg = sum / row.length;
+                    return {
+                        sum: sum,
+                        avg: avg
+                        // TODO: Include population weighted average
+                    };
+                });
             });
         }
 

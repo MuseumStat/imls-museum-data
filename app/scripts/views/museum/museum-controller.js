@@ -6,7 +6,7 @@
      */
     /* ngInject */
     function MuseumController($log, $scope, $stateParams, $timeout, $window,
-                              Config, ACS, ACSAggregate, Museum) {
+                              Config, ACS, Museum) {
         var ctl = this;
 
         var MAP_SLIDE_TRANSITION_MS = 400;
@@ -104,7 +104,7 @@
                 var latlng = layer.getLatLng();
                 var radius = layer.getRadius();
                 acsRequest = ACS.getRadius(latlng.lng, latlng.lat, radius);
-                setACSSearchRadius(latLng, radius);
+                setACSSearchRadius(latlng, radius);
                 setMapExpanded(false);
             }
             acsRequest.then(onACSDataComplete, onACSDataError);
@@ -139,6 +139,10 @@
             searchPolygon = L.circle(center, radius, searchPolygonStyle);
             map.addLayer(searchPolygon);
             map.fitBounds(searchPolygon.getBounds());
+        }
+
+        function onTabSelected() {
+            ctl.acsData = angular.extend({}, ctl.acsData);
         }
 
         function clearSearchPolygon() {
