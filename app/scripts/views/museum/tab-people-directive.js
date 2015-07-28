@@ -1,8 +1,16 @@
 (function () {
     'use strict';
 
+    // TODO: Refactor this and the HouseholdTabController into a single controller and move
+    // draw logic elsewhere
+    //
+    // isTabVisible is a bit hacky, couldn't come up with a good way to trigger the chart redraw
+    // when the tab changes, which is necessary because the width: auto of the charts improperly
+    // draws the charts when the tab is hidden. We don't want a static width on those charts
+    // because they can change with browser width
+
     /* ngInject */
-    function PeopleTabController($log, $scope, ACSGraphs, ACSVariables) {
+    function PeopleTabController($log, $scope, $timeout, ACSGraphs, ACSVariables) {
         var ctl = this;
 
         var raceVariables = [
@@ -29,17 +37,33 @@
             ctl.charts = {};
 
             $scope.$watch(function () { return ctl.data; }, onDataChanged);
+            $scope.$watch(function () { return ctl.isTabVisible; }, onTabVisibleChanged);
         }
 
         function onDataChanged(newData) {
             if (newData) {
                 ctl.data = newData;
-
-                ACSGraphs.drawBarChart('race',
-                                       ACSGraphs.generateSeries(ctl.data, 'sum', raceVariables));
-                ACSGraphs.drawBarChart('employment',
-                                       ACSGraphs.generateSeries(ctl.data, 'sum', employmentVariables));
+                draw();
             }
+        }
+
+        function onTabVisibleChanged() {
+            if (ctl.isTabVisible) {
+                // If we don't delay by a digest cycle, the tab still hasn't finished drawing
+                // and therefore we don't draw the chart into a properly sized div
+                $timeout(function () {
+                    draw(true);
+                });
+            }
+        }
+
+        function draw(forceRedraw) {
+            ACSGraphs.drawBarChart('race',
+                                   ACSGraphs.generateSeries(ctl.data, 'sum', raceVariables),
+                                   forceRedraw);
+            ACSGraphs.drawBarChart('employment',
+                                   ACSGraphs.generateSeries(ctl.data, 'sum', employmentVariables),
+                                   forceRedraw);
         }
     }
 
@@ -49,7 +73,8 @@
             restrict: 'E',
             templateUrl: 'scripts/views/museum/tab-people-partial.html',
             scope: {
-                data: '='
+                data: '=',
+                isTabVisible: '='
             },
             controller: 'PeopleTabController',
             controllerAs: 'people',

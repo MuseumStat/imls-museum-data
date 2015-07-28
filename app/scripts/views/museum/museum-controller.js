@@ -40,6 +40,7 @@
             }];
             ctl.acsRadius = ctl.acsRadiusOptions[0].value;
             ctl.mapExpanded = false;
+            ctl.activeTab = 'people';
 
             ctl.onRadiusChanged = onRadiusChanged;
             ctl.onStartDrawPolygon = onStartDrawPolygon;
@@ -139,10 +140,6 @@
             searchPolygon = L.circle(center, radius, searchPolygonStyle);
             map.addLayer(searchPolygon);
             map.fitBounds(searchPolygon.getBounds());
-        }
-
-        function onTabSelected() {
-            ctl.acsData = angular.extend({}, ctl.acsData);
         }
 
         function clearSearchPolygon() {

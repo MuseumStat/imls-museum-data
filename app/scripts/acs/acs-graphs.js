@@ -13,12 +13,12 @@
         };
         return module;
 
-        function drawBarChart(key, series) {
+        function drawBarChart(key, series, forceRedraw) {
             var datum = [{
                 key: key,
                 values: series
             }];
-            if (!charts[key]) {
+            if (forceRedraw || !charts[key]) {
                 var chart = nv.models.discreteBarChart()
                     .x(function(d) { return d.label.substr(0,8) + '...'; })
                     .y(function(d) { return d.value; })
