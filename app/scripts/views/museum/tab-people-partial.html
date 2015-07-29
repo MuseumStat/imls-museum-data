@@ -1,0 +1,34 @@
+<div class="row">
+    <div class="col-md-4">
+        <div class="chart-graph">
+            <h4>Race</h4>
+            <div id="bar-chart-race"><svg></svg></div>
+        </div>
+    </div> <!-- /.col -->
+    <div class="col-md-4">
+        <div class="chart-graph">
+            <h4>Population Under 18 Years Old</h4>
+            <span class="numerical">{{ people.data['B09001_001E'].sum | number }}</span>
+        </div>
+    </div> <!-- /.col -->
+    <div class="col-md-4">
+        <div class="chart-graph">
+            <h4>Total People in Poverty</h4>
+            <span class="numerical">{{ people.data['B17001_001E'].sum | number }}</span>
+        </div>
+    </div> <!-- /.col -->
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <div class="chart-graph">
+            <h4>Total Population</h4>
+            <span class="numerical">{{ people.data['B01001_001E'].sum | number }}</span>
+        </div>
+    </div> <!-- /.col -->
+    <div class="col-md-4">
+        <div class="chart-graph">
+            <h4>Employment Status</h4>
+            <div id="bar-chart-employment"><svg></svg></div>
+        </div>
+    </div> <!-- /.col -->
+</div> <!-- /.row -->

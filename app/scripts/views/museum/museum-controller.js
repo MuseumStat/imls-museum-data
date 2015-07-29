@@ -40,6 +40,7 @@
             }];
             ctl.acsRadius = ctl.acsRadiusOptions[0].value;
             ctl.mapExpanded = false;
+            ctl.activeTab = 'people';
 
             ctl.onRadiusChanged = onRadiusChanged;
             ctl.onStartDrawPolygon = onStartDrawPolygon;
@@ -104,7 +105,7 @@
                 var latlng = layer.getLatLng();
                 var radius = layer.getRadius();
                 acsRequest = ACS.getRadius(latlng.lng, latlng.lat, radius);
-                setACSSearchRadius(latLng, radius);
+                setACSSearchRadius(latlng, radius);
                 setMapExpanded(false);
             }
             acsRequest.then(onACSDataComplete, onACSDataError);
@@ -120,7 +121,7 @@
         }
 
         function onACSDataComplete(data) {
-            $log.info(data);
+            ctl.acsData = data;
         }
 
         function onACSDataError(error) {

@@ -1,0 +1,14 @@
+<div class="row">
+    <div class="col-md-4">
+        <div class="chart-graph">
+            <h4>Total Households</h4>
+            <span class="numerical">{{ house.data['B11001_001E'].sum | number }}</span>
+        </div>
+    </div> <!-- /.col -->
+    <div class="col-md-4">
+        <div class="chart-graph">
+            <h4>Household Languages</h4>
+            <div id="bar-chart-household-language"><svg></svg></div>
+        </div>
+    </div> <!-- /.col -->
+</div>
