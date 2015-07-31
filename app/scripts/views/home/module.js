@@ -21,7 +21,8 @@
         'imls.museum',
         'imls.brand',
         'imls.map',
-        'imls.views.footer'
+        'imls.views.footer',
+        'imls.views.download'
     ])
     .config(StateConfig);
 })();
