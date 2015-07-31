@@ -6,15 +6,11 @@
      * Controller for the imls app home view
      */
     /* ngInject */
-    function HomeController($log, $q, $scope, $geolocation, Config, Geocoder, MapStyle, Museum) {
+    function HomeController($log, $q, $scope, $geolocation, Config, Geocoder, Museum) {
         var ctl = this;
 
         var map = null;
         var searchMarker = null;
-        var searchMarkerStyle = angular.extend({}, MapStyle.circle, {
-            radius: 10,
-            weight: 2
-        });
 
         var SEARCH_DIST_METERS = 1609.34;  // 1 mile
 
@@ -105,7 +101,10 @@
 
         function addSearchLocationMarker(position) {
             clearSearchLocationMarker();
-            searchMarker = L.circleMarker([position.y, position.x], searchMarkerStyle);
+            searchMarker = L.marker([position.y, position.x], {
+                clickable: false,
+                keyboard: false
+            });
             searchMarker.addTo(map);
         }
 
