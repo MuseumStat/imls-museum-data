@@ -9,12 +9,15 @@
         bounds: {
             northEast: {
                 lat: 49.384,
-                lng: -66.8854 
+                lng: -66.8854
             },
             southWest: {
                 lat: 24.3963,
-                lng: -124.849 
+                lng: -124.849
             }
+        },
+        cookies: {
+            LAST_SEARCHED: 'imls:lastsearched'
         },
         detailZoom: 14,
         cartodb: {

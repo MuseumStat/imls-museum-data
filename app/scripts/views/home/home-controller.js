@@ -6,10 +6,11 @@
      * Controller for the imls app home view
      */
     /* ngInject */
-    function HomeController($log, $q, $scope, $geolocation, Config, Geocoder, Museum) {
+    function HomeController($cookies, $log, $q, $scope, $geolocation, $state, Config, Geocoder, Museum) {
         var ctl = this;
 
         var map = null;
+        var searchMarker = null;
 
         var SEARCH_DIST_METERS = 1609.34;  // 1 mile
 
@@ -32,6 +33,13 @@
             ctl.search = search;
             $scope.$on('imls:vis:ready', function (e, vis, newMap) {
                 map = newMap;
+
+                var lastSearched = $cookies.getObject(Config.cookies.LAST_SEARCHED);
+                if (lastSearched) {
+                    ctl.pageState = ctl.states.LIST;
+                    ctl.searchText = lastSearched.text;
+                    requestNearbyMuseums(lastSearched.position);
+                }
             });
         }
 
@@ -83,10 +91,13 @@
         // position is an object with x and y keys
         function requestNearbyMuseums(position) {
             map.setView([position.y, position.x], Config.detailZoom);
+            addSearchLocationMarker(position);
+
             Museum.list(position, SEARCH_DIST_METERS).then(function (rows) {
                 if (rows.length) {
                     ctl.list = rows;
                     ctl.pageState = ctl.states.LIST;
+                    setLastPositionCookie(position);
                 } else {
                     ctl.pageState = ctl.states.ERROR;
                 }
@@ -94,7 +105,32 @@
                 $log.error(error);
                 ctl.pageState = ctl.states.ERROR;
             });
+        }
 
+        function setLastPositionCookie(position) {
+            $cookies.putObject(Config.cookies.LAST_SEARCHED, {
+                text: ctl.searchText || '',
+                position: position
+            }, {
+                // Set expiry to 12hrs from set time
+                expires: new Date(new Date().getTime() + 12 * 3600 * 1000)
+            });
+        }
+
+        function addSearchLocationMarker(position) {
+            clearSearchLocationMarker();
+            searchMarker = L.marker([position.y, position.x], {
+                clickable: false,
+                keyboard: false
+            });
+            searchMarker.addTo(map);
+        }
+
+        function clearSearchLocationMarker() {
+            if (searchMarker) {
+                map.removeLayer(searchMarker);
+                searchMarker = null;
+            }
         }
     }
 
