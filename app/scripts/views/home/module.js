@@ -16,6 +16,7 @@
         'ngGeolocation',
         'smart-table',
         'ui.router',
+        'ui.bootstrap',
         'imls.geocoder',
         'imls.museum',
         'imls.brand',
