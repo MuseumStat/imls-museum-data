@@ -112,7 +112,8 @@
                 text: ctl.searchText || '',
                 position: position
             }, {
-                expires: new Date(new Date().getTime() + 3600 * 1000)
+                // Set expiry to 12hrs from set time
+                expires: new Date(new Date().getTime() + 12 * 3600 * 1000)
             });
         }
 
