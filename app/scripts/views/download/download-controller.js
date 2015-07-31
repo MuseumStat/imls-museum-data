@@ -14,6 +14,7 @@
         }
 
         function onDownloadCSV() {
+            download('csv', 'text/csv', csvTransform);
             $modalInstance.close();
         }
 
@@ -50,7 +51,17 @@
         }
 
         function jsonTransform(data) {
-            return angular.toJson(data);
+            return angular.toJson({ results: data });
+        }
+
+        function csvTransform(data) {
+            var headers = _.keys(_.omit(data[0], '$$hashKey'));
+
+            var csvString = headers.join(',') + '\n';
+            angular.forEach(data, function (row) {
+                csvString += _.values(_.omit(row, '$$hashKey')).join(',') + '\n';
+            });
+            return csvString;
         }
     }
 
