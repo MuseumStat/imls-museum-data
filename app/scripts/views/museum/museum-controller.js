@@ -6,7 +6,7 @@
      */
     /* ngInject */
     function MuseumController($log, $scope, $stateParams, $timeout, $window,
-                              Config, ACS, Museum) {
+                              Config, ACS, MapStyle, Museum) {
         var ctl = this;
 
         var MAP_SLIDE_TRANSITION_MS = 400;
@@ -15,15 +15,9 @@
         var vis = null;
         var map = null;
         var searchPolygon = null;
-        var searchPolygonStyle = {
-            color: '#f6ba46',
-            weight: 5,
-            fill: true,
-            fillColor: '#000000',
-            fillOpacity: 0.1,
+        var searchPolygonStyle = angular.extend({}, MapStyle.circle, {
             dashArray: '8',
-            clickable: false
-        };
+        });
 
         initialize();
 
