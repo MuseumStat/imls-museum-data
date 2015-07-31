@@ -6,7 +6,7 @@
      * Controller for the imls app home view
      */
     /* ngInject */
-    function HomeController($log, $q, $scope, $geolocation, Config, Geocoder, Museum) {
+    function HomeController($cookies, $log, $q, $scope, $geolocation, $state, Config, Geocoder, Museum) {
         var ctl = this;
 
         var map = null;
@@ -33,6 +33,13 @@
             ctl.search = search;
             $scope.$on('imls:vis:ready', function (e, vis, newMap) {
                 map = newMap;
+
+                var lastSearched = $cookies.getObject(Config.cookies.LAST_SEARCHED);
+                if (lastSearched) {
+                    ctl.pageState = ctl.states.LIST;
+                    ctl.searchText = lastSearched.text;
+                    requestNearbyMuseums(lastSearched.position);
+                }
             });
         }
 
@@ -90,12 +97,22 @@
                 if (rows.length) {
                     ctl.list = rows;
                     ctl.pageState = ctl.states.LIST;
+                    setLastPositionCookie(position);
                 } else {
                     ctl.pageState = ctl.states.ERROR;
                 }
             }).catch(function (error) {
                 $log.error(error);
                 ctl.pageState = ctl.states.ERROR;
+            });
+        }
+
+        function setLastPositionCookie(position) {
+            $cookies.putObject(Config.cookies.LAST_SEARCHED, {
+                text: ctl.searchText || '',
+                position: position
+            }, {
+                expires: new Date(new Date().getTime() + 3600 * 1000)
             });
         }
 

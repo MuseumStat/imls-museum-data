@@ -12,6 +12,7 @@
     }
 
     angular.module('imls.views.museum', [
+        'ngCookies',
         'ui.router',
         'ui.bootstrap',
         'imls.acs',

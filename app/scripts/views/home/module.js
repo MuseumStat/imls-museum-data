@@ -12,6 +12,7 @@
     }
 
     angular.module('imls.views.home', [
+        'ngCookies',
         'ngGeolocation',
         'smart-table',
         'ui.router',

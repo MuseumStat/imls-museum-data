@@ -11,11 +11,15 @@
     "lodash": "3.9.3",
     "ngGeolocation": "0.0.7",
     "angular-smart-table": "2.1.0",
-    "nvd3": "1.8.1"
+    "nvd3": "1.8.1",
+    "angular-cookies": "1.4.1"
   },
   "devDependencies": {
     "angular-mocks": "1.4.1"
   },
   "appPath": "app",
-  "moduleName": "imls"
+  "moduleName": "imls",
+  "resolutions": {
+    "angular": "1.4.1"
+  }
 }
