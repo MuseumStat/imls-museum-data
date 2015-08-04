@@ -6,7 +6,7 @@
      * Controller for the imls app home view
      */
     /* ngInject */
-    function HomeController($cookies, $log, $q, $scope, $geolocation, $state, Config, Geocoder, Museum) {
+    function HomeController($cookies, $log, $q, $scope, $geolocation, $modal, $state, Config, Geocoder, Museum) {
         var ctl = this;
 
         var map = null;
@@ -30,6 +30,7 @@
             ctl.onLocationClicked = onLocationClicked;
             ctl.onSearchClicked = onSearchClicked;
             ctl.onTypeaheadSelected = onTypeaheadSelected;
+            ctl.onDownloadRowClicked = onDownloadRowClicked;
             ctl.search = search;
             $scope.$on('imls:vis:ready', function (e, vis, newMap) {
                 map = newMap;
@@ -131,6 +132,24 @@
                 map.removeLayer(searchMarker);
                 searchMarker = null;
             }
+        }
+
+        function onDownloadRowClicked() {
+            if (!ctl.list.length) {
+                return;
+            }
+            $modal.open({
+                templateUrl: 'scripts/views/download/download-partial.html',
+                controller: 'DownloadController',
+                controllerAs: 'dl',
+                bindToController: true,
+                size: 'sm',
+                resolve: {
+                    datalist: function () {
+                        return ctl.list;
+                    }
+                }
+            });
         }
     }
 

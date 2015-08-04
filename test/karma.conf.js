@@ -62,6 +62,8 @@ module.exports = function(config) {
       'app/scripts/views/about/*.js',
       'app/scripts/views/contact/module.js',
       'app/scripts/views/contact/*.js',
+      'app/scripts/views/download/module.js',
+      'app/scripts/views/download/*.js',
       'app/scripts/views/museum/module.js',
       'app/scripts/views/museum/*.js',
       'app/scripts/app.js',

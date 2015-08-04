@@ -8,6 +8,15 @@
             <div class="row">
                 <div class="col-md-4" ng-if="home.pageState === home.states.LIST">
                     <h3>{{ home.list.length }} Results Found</h3>
+                    <div class="dropdown" dropdown>
+                        <span class="dropdown-toggle" dropdown-toggle>
+                            Download Museum Info <i class="md-icon-down-mini"></i>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                                <li role="menuitem"><a href="http://www.imls.gov/research/museum_universe_data_file.aspx" target="_blank">Full Report</a></li>
+                                <li role="menuitem"><a ng-click="home.onDownloadRowClicked()">Museum Row</a></li>
+                            </ul>
+                        </span>
+                    </div>
                 </div>
                 <div ng-class="{
                     'col-md-8': home.pageState === home.states.LIST,

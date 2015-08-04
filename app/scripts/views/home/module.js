@@ -16,11 +16,13 @@
         'ngGeolocation',
         'smart-table',
         'ui.router',
+        'ui.bootstrap',
         'imls.geocoder',
         'imls.museum',
         'imls.brand',
         'imls.map',
-        'imls.views.footer'
+        'imls.views.footer',
+        'imls.views.download'
     ])
     .config(StateConfig);
 })();
