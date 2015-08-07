@@ -92,7 +92,29 @@
         'B25039_003E':   'Renter occupied'
     };
 
+
+    // mapping of vars which should be weighted avg to which vars they should
+    // be weighted against
+    var ACSPopWeightedVars = {
+        // Median Age by Gender, weight by population of genders
+        'B01002_002E':   'B01001_002E',  // male population
+        'B01002_003E':   'B01001_026E',  // female population
+
+        // Per Capita Income
+        'B19301_001E':   'B01001_001E',  // total population
+
+        // Median household income
+        'B19013_001E':   'B11001_001E',  // total households
+
+        // Median home value
+        'B25077_001E':   'B11001_001E',  // total households
+
+        // Median year householder moved in
+        'B25039_002E':   'B11001_001E',  // owner occupied
+        'B25039_003E':   'B11001_001E'   // renter occupied
+    };
     angular.module('imls.acs')
-    .constant('ACSVariables', ACSVariables);
+    .constant('ACSVariables', ACSVariables)
+    .constant('ACSPopWeightedVars', ACSPopWeightedVars);
 
 })();
