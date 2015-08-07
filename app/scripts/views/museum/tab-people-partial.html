@@ -13,14 +13,20 @@
     </div> <!-- /.col -->
     <div class="col-md-4">
         <div class="chart-graph">
+            <h4>Per Capita Income</h4>
+            <span class="numerical">{{ people.data['B19301_001E'].popAvg | currency:"$":0 }}</span>
+        </div>
+    </div> <!-- /.col -->
+    <div class="col-md-4">
+        <div class="chart-graph">
             <h4>Median Age of Males</h4>
-            <span class="numerical">{{ people.data['B01002_002E'].popAvg | number }}</span>
+            <span class="numerical">{{ people.data['B01002_002E'].popAvg | number:1 }}</span>
         </div>
     </div> <!-- /.col -->
     <div class="col-md-4">
         <div class="chart-graph">
             <h4>Median Age of Females</h4>
-            <span class="numerical">{{ people.data['B01002_003E'].popAvg | number }}</span>
+            <span class="numerical">{{ people.data['B01002_003E'].popAvg | number:1 }}</span>
         </div>
     </div> <!-- /.col -->
     <div class="col-md-4">

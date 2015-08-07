@@ -105,11 +105,9 @@
                     });
                 });
                 return $q.all(acsQueries);
-            // Transform data into json object with all data from multiple results aggregated
-            //  into a single array, each tract has a sum/avg value to use in charts
+            // Transform tracts into objects, with requested variables as properties
+            // Then aggregate sum, avg, and popAvg
             }).then(function (results) {
-
-                // TODO: Cleaner way to do this set of transforms?
                 var rawData = _.drop(results[0].data);
                 var headers = _.first(results[0].data);
                 var tractData = _.map(rawData, _.zipObject.bind(null, headers));
