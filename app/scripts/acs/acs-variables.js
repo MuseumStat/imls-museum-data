@@ -92,7 +92,14 @@
         'B25039_003E':   'Renter occupied'
     };
 
+
+    var ACSPopWeightedVars = {
+        // Median Age by Gender, weight by population of genders
+        'B01002_002E':   'B01001_002E',
+        'B01002_003E':   'B01001_026E',
+    };
     angular.module('imls.acs')
-    .constant('ACSVariables', ACSVariables);
+    .constant('ACSVariables', ACSVariables)
+    .constant('ACSPopWeightedVars', ACSPopWeightedVars);
 
 })();

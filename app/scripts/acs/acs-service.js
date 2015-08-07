@@ -3,7 +3,7 @@
     'use strict';
 
     /* ngInject */
-    function ACS ($log, $http, $q, Config, ACSVariables, Util) {
+    function ACS ($log, $http, $q, Config, ACSPopWeightedVars, ACSVariables, Util) {
 
         var cartodbsql = new cartodb.SQL({ user: Config.cartodb.account });
         var cols = {
@@ -112,30 +112,45 @@
                 // TODO: Cleaner way to do this set of transforms?
                 var rawData = _.drop(results[0].data);
                 var headers = _.first(results[0].data);
-                headers = _.without(headers, 'state', 'county', 'tract');
-                var objData = {};
-                angular.forEach(headers, function (key, i) {
-                    if (!objData[key]) {
-                        objData[key] = [];
-                    }
-                    angular.forEach(rawData, function (dataRow) {
-                        objData[key].push(dataRow[i]);
-                    });
-                });
+                var tractData = _.map(rawData, _.zipObject.bind(null, headers));
 
-                // Take values for each individual tract and aggregate
-                return _.mapValues(objData, function (row) {
-                    var sum = _.reduce(row, function (sum, n) {
-                        var val = parseFloat(n);
-                        return isNaN(val) ? sum : sum + val;
-                    }, 0);
-                    var avg = sum / row.length;
-                    return {
-                        sum: sum,
-                        avg: avg
-                        // TODO: Include population weighted average
-                    };
-                });
+                return _.chain(_.without(headers, 'state', 'county', 'tract')).map(function (varName) {
+                    var result = {};
+                    var length;
+
+                    result.sum = _.chain(tractData)
+                                    .pluck(varName)
+                                    .map(parseFloat)
+                                    .filter(_.isFinite)
+                                    .tap(function (val) { length = val.length; })
+                                    .reduce(_.add, 0)
+                                    .value();
+
+                    result.avg = result.sum / length;
+
+                    if (ACSPopWeightedVars[varName]) {
+                        // multiply each value by the population for that tract
+                        // then, sum and divide by the total population
+                        result.popAvg = _.chain(_.pluck(tractData, varName))
+                                        .zip(_.pluck(tractData, ACSPopWeightedVars[varName]))
+                                        .map(function (d) { return [parseFloat(d[0]),
+                                                                    parseFloat(d[1])]; })
+                                        .filter(function (d) { return (_.isFinite(d[0]) &&
+                                                                       _.isFinite(d[1])); })
+                                        // index 0 is data * pop, index 1 is pop
+                                        .map(function (d) { return [d[0] * d[1], d[1]]; })
+                                        .reduce(function (res, n) {
+                                            // sum values and population separately
+                                            return [res[0] + n[0], res[1] + n[1]];
+                                        }, [0, 0])
+                                        // divide summed value by total population
+                                        .thru(function (val) { return val[0] / val[1]; })
+                                        .value();
+                    }
+
+                    return [varName, result];
+                }).zipObject().value();
+
             });
         }
 

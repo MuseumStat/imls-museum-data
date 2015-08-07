@@ -13,6 +13,18 @@
     </div> <!-- /.col -->
     <div class="col-md-4">
         <div class="chart-graph">
+            <h4>Median Age of Males</h4>
+            <span class="numerical">{{ people.data['B01002_002E'].popAvg | number }}</span>
+        </div>
+    </div> <!-- /.col -->
+    <div class="col-md-4">
+        <div class="chart-graph">
+            <h4>Median Age of Females</h4>
+            <span class="numerical">{{ people.data['B01002_003E'].popAvg | number }}</span>
+        </div>
+    </div> <!-- /.col -->
+    <div class="col-md-4">
+        <div class="chart-graph">
             <h4>Total People in Poverty</h4>
             <span class="numerical">{{ people.data['B17001_001E'].sum | number }}</span>
         </div>
