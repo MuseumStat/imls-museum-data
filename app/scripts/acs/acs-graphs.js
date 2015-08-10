@@ -73,7 +73,7 @@
             }
             if (forceRedraw || !charts[key]) {
                 var chart = nv.models.pieChart()
-                    .x(function(d) { return addElipses(d.label, 8); })
+                    .x(function(d) { return addElipses(d.label, 10); })
                     .y(function(d) { return d.value; })
                     .tooltipContent(function(d) {
                         return '<b>' + d.data.label + ': </b>' + d.data.value;
