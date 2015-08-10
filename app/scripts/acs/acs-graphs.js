@@ -43,7 +43,6 @@
                     .staggerLabels(true)
                     .color(function () { return '#7779b1'; })
                     .margin({right: 10});
-                nv.utils.windowResize(chart.update);
                 charts[key] = chart;
             }
             d3.select('#bar-chart-' + key + ' svg')
@@ -62,7 +61,6 @@
                     .color(function () { return '#7779b1'; })
                     .margin({right: 10})
                     .showLegend(false);
-                nv.utils.windowResize(chart.update);
                 charts[key] = chart;
             }
             d3.select('#pie-chart-' + key + ' svg')
