@@ -51,6 +51,11 @@
         }
 
         function drawPieChart(key, data, forceRedraw) {
+            if (forceRedraw && charts[key]) {
+                // completely remove chart if forcing redraw
+                d3.select('#pie-chart-' + key + ' svg').remove();
+                d3.select('#pie-chart-' + key).insert('svg');
+            }
             if (forceRedraw || !charts[key]) {
                 var chart = nv.models.pieChart()
                     .x(function(d) { return addElipses(d.label, 8); })
