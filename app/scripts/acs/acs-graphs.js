@@ -28,21 +28,36 @@
             });
         }
 
-        function drawBarChart(key, series, forceRedraw) {
+        function drawBarChart(key, series, horizontal, forceRedraw) {
             var datum = [{
                 key: key,
                 values: series
             }];
             if (forceRedraw || !charts[key]) {
-                var chart = nv.models.discreteBarChart()
-                    .x(function(d) { return addElipses(d.label, 9); })
-                    .y(function(d) { return d.value; })
-                    .tooltipContent(function(d) {
-                        return '<b>' + d.data.label + ': </b>' + d.data.value;
-                    })
-                    .staggerLabels(true)
-                    .color(function () { return '#7779b1'; })
-                    .margin({right: 10});
+                var chart;
+                if(horizontal) {
+                    chart = nv.models.multiBarHorizontalChart()
+                        .x(function(d) { return addElipses(d.label, 30); })
+                        .y(function(d) { return d.value; })
+                        .tooltipContent(function(d) {
+                            return '<b>' + d.data.label + ': </b>' + d.data.value;
+                        })
+                        .color(function () { return '#7779b1'; })
+                        .margin({right: 30, left: 200})
+                        .showControls(false)
+                        .showLegend(false);
+                } else {
+                    chart = nv.models.discreteBarChart()
+                        .x(function(d) { return addElipses(d.label, 20); })
+                        .y(function(d) { return d.value; })
+                        .tooltipContent(function(d) {
+                            return '<b>' + d.data.label + ': </b>' + d.data.value;
+                        })
+                        .staggerLabels(true)
+                        .color(function () { return '#7779b1'; })
+                        .margin({right: 10});
+                }
+                nv.utils.windowResize(chart.update);
                 charts[key] = chart;
             }
             d3.select('#bar-chart-' + key + ' svg')

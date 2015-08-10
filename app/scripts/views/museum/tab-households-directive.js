@@ -45,7 +45,7 @@
         function draw(forceRedraw) {
             ACSGraphs.drawBarChart('household-language',
                                    ACSGraphs.generateSeries(ctl.data, 'sum', houseLangVariables),
-                                   forceRedraw);
+                                   false, forceRedraw);
             ACSGraphs.drawPieChart('household-type',
                                    ACSGraphs.generateSeries(ctl.data, 'sum', houseTypeVariables),
                                    forceRedraw);
