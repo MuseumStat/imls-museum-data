@@ -13,6 +13,11 @@
             'B16002_012E'
         ];
 
+        var houseTypeVariables = [
+            'B11001_002E',
+            'B11001_007E'
+        ];
+
         initialize();
 
         function initialize() {
@@ -25,7 +30,7 @@
         function onDataChanged(newData) {
             if (newData) {
                 ctl.data = newData;
-
+                draw();
             }
         }
 
@@ -40,6 +45,9 @@
         function draw(forceRedraw) {
             ACSGraphs.drawBarChart('household-language',
                                    ACSGraphs.generateSeries(ctl.data, 'sum', houseLangVariables),
+                                   forceRedraw);
+            ACSGraphs.drawPieChart('household-type',
+                                   ACSGraphs.generateSeries(ctl.data, 'sum', houseTypeVariables),
                                    forceRedraw);
         }
     }

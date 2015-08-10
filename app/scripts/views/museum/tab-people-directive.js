@@ -29,6 +29,10 @@
             'B23025_006E',
             'B23025_007E'
         ];
+        var genderVariables = [
+            'B01001_002E',
+            'B01001_026E'
+        ];
 
         initialize();
 
@@ -64,6 +68,9 @@
             ACSGraphs.drawBarChart('employment',
                                    ACSGraphs.generateSeries(ctl.data, 'sum', employmentVariables),
                                    forceRedraw);
+            ACSGraphs.drawPieChart('gender',
+                                   ACSGraphs.generateSeries(ctl.data, 'sum', genderVariables));
+            ACSGraphs.updateCharts();
         }
     }
 

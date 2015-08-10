@@ -5,8 +5,8 @@
      * Controller for the imls app home view
      */
     /* ngInject */
-    function MuseumController($log, $scope, $stateParams, $timeout, $window,
-                              Config, ACS, MapStyle, Museum) {
+    function MuseumController($log, $scope, $stateParams, $timeout, $window, resize,
+                              Config, ACS, ACSGraphs, MapStyle, Museum) {
         var ctl = this;
 
         var MAP_SLIDE_TRANSITION_MS = 400;
@@ -42,6 +42,8 @@
             ctl.onPrintClicked = onPrintClicked;
 
             $scope.$on('imls:vis:ready', onVisReady);
+
+            resize($scope).call(ACSGraphs.updateCharts);
         }
 
         function onVisReady(event, newVis, newMap) {
