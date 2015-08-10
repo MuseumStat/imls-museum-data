@@ -64,12 +64,13 @@
         function draw(forceRedraw) {
             ACSGraphs.drawBarChart('race',
                                    ACSGraphs.generateSeries(ctl.data, 'sum', raceVariables),
-                                   forceRedraw);
+                                   true, forceRedraw);
             ACSGraphs.drawBarChart('employment',
                                    ACSGraphs.generateSeries(ctl.data, 'sum', employmentVariables),
-                                   forceRedraw);
+                                   false, forceRedraw);
             ACSGraphs.drawPieChart('gender',
-                                   ACSGraphs.generateSeries(ctl.data, 'sum', genderVariables));
+                                   ACSGraphs.generateSeries(ctl.data, 'sum', genderVariables),
+                                   forceRedraw);
             ACSGraphs.updateCharts();
         }
     }
