@@ -29,20 +29,24 @@ If you want to change the bucket the app deploys to, edit the `s3_bucket` settin
 
 If you change the bucket, ensure that you do the following:
   - Add the bucket to the IAM S3-Full-Access policy for the user's access keys
-  - Configure the bucket for static hosting, with both the index and error pages pointing to `index.html`
-  - Under bucket settings, set the bucket policy via `Edit Bucket Policy` to:
+  - Run `s3_bucket cfg apply` to create a new bucket and apply the proper settings. Choose 'N' for 'Would you like to deliver your website via CloudFront'.
+
+#### IAM S3 Full Access Policy
+
+This is a sample. You will need to add additional entries for each `<bucket_name>` you manage with
+the IAM user that uses this policy.
+
 ```
 {
-    "Version": "2008-10-17",
+    "Version": "2012-10-17",
     "Statement": [
         {
-            "Sid": "PublicReadForGetBucketObjects",
             "Effect": "Allow",
-            "Principal": {
-                "AWS": "*"
-            },
-            "Action": "s3:GetObject",
-            "Resource": "arn:aws:s3:::<bucket_name>/*"
+            "Action": "s3:*",
+            "Resource": [
+                "arn:aws:s3:::<bucket_name>",
+                "arn:aws:s3:::<bucket_name>/*"
+            ]
         }
     ]
 }
