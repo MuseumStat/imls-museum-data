@@ -1,4 +1,4 @@
-<div class="home-page" ng-class="{'map-expanded': home.mapExpanded}">
+<div ng-class="{'map-expanded': home.mapExpanded, 'home-page': home.pageState === home.states.DISCOVER }">
     <imls-brand></imls-brand>
 
     <cartodb-vis></cartodb-vis>
@@ -49,7 +49,7 @@
                                 </button>
                             </div>
                         </div>
-                        <a ng-click="home.onSearchClicked()" class="btn btn-primary">Search</a>
+                        <a ng-click="home.onSearchClicked()" class="btn btn-info">Search</a>
                     </form> <!-- /form -->
                 </div>
             </div>

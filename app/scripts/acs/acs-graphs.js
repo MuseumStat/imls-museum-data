@@ -42,7 +42,7 @@
                         .tooltipContent(function(d) {
                             return '<b>' + d.data.label + ': </b>' + d.data.value;
                         })
-                        .color(function () { return '#7779b1'; })
+                        .color(function () { return '#bc5405'; })
                         .margin({right: 30, left: 200})
                         .showControls(false)
                         .showLegend(false);
@@ -54,7 +54,7 @@
                             return '<b>' + d.data.label + ': </b>' + d.data.value;
                         })
                         .staggerLabels(true)
-                        .color(function () { return '#7779b1'; })
+                        .color(function () { return '#bc5405'; })
                         .margin({right: 10});
                 }
                 nv.utils.windowResize(chart.update);
@@ -78,7 +78,7 @@
                     .tooltipContent(function(d) {
                         return '<b>' + d.data.label + ': </b>' + d.data.value;
                     })
-                    .color(function () { return '#7779b1'; })
+                    .color(function () { return '#bc5405'; })
                     .margin({right: 10})
                     .showLegend(false);
                 charts[key] = chart;
