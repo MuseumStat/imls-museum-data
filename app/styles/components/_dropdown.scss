@@ -36,3 +36,40 @@
 		}
 	}
 }
+
+input.search-field[aria-activedescendant] {
+    border-radius: 10px 0 0 0 !important;
+}
+
+input.search-field + .dropdown-menu {
+    padding: 10px;
+    max-width: 100%;
+    max-height: 310px;
+    overflow: auto;
+    border-radius: 0 0 10px 10px;
+    margin: -1px;
+    opacity: 1;
+
+    li a {
+        position: relative;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        color: lighten($base, 10%);
+        @include font-size(13);
+        font-weight: 600;
+        letter-spacing: 2px;
+        line-height: 1.8;
+        text-transform: uppercase;
+        padding: 3px 10px;
+        cursor: pointer;
+
+        strong {
+            color: $brand-primary-light;
+        }
+    }
+
+    .active > a {
+        color: $white;
+    }
+}

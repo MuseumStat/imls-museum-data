@@ -6,6 +6,12 @@ footer {
 		color: $white;
 	}
 
+    .brand {
+        position: relative;
+        background: none;
+        padding: 0;
+    }
+
 	.logo img {
 		display: block;
 		margin: 0 auto 20px;
@@ -37,10 +43,14 @@ footer {
 		margin-bottom: 30px;
 	}
 
+    h4 {
+        color: $white;
+    }
+
 	p {
 		color: $white;
 		line-height: 2;
-		@include font-size(14px);	
+		@include font-size(14px);
 	}
 
 	.btn {

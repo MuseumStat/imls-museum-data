@@ -1,18 +1,18 @@
 /// Color variables
 ///
-$base-light: #cecfe3;
-$base: #9293a9;
-$base-dark: #323349;
-$base-darker: #1b1c31;
+$base-light: lighten(#5f6062, 35%); //#a8adab
+$base: #5f6062;
+$base-dark: darken(#5f6062, 15%); //#2a2d2c
+$base-darker: darken(#5f6062, 20%); //#2a2d2c
 
-$brand-primary: #7779b1;
-$brand-primary-light: lighten($brand-primary, 26%); //#cbcce1
-$brand-primary-lighter: lighten($brand-primary, 30%); //#d8d9e9
+$brand-primary: #257c89;
+$brand-primary-light: lighten($brand-primary, 15%); //#35b3c5
+$brand-primary-lighter: lighten($brand-primary, 35%); //#83d2de
 
-$brand-secondary: #52d9ba;
+$brand-secondary: #bc5405;
 
 $white: #fff;
-$off-white: #edeef4;
+$off-white: #ededed;
 
 $border-color: #ddd;
 
@@ -35,14 +35,20 @@ $tooltip-color: $white;
 
 /// Buttons
 ///
-$btn-font-weight:                600 !default;
+$btn-font-weight:        600;
 
-$btn-default-color:              $base !default;
-$btn-default-border:             $border-color !default;
+$btn-default-color:      $base;
+$btn-default-border:     $border-color;
 
-$btn-info-color:              $brand-primary !default;
-$btn-info-bg:                 $brand-primary-lighter !default;
-$btn-info-border:             $brand-primary-light !default;
+$btn-info-color:         $brand-primary;
+$btn-info-bg:            $brand-primary-lighter;
+$btn-info-border:        $brand-primary-light;
+
+
+/// Links
+///
+$link-color:            $brand-primary-light;
+$link-hover-color:      $brand-primary;
 
 
 
@@ -50,7 +56,7 @@ $btn-info-border:             $brand-primary-light !default;
 /// Used in _mixins.scss > @mixin respond-to($breakpoint)
 $breakpoints: (
   'phone': (max-width: 767px),
-  
+
   'tablet': (min-width: 768px) and (max-width: 991px),
   'tablet-up': (min-width: 768px),
   'tablet-down': (max-width: 991px),

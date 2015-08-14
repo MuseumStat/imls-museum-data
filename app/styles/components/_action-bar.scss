@@ -6,7 +6,7 @@
 	position: relative;
 	z-index: 1000;
 	@include font-size(14);
-	
+
 	h1, h2, h3, p {
 		color: $white;
 	}
@@ -21,7 +21,7 @@
 	}
 
 	h3 {
-		margin-top: 12px;
+		margin-top: 0px;
 	}
 
 	h5 {
@@ -31,18 +31,18 @@
 		letter-spacing: .5px;
 	}
 
-	a:not(.btn), 
+	a:not(.btn),
 	// Reduce border radius on search typeahead
 	.dropdown-menu {
 		border-radius: 10px;
 	}
 	.dropdown-toggle {
-		color: $brand-primary;
+		color: $link-color;
 		cursor: pointer;
 
 		&:hover {
 			text-decoration: none;
-			color: $white;
+			color: $link-hover-color;
 		}
 	}
 
@@ -117,12 +117,12 @@
 // When search field is focused
 	.action-group.search-active {
 		position: relative;
-		
+
 		.search-bar {
 			min-width: 300px;
 			min-height: 45px;
 		}
-		
+
 		.input-group {
 			position: inherit;
 

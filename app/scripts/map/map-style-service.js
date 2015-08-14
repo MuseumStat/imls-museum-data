@@ -3,7 +3,7 @@
     'use strict';
 
     var circle = {
-        color: '#f6ba46',
+        color: '#BC5405',
         weight: 5,
         fill: true,
         fillColor: '#000000',
