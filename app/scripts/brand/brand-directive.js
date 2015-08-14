@@ -7,7 +7,7 @@
         var template = '' +
             '<div class="brand">' +
                 '<a class="logo" ui-sref="{{ ::brandLink }}">' +
-                    '<img srcset="/images/2x/logo@2x.png 2x" src="/images/logo.png" >' +
+                    '<img srcset="/images/2x/museum-stat-logo@2x.png 2x" src="/images/museum-stat-logo.png" >' +
                 '</a>' +
             '</div>';
         var module = {

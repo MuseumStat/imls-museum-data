@@ -7,6 +7,7 @@ body {
 	font-family: $font-base;
 	color: $base;
 	@include font-size(13);
+    min-width: 970px;
 }
 
 a, .btn {
