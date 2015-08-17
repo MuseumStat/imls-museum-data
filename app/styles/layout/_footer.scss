@@ -57,4 +57,15 @@ footer {
 		margin-top: 20px;
 		padding: 15px 30px;
 	}
+
+    .brand {
+        text-align: center;
+
+        .logo {
+            display: inline-block;
+            vertical-align: middle;
+            margin-left: 20px;
+            margin-right: 20px;
+        }
+    }
 }
