@@ -17,7 +17,17 @@
             'LIMIT {limit}'
         ].join('');
         var listTemplate = [
-            'SELECT mid, commonname, adaddress, adcity, adstate, revenue, discipl ',
+            // Include all relevant rows, we don't want to download and columns added by cartodb
+            //  e.g. cartodb_id, the_geom, the_geom_webmercator, created_at, modified_at, etc.
+            'SELECT mid, _from, aams_id, adaddress, adcity, adstate, adzip, adzip4, adzip5, ',
+                'akadba, altname, block, cap_id, category_i, category_l, cbsacode, cmid, cntrycd, ',
+                'commonname, confidence, delete_f, discipl, duns, duplicate_, ein, factual_id, ',
+                'fct3p_f, fipsco, fipsmin, fipsplac, fipsst, found_id, gaddress, gal, galmat, ',
+                'gcity, gstate, gzip, imlsad_f, income, incomecd, initials, irs990_f, ',
+                'latitude, legalname, locale4, longitude, metrodiv, microf, mudf_id, npsid, nteec, ',
+                'opstatus_f, pfnd_f, phaddress, phcity, phone, phstate, phzip, postmat, revenue, ',
+                'review_f, rnotes, scope_f, sortid, src_cnt, syear, taxper, tmid, tract, unotes, ',
+                'user_f, weburl ',
             'FROM {tablename} ',
             'WHERE ST_DWithin({geom}::geography, ST_SetSRID(ST_MakePoint({x}, {y}), {srid})::geography, {radius}) ',
             'ORDER BY ',
