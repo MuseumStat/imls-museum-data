@@ -40,6 +40,7 @@
                     ctl.pageState = ctl.states.LIST;
                     ctl.searchText = lastSearched.text;
                     requestNearbyMuseums(lastSearched.position);
+                    $cookies.remove(Config.cookies.LAST_SEARCHED);
                 }
             });
         }
@@ -98,23 +99,12 @@
                 if (rows.length) {
                     ctl.list = rows;
                     ctl.pageState = ctl.states.LIST;
-                    setLastPositionCookie(position);
                 } else {
                     ctl.pageState = ctl.states.ERROR;
                 }
             }).catch(function (error) {
                 $log.error(error);
                 ctl.pageState = ctl.states.ERROR;
-            });
-        }
-
-        function setLastPositionCookie(position) {
-            $cookies.putObject(Config.cookies.LAST_SEARCHED, {
-                text: ctl.searchText || '',
-                position: position
-            }, {
-                // Set expiry to 12hrs from set time
-                expires: new Date(new Date().getTime() + 12 * 3600 * 1000)
             });
         }
 
