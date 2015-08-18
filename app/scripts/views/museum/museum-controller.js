@@ -5,7 +5,7 @@
      * Controller for the imls app home view
      */
     /* ngInject */
-    function MuseumController($log, $scope, $stateParams, $timeout, $window, resize,
+    function MuseumController($cookies, $log, $scope, $state, $stateParams, $timeout, $window, resize,
                               Config, ACS, ACSGraphs, MapStyle, Museum) {
         var ctl = this;
 
@@ -36,6 +36,7 @@
             ctl.mapExpanded = false;
             ctl.activeTab = 'people';
 
+            ctl.onBackButtonClicked = onBackButtonClicked;
             ctl.onRadiusChanged = onRadiusChanged;
             ctl.onStartDrawPolygon = onStartDrawPolygon;
             ctl.onStartDrawCircle = onStartDrawCircle;
@@ -136,6 +137,27 @@
             searchPolygon = L.circle(center, radius, searchPolygonStyle);
             map.addLayer(searchPolygon);
             map.fitBounds(searchPolygon.getBounds());
+        }
+
+        function setLastPositionCookie() {
+            if (!ctl.museum) {
+                return;
+            }
+            $cookies.putObject(Config.cookies.LAST_SEARCHED, {
+                text: ctl.museum.commonname || '',
+                position: {
+                    x: ctl.museum.longitude,
+                    y: ctl.museum.latitude
+                }
+            }, {
+                // Set expiry to 12hrs from set time
+                expires: new Date(new Date().getTime() + 12 * 3600 * 1000)
+            });
+        }
+
+        function onBackButtonClicked() {
+            setLastPositionCookie();
+            $state.go('home');
         }
 
         function clearSearchPolygon() {

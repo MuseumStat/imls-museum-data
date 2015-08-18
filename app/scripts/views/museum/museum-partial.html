@@ -8,7 +8,7 @@
             <div class="row">
                 <div class="col-md-9 col-sm-12">
                     <div ng-if="museum.museum">
-                        <a class="back-to-results" ui-sref="home"><i class="md-icon-left-big"></i></a>
+                        <a class="back-to-results" ng-click="museum.onBackButtonClicked()"><i class="md-icon-left-big"></i></a>
                         <h1>{{ ::museum.museum.commonname }} </h1>
                         <!--
                             TODO: Create address via filter, so we can use proper version of the address
