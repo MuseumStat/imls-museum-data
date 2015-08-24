@@ -57,9 +57,20 @@
         function csvTransform(data) {
             var headers = _.keys(_.omit(data[0], '$$hashKey'));
 
+            var quoteReplaceRe = /"/g;
+
             var csvString = headers.join(',') + '\n';
             angular.forEach(data, function (row) {
-                csvString += _.values(_.omit(row, '$$hashKey')).join(',') + '\n';
+                csvString += _(row).omit('$$hashkey').values().map(function (value) {
+                    if (_.isString(value)) {
+                        // Need to quote strings, and convert double quotes to a pair of
+                        // double quotes:
+                        //  http://www.csvreader.com/csv_format.php
+                        return '"' + value.replace(quoteReplaceRe, '""') + '"';
+                    } else {
+                        return value;
+                    }
+                }).value().join(',') + '\n';
             });
             return csvString;
         }
