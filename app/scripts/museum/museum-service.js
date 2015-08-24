@@ -17,17 +17,17 @@
             'LIMIT {limit}'
         ].join('');
         var listTemplate = [
-            'SELECT cartodb_id, commonname, adaddress, adcity, adstate, revenue, discipl ',
+            'SELECT mid, commonname, adaddress, adcity, adstate, revenue, discipl ',
             'FROM {tablename} ',
             'WHERE ST_DWithin({geom}::geography, ST_SetSRID(ST_MakePoint({x}, {y}), {srid})::geography, {radius}) ',
             'ORDER BY ',
             '  ST_Distance({geom}::geography, ST_SetSRID(ST_MakePoint({x}, {y}), {srid})::geography)'
         ].join('');
-        var detailTemplate = 'SELECT * from {tablename} WHERE cartodb_id = {cartodbId}';
+        var detailTemplate = 'SELECT * from {tablename} WHERE mid = {mid}';
 
         var sql = new cartodb.SQL({ user: Config.cartodb.account });
         var cols = {
-            id: 'cartodb_id',
+            id: 'mid',
             name: 'commonname',
             altname: 'altname',
             legalname: 'legalname',
@@ -82,7 +82,7 @@
         function detail(museumId) {
             var query = Util.strFormat(detailTemplate, {
                 tablename: Config.cartodb.tableName,
-                cartodbId: museumId
+                mid: museumId
             });
             return Util.makeRequest(sql, query);
         }
