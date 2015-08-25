@@ -40,7 +40,7 @@
             </div>
         </div> <!-- /.museum-info -->
         <div class="museum-boundary">
-            <p>Edit Museum Boundary</p>
+            <p>Change Analysis Area</p>
             <form class="form-inline">
                 <div class="action-group">
                     <div class="form-group">
@@ -59,7 +59,7 @@
                                 data-toggle="tooltip"
                                 data-placement="bottom"
                                 ng-click="museum.onStartDrawPolygon()"
-                                title="Draw Custom Polygon">
+                                title="Draw custom area">
                             <i class="md-icon-polygon-draw"></i>
                         </button>
                     </div>
@@ -71,7 +71,7 @@
                                 data-toggle="tooltip"
                                 data-placement="bottom"
                                 ng-click="museum.onStartDrawCircle()"
-                                title="Draw Circle Polygon">
+                                title="Draw custom radius">
                             <i class="md-icon-polygon-circle"></i>
                         </button>
                     </div>
@@ -98,7 +98,7 @@
                         </imls-tab-households>
                     </tab>
                     <tab class="tab-pane fade in" select="museum.activeTab = 'similar'">
-                        <tab-heading>Similar Museums</tab-heading>
+                        <tab-heading>Nearby Museums</tab-heading>
                         TODO: Fill Content
                     </tab>
                 </tabset>
