@@ -108,7 +108,7 @@
             // Transform tracts into objects, with requested variables as properties
             // Then aggregate sum, avg, and popAvg
             }).then(function (results) {
-                var rawData = _.drop(results[0].data);
+                var rawData = _(results).map(function (result) { return _.drop(result.data); }).flatten().value();
                 var headers = _.first(results[0].data);
                 var tractData = _.map(rawData, _.zipObject.bind(null, headers));
 
