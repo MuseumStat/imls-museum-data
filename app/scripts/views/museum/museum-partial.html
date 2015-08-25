@@ -28,7 +28,7 @@
                 <div class="col-md-3 col-sm-12">
                     <ul class="list-unstyled">
                         <!-- TODO: Verify this value and make it more useful to user -->
-                        <li><strong>Category:</strong> {{ ::museum.museum.discipl }}</li>
+                        <li><strong>Category:</strong> {{ museum.museum.discipl | imlsCategory }}</li>
                         <!-- TODO: Filter to properly format phone number -->
                         <li><strong>Phone:</strong> {{ ::museum.museum.phone | tel }}</li>
                         <!-- TODO: Verify for bad data -->

@@ -19,7 +19,7 @@
             var zip = input.gzip;
 
             return address + ', ' + city + ', ' + state + ' ' + zip;
-        }
+        };
     }
 
     angular.module('imls.museum')
