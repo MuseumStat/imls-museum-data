@@ -28,11 +28,11 @@
                 <div class="col-md-3 col-sm-12">
                     <ul class="list-unstyled">
                         <!-- TODO: Verify this value and make it more useful to user -->
-                        <li><strong>Category:</strong> {{ museum.museum.discipl | imlsCategory }}</li>
+                        <li ng-if="museum.museum.discipl"><strong>Category:</strong> {{ museum.museum.discipl | imlsCategory }}</li>
                         <!-- TODO: Filter to properly format phone number -->
-                        <li><strong>Phone:</strong> {{ ::museum.museum.phone | tel }}</li>
+                        <li ng-if="museum.museum.phone"><strong>Phone:</strong> {{ ::museum.museum.phone | tel }}</li>
                         <!-- TODO: Verify for bad data -->
-                        <li><a href="{{ ::museum.museum.weburl }}" target="_blank">Visit Museum Website</a></li>
+                        <li ng-if="museum.museum.weburl"><a href="{{ ::museum.museum.weburl }}" target="_blank">Visit Museum Website</a></li>
                         <li><a>Submit Museum Update</a></li>
                         <li><a ng-click="museum.onPrintClicked()">Print This Report</a></li>
                     </ul>
