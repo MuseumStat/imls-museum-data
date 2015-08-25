@@ -15,6 +15,14 @@
         $logProvider.debugEnabled(Config.debug);
     }
 
+    /* ngInject */
+    function run($rootScope, $window) {
+        // Always reset scroll to top on state change
+        $rootScope.$on('$stateChangeSuccess', function () {
+            $window.scrollTo(0,0);
+        });
+    }
+
     /**
      * @ngdoc overview
      * @name imlsMuseumApp
@@ -30,5 +38,6 @@
         'imls.views.museum'
     ])
     .config(DefaultRoutingConfig)
-    .config(LogConfig);
+    .config(LogConfig)
+    .run(run);
 })();
