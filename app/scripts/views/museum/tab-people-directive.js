@@ -62,12 +62,26 @@
         }
 
         function draw(forceRedraw) {
+            var raceOpts = {
+                forceRedraw: forceRedraw,
+                margin: {
+                    left: 200,
+                    right: 30
+                }
+            };
+            var empOpts = {
+                forceRedraw: forceRedraw,
+                margin: {
+                    left: 100,
+                    right: 30
+                }
+            };
             ACSGraphs.drawBarChart('race',
                                    ACSGraphs.generateSeries(ctl.data, 'sum', raceVariables),
-                                   true, forceRedraw);
+                                   raceOpts);
             ACSGraphs.drawBarChart('employment',
                                    ACSGraphs.generateSeries(ctl.data, 'sum', employmentVariables),
-                                   false, forceRedraw);
+                                   empOpts);
             ACSGraphs.drawPieChart('gender',
                                    ACSGraphs.generateSeries(ctl.data, 'sum', genderVariables),
                                    forceRedraw);

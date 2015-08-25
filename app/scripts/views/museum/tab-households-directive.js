@@ -43,9 +43,16 @@
         }
 
         function draw(forceRedraw) {
+            var householdOpts = {
+                forceRedraw: forceRedraw,
+                margin: {
+                    left: 200,
+                    right: 30
+                }
+            };
             ACSGraphs.drawBarChart('household-language',
                                    ACSGraphs.generateSeries(ctl.data, 'sum', houseLangVariables),
-                                   false, forceRedraw);
+                                   householdOpts);
             ACSGraphs.drawPieChart('household-type',
                                    ACSGraphs.generateSeries(ctl.data, 'sum', houseTypeVariables),
                                    forceRedraw);

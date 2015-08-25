@@ -3,7 +3,7 @@
     'use strict';
 
     /* ngInject */
-    function ACSGraphs(ACSVariables) {
+    function ACSGraphs($filter, ACSVariables) {
 
         var charts = {};
 
@@ -28,22 +28,33 @@
             });
         }
 
-        function drawBarChart(key, series, horizontal, forceRedraw) {
+        function drawBarChart(key, series, options) {
+            var defaults = {
+                margin: {
+                    top: 10,
+                    left: 10,
+                    bottom: 10,
+                    right: 10
+                },
+                forceRedraw: false,
+                horizontal: true
+            };
+            var opts = angular.extend({}, defaults, options);
             var datum = [{
                 key: key,
                 values: series
             }];
-            if (forceRedraw || !charts[key]) {
+            if (opts.forceRedraw || !charts[key]) {
                 var chart;
-                if(horizontal) {
+                if(opts.horizontal) {
                     chart = nv.models.multiBarHorizontalChart()
                         .x(function(d) { return addElipses(d.label, 30); })
                         .y(function(d) { return d.value; })
                         .tooltipContent(function(d) {
-                            return '<b>' + d.data.label + ': </b>' + d.data.value;
+                            return '<b>' + d.data.label + ': </b>' + $filter('number')(d.data.value);
                         })
                         .color(function () { return '#bc5405'; })
-                        .margin({right: 30, left: 200})
+                        .margin(opts.margin)
                         .showControls(false)
                         .showLegend(false);
                 } else {
@@ -51,11 +62,11 @@
                         .x(function(d) { return addElipses(d.label, 20); })
                         .y(function(d) { return d.value; })
                         .tooltipContent(function(d) {
-                            return '<b>' + d.data.label + ': </b>' + d.data.value;
+                            return '<b>' + d.data.label + ': </b>' + $filter('number')(d.data.value);
                         })
                         .staggerLabels(true)
                         .color(function () { return '#bc5405'; })
-                        .margin({right: 10});
+                        .margin(opts.margin);
                 }
                 nv.utils.windowResize(chart.update);
                 charts[key] = chart;
@@ -76,10 +87,10 @@
                     .x(function(d) { return addElipses(d.label, 10); })
                     .y(function(d) { return d.value; })
                     .tooltipContent(function(d) {
-                        return '<b>' + d.data.label + ': </b>' + d.data.value;
+                        return '<b>' + d.data.label + ': </b>' + $filter('number')(d.data.value);
                     })
                     .color(function () { return '#bc5405'; })
-                    .margin({right: 10})
+                    .margin({top: 0, left: 10, bottom: 0, right: 10})
                     .showLegend(false);
                 charts[key] = chart;
             }
