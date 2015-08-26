@@ -6,7 +6,7 @@
 
         var template = '' +
             '<div class="brand">' +
-                '<a class="logo" ui-sref="{{ ::brandLink }}">' +
+                '<a class="logo" ui-sref="{{ ::brandLink }}" ui-sref-opts="{reload: true}">' +
                     '<img srcset="/images/2x/museum-stat-logo@2x.png 2x" src="/images/museum-stat-logo.png" >' +
                 '</a>' +
             '</div>';
