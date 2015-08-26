@@ -23,38 +23,6 @@
         return module;
 
         /**
-         * Returns a where clause that selects a radius around a point.
-         * Return value contains {geom} token to be replaced with geometry
-         * column name.
-         * @param {Number} x
-         * @param {Number} y
-         * @param {Number} radius radius in meters
-         * @return {string} SQL containing a {geom} token to replaced with
-         *     geometry column name
-         */
-        function radiusWhere(x, y, radius) {
-            return [
-                'ST_DWithin(ST_SetSRID(ST_Point(', x, ',', y, '), {srid})::geography, {geom}, ', radius, ')'
-            ].join('');
-        }
-
-        /**
-         * Return a where clause that selects a polygon of given points.
-         * @param {Array} Array of lat lng arrays
-         * @return {string} SQL containing a {geom} token to be replaced with
-         *     geometry column name
-         */
-        function polygonWhere(points) {
-            return [
-                '{geom} && ',
-                'ST_Polygon(ST_GeomFromText(\'LINESTRING(',
-                    _.map(points, function (point) { return point.join(' '); })
-                        .join(', '),
-                ')\'), {srid})'
-            ].join('');
-        }
-
-        /**
          * Retrieve, filter and transform ACS data into a useful, aggregated format for our purposes
          *
          * The response from this function call will take the form:
@@ -153,11 +121,11 @@
         }
 
         function getRadius(x, y, radius) {
-            return getACSData(radiusWhere(x, y, radius));
+            return getACSData(Util.radiusWhere(x, y, radius));
         }
 
         function getPolygon(points) {
-            return getACSData(polygonWhere(points));
+            return getACSData(Util.polygonWhere(points));
         }
     }
 

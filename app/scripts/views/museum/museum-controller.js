@@ -60,6 +60,9 @@
 
         function setMuseum(rows) {
             ctl.museum = rows[0];
+            Museum.byTypeInState(ctl.museum.gstate).then(function (response) {
+                ctl.nearbyInState = response;
+            });
             $log.info(ctl.museum);
             onRadiusChanged();
         }
@@ -73,6 +76,10 @@
             // Initialize charts with data in a 1 mi radius
             setACSSearchRadius(center, ctl.acsRadius);
             ACS.getRadius(center.lng, center.lat, ctl.acsRadius).then(onACSDataComplete, onACSDataError);
+            Museum.byTypeInRadius(center.lng, center.lat, ctl.acsRadius).then(function (data) {
+                ctl.nearbyInArea = data;
+            });
+
         }
 
         function onStartDrawPolygon() {
@@ -92,20 +99,26 @@
         function onDrawCreated(event) {
             var layer = event.layer;
             var acsRequest;
+            var nearbyRequest;
             if (event.layerType === 'polygon') {
                 var points = layer.toGeoJSON().geometry.coordinates[0];
                 $log.info(points);
                 acsRequest = ACS.getPolygon(points);
+                nearbyRequest = Museum.byTypeInPolygon(points);
                 setACSSearchPolygon(_.map(points, function (p) { return [p[1], p[0]]; }));
                 setMapExpanded(false);
             } else if (event.layerType === 'circle') {
                 var latlng = layer.getLatLng();
                 var radius = layer.getRadius();
                 acsRequest = ACS.getRadius(latlng.lng, latlng.lat, radius);
+                nearbyRequest = Museum.byTypeInRadius(latlng.lng, latlng.lat, radius);
                 setACSSearchRadius(latlng, radius);
                 setMapExpanded(false);
             }
             acsRequest.then(onACSDataComplete, onACSDataError);
+            nearbyRequest.then(function (data) {
+                ctl.nearbyInArea = data;
+            });
         }
 
         function setMapExpanded(isExpanded) {
