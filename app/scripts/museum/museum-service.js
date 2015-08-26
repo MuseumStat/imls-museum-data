@@ -3,7 +3,7 @@
     'use strict';
 
     /* ngInject */
-    function Museum ($log, $q, Config, Util) {
+    function Museum ($log, $q, Config, LegendMap, Util) {
 
         var suggestTemplate = [
             'SELECT {id} as id, {name} as name, ',
@@ -35,6 +35,11 @@
         ].join('');
         var detailTemplate = 'SELECT * from {tablename} WHERE mid = {mid}';
 
+        function relatedTemplate(where) {
+            return 'SELECT discipl as label, COUNT(discipl) as value FROM {tablename} ' +
+                   'WHERE ' + where + ' GROUP BY discipl';
+        }
+
         var sql = new cartodb.SQL({ user: Config.cartodb.account });
         var cols = {
             id: 'mid',
@@ -47,7 +52,10 @@
         var module = {
             suggest: suggest,
             list: list,
-            detail: detail
+            detail: detail,
+            byTypeInRadius: byTypeInRadius,
+            byTypeInPolygon: byTypeInPolygon,
+            byTypeInState: byTypeInState
         };
 
         return module;
@@ -95,6 +103,41 @@
                 mid: museumId
             });
             return Util.makeRequest(sql, query);
+        }
+
+        function transformLabels(rows) {
+            return _.map(rows, function(row) {
+                return {
+                    label: LegendMap[row.label],
+                    value: row.value
+                };
+            });
+        }
+
+        function byTypeInRadius(x, y, r) {
+            var query = Util.strFormat(relatedTemplate(Util.radiusWhere(x, y, r)), {
+                tablename: Config.cartodb.tableName,
+                geom: 'the_geom',
+                srid: 4326
+            });
+            return Util.makeRequest(sql, query).then(transformLabels);
+        }
+
+        function byTypeInPolygon(points) {
+            var query = Util.strFormat(relatedTemplate(Util.polygonWhere(points)), {
+                tablename: Config.cartodb.tableName,
+                geom: 'the_geom',
+                srid: 4326
+            });
+            return Util.makeRequest(sql, query).then(transformLabels);
+        }
+
+        function byTypeInState(state) {
+            var query = Util.strFormat(relatedTemplate('gstate = \'{state}\''), {
+                tablename: Config.cartodb.tableName,
+                state: state
+            });
+            return Util.makeRequest(sql, query).then(transformLabels);
         }
     }
 

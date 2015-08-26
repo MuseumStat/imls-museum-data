@@ -99,7 +99,11 @@
                     </tab>
                     <tab class="tab-pane fade in" select="museum.activeTab = 'similar'">
                         <tab-heading>Nearby Museums</tab-heading>
-                        TODO: Fill Content
+                        <imls-tab-nearby-museums ng-if="museum.nearbyInState && museum.nearbyInArea"
+                                             state-data="museum.nearbyInState"
+                                             area-data="museum.nearbyInArea"
+                                             is-tab-visible="museum.activeTab === 'similar'">
+                        </imls-tab-nearby-museums>
                     </tab>
                 </tabset>
         </div> <!-- /.container-fluid -->
