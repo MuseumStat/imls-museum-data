@@ -2,6 +2,16 @@
 (function () {
     'use strict';
 
+    var SocialSites = [
+        'facebook',
+        'twitter',
+        'google_plus',
+        'wikipedia',
+        'yelp',
+        'pinterest',
+        'foursquare'
+    ];
+
     /* ngInject */
     function Museum ($log, $q, Config, LegendMap, Util) {
 
@@ -16,6 +26,9 @@
                 '{altname} ILIKE \'%{text}%\'',
             'LIMIT {limit}'
         ].join('');
+        var socialTemplate = _.map(SocialSites, function (site) {
+            return site + '_url';
+        }).join(', ');
         var listTemplate = [
             // Include all relevant rows, we don't want to download and columns added by cartodb
             //  e.g. cartodb_id, the_geom, the_geom_webmercator, created_at, modified_at, etc.
@@ -27,7 +40,9 @@
                 'latitude, legalname, locale4, longitude, metrodiv, microf, mudf_id, npsid, nteec, ',
                 'opstatus_f, pfnd_f, phaddress, phcity, phone, phstate, phzip, postmat, revenue, ',
                 'review_f, rnotes, scope_f, sortid, src_cnt, syear, taxper, tmid, tract, unotes, ',
-                'user_f, weburl ',
+                'user_f, weburl, ',
+                socialTemplate,
+                ' ',
             'FROM {tablename} ',
             'WHERE ST_DWithin({geom}::geography, ST_SetSRID(ST_MakePoint({x}, {y}), {srid})::geography, {radius}) ',
             'ORDER BY ',
@@ -143,5 +158,8 @@
 
     angular.module('imls.museum')
     .factory('Museum', Museum);
+
+    angular.module('imls.museum')
+    .constant('SocialSites', SocialSites);
 
 })();

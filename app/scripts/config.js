@@ -26,6 +26,9 @@
             tableName: 'mudf15q1int',
             tractsTableName: 'seattle_area_tracts'
         },
+        // In this string, :site: will be replaced with each value of the SocialSites constant
+        //  in the imls.museum module
+        socialColumn: ':site:_url',
         typeahead: {
             results: 10
         },
