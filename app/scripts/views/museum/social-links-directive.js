@@ -2,7 +2,7 @@
     'use strict';
 
     /* ngInject */
-    function SocialLinksController(Config, SocialSites) {
+    function SocialLinksController(Config) {
 
         var ctl = this;
 
@@ -25,7 +25,7 @@
         }
 
         function setSocialUrls() {
-            angular.forEach(SocialSites, function (site) {
+            angular.forEach(Config.socialSites, function (site) {
                 var column = Config.socialColumn.replace(':site:', site);
                 if (ctl.museum[column]) {
                     ctl.urls[site] = ctl.museum[column];

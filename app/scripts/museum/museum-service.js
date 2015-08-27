@@ -2,16 +2,6 @@
 (function () {
     'use strict';
 
-    var SocialSites = [
-        'facebook',
-        'twitter',
-        'google_plus',
-        'wikipedia',
-        'yelp',
-        'pinterest',
-        'foursquare'
-    ];
-
     /* ngInject */
     function Museum ($log, $q, Config, LegendMap, Util) {
 
@@ -26,7 +16,7 @@
                 '{altname} ILIKE \'%{text}%\'',
             'LIMIT {limit}'
         ].join('');
-        var socialTemplate = _.map(SocialSites, function (site) {
+        var socialTemplate = _.map(Config.socialSites, function (site) {
             return site + '_url';
         }).join(', ');
         var listTemplate = [
@@ -158,8 +148,5 @@
 
     angular.module('imls.museum')
     .factory('Museum', Museum);
-
-    angular.module('imls.museum')
-    .constant('SocialSites', SocialSites);
 
 })();
