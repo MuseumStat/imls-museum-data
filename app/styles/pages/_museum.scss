@@ -1,7 +1,7 @@
 .museum-page {
 
 	// Action bar Changes
-	.action-bar {
+	.action-bar:not(.navbar) {
 		//margin-top: 0;
 		background: $base-darker;
 		padding: 0;
@@ -22,6 +22,8 @@
 
 		ul:not(.social-media) {
             margin-top: 5px;
+            transition: .2s ease transform;
+            transform-origin: center;
 
 			li {
 				margin-bottom: 5px;
@@ -67,7 +69,8 @@
 
 			.social-media,
 			.list-unstyled {
-				display: none;
+                transform: scale(0);
+                position: absolute;
 			}
 
 			.museum-info {

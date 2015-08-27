@@ -1,6 +1,18 @@
 <div class="museum-page" ng-class="{'map-expanded': museum.mapExpanded}">
-
-    <imls-brand></imls-brand>
+    <div class="navbar action-bar">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xs-7">
+                    <imls-brand></imls-brand>
+                    <nav>
+                        <a ui-sref="home">Home</a>
+                        <a ui-sref="about">About</a>
+                        <a ui-sref="contact">Contact</a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
     <cartodb-vis></cartodb-vis>
 
     <div class="action-bar" action-bar-affix>

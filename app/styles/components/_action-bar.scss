@@ -39,12 +39,16 @@
 	.dropdown-toggle {
 		color: $link-color;
 		cursor: pointer;
+        vertical-align: middle;
 
 		&:hover {
 			text-decoration: none;
 			color: $link-hover-color;
 		}
 	}
+    .dropdown.open .dropdown-menu {
+        min-width: 202px;
+    }
 
 	.back-to-results {
 		position: absolute;

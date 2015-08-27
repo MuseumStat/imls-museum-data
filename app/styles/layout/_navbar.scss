@@ -12,6 +12,10 @@
             @include font-size(14);
             padding: 15px;
         }
+
+        .active {
+            color: $white;
+        }
     }
 
     .action-group {
