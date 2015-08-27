@@ -13,13 +13,23 @@ SQL_API_URL = "https://{cartodb_account}.cartodb.com/api/v2/sql?api_key={key}&q=
 # If your cartodb columns for each of the social media urls are different, modify the values
 # in this mapping, e.g. change facebook_id to the appropriate column name in your table
 SOCIAL_COLUMNS = {
-    'facebook': 'facebook_id',
-    'twitter': 'twitter_id',
+    'wikipedia': 'wikipedia_url',
+    'facebook': 'facebook_url',
+    'twitter': 'twitter_url',
+    'google_plus': 'google_plus_url',
+    'yelp': 'yelp_url',
+    'foursquare': 'foursquare_url',
+    'pinterest': 'pinterest_url'
 }
 
 URLS_TEMPLATE = {
+    'wikipedia': '',
     'facebook': '',
     'twitter': '',
+    'google_plus': '',
+    'yelp': '',
+    'foursquare': '',
+    'pinterest': ''
 }
 
 def get_social_urls(factual_api, factual_id):
