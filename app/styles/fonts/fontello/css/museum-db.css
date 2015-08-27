@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'museum-db';
-  src: url('../font/museum-db.eot?76426994');
-  src: url('../font/museum-db.eot?76426994#iefix') format('embedded-opentype'),
-       url('../font/museum-db.woff?76426994') format('woff'),
-       url('../font/museum-db.ttf?76426994') format('truetype'),
-       url('../font/museum-db.svg?76426994#museum-db') format('svg');
+  src: url('../font/museum-db.eot?97290005');
+  src: url('../font/museum-db.eot?97290005#iefix') format('embedded-opentype'),
+       url('../font/museum-db.woff?97290005') format('woff'),
+       url('../font/museum-db.ttf?97290005') format('truetype'),
+       url('../font/museum-db.svg?97290005#museum-db') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -14,7 +14,7 @@
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
     font-family: 'museum-db';
-    src: url('../font/museum-db.svg?76426994#museum-db') format('svg');
+    src: url('../font/museum-db.svg?97290005#museum-db') format('svg');
   }
 }
 */
@@ -74,3 +74,4 @@
 .md-icon-sort:before { content: '\e811'; } /* '' */
 .md-icon-left-big:before { content: '\e812'; } /* '' */
 .md-icon-down-mini:before { content: '\e813'; } /* '' */
+.md-icon-wikipedia:before { content: '\e814'; } /* '' */
