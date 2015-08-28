@@ -15,8 +15,8 @@
 
             //caches a jQuery object containing the header element
             var $header = element;
-            var navHeight = $header.parent().find('.navbar.action-bar').outerHeight();
-            var mapHeight = $header.parent().find('.map-container').outerHeight();
+            var navHeight = $header.parent().find('.navbar.action-bar').innerHeight();
+            var mapHeight = $header.parent().find('.map-container').innerHeight();
             $(window).scroll(function() {
                 var scroll = $(window).scrollTop();
 
