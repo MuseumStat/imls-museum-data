@@ -8,12 +8,6 @@
     /* ngInject */
     function AboutController() {
 
-        var ctl = this;
-
-        initialize();
-
-        function initialize() {
-        }
     }
 
     angular.module('imls.views.about')

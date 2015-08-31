@@ -15,7 +15,7 @@
                 return input;
             }
             return input.substr(0, 3) + '-' + input.substr(3, 3) + '-' + input.substr(6);
-        }
+        };
     }
 
     angular.module('imls.museum')
