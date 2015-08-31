@@ -1,0 +1,25 @@
+<div class="map-container">
+    <div class="vis-layer-selector" 
+         ng-if="vis.sublayers.length">
+        <div class="vis-layer-selector-button" 
+             ng-class="{ 'visible': vis.layersVisible }"
+             ng-click="vis.layersVisible = !vis.layersVisible">
+            <i class="md-icon-layers"></i><span ng-show="vis.layersVisible">Demographics</span>
+        </div>
+        <div class="vis-layer-selector-body" ng-show="vis.layersVisible">
+            <ul>
+                <li ng-repeat="sublayer in vis.sublayers">
+                    <label>
+                        <input type="radio" 
+                               ng-model="vis.radio"
+                               value="{{ $index }}"
+                               ng-change="vis.onSublayerChange(sublayer)">
+                               {{ sublayer.legend.get('title') }}
+                    </label>
+                </li>
+            </ul>
+        </div> 
+    </div>
+    <div id="map"></div>
+</div> <!-- /.map-container -->
+
