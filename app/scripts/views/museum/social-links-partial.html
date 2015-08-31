@@ -1,0 +1,5 @@
+<ul class="social-media list-inline">
+    <li ng-repeat="(key, url) in links.urls" ng-if="url">
+        <a href="{{ url }}" target="_blank"><i class="{{links.iconForKey(key)}}"></i></a>
+    </li>
+</ul> <!-- /.social-icons -->

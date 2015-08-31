@@ -26,6 +26,22 @@
             tableName: 'mudf15q1int',
             tractsTableName: 'seattle_area_tracts'
         },
+        // :site: will be replaced with each value of socialSites 
+        socialColumn: ':site:_url',
+        // The sites to pull factual social media urls from.
+        //  these strings should be a subset of the options available here:
+        //  http://developer.factual.com/places-crosswalk/#namespaces 
+        // The cartodb table for this app must then have a socialColumn manually added for
+        //  each entry here, with the column name equal to the value used in socialColumn
+        socialSites: [
+            'facebook',
+            'twitter',
+            'google_plus',
+            'wikipedia',
+            'yelp',
+            'pinterest',
+            'foursquare'
+        ],
         typeahead: {
             results: 10
         },
