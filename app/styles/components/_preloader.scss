@@ -1,0 +1,21 @@
+.preloader {
+    display: block;
+    margin: 10px auto;
+    width: 60px;
+    height: 60px;
+    background-image: url(/images/preloader.gif);
+    background-image: url(/images/preloader.svg);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    &.small {
+        width: 30px;
+        height: 30px;
+    }
+
+    &.large {
+        width: 150px;
+        height: 150px;
+    }
+}

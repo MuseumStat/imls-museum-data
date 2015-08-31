@@ -1,9 +1,12 @@
 .chart-graph {
 	color: $base;
 	margin-bottom: 70px;
+    padding: 10px 20px;
+    border: 1px solid $border-color;
+    border-radius: 10px;
 
 	h4 {
-		margin-bottom: 30px;
+		margin-bottom: 10px;
 	}
 
 	svg {
@@ -11,12 +14,35 @@
 	}
 
 	.numerical {
-		@include font-size(60);
+		@include font-size(45);
 		font-weight: 700;
 		color: $base-light;
+        display: block;
 	}
 
 	img {
 		max-width: 100%;
 	}
+}
+
+
+.nvd3 {
+
+    text {
+        font-family: $font-base;
+        font-weight: 600;
+        fill: $base-darker !important;
+    }
+
+    g:nth-child(even) {
+        fill: lighten($brand-secondary, 10%);
+    }
+}
+
+
+.nvtooltip {
+    background: rgba($base-darker, .8);
+    color: $white;
+    padding: 7px 10px;
+    font-family: $font-base;
 }

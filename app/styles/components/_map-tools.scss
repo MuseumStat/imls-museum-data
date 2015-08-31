@@ -45,3 +45,75 @@
         }
     }
 }
+
+
+// CartoDB Map
+.cartodb-map-wrapper {
+
+    .cartodb-legend.category {
+
+        li {
+            text-transform: none;
+        }
+
+        .bullet {
+            float: none;
+            display: inline-block;
+            vertical-align: middle;
+        }
+    }
+
+    //hover tooltip
+    .cartodb-tooltip-content-wrapper {
+        background: $base-dark;
+
+        p {
+            color: $white;
+        }
+    }
+
+    //click popup
+    .cartodb-popup.v2 {
+        background: $base-dark;
+
+        h2 {
+            @include font-size(14);
+            color: $white;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+            border-bottom: 1px solid $base;
+        }
+
+        p {
+            color: $base-light;
+        }
+
+        .cartodb-popup-content a {
+            display: block;
+            text-align: center;
+            padding: 10px;
+            border-radius: 100px;
+            background: $brand-primary;
+            color: $white;
+            max-width: 90%;
+
+            &:hover {
+                text-decoration: none;
+                background: $brand-primary-light;
+            }
+        }
+
+        a.close {
+            background: $base;
+            color: $white;
+
+            &:before, &:after {
+                background: $white;
+            }
+        }
+
+        &:before {
+            border-top-color: $base-dark;
+        }
+    }
+}

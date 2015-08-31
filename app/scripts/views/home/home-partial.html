@@ -1,57 +1,62 @@
-<div ng-class="{'map-expanded': home.mapExpanded, 'home-page': home.pageState === home.states.DISCOVER }">
-    <imls-brand></imls-brand>
+<div ng-class="{'map-expanded': home.mapExpanded, 'home-page': home.pageState === home.states.DISCOVER, 'empty-search': home.pageState === home.states.ERROR }">
+    <div class="navbar action-bar">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xs-7">
+                    <imls-brand></imls-brand>
+                    <nav>
+                        <a ui-sref="home">Home</a>
+                        <a ui-sref="about">About</a>
+                        <a ui-sref="contact">Contact</a>
+                    </nav>
+                </div>
+
+                <div class="col-xs-5">
+                    <form class="form-inline">
+                        <div class="action-group">
+                            <label class="input-group-addon" for="searchInput"><i class="md-icon-search"></i></label>
+                            <input type="text"
+                                   placeholder="Search"
+                                   class="form-control search-field"
+                                   ng-model="home.searchText"
+                                   typeahead="location as location.name for location in home.search($viewValue)"
+                                   typeahead-on-select="home.onTypeaheadSelected($item)"
+                                   typeahead-wait-ms="300"
+                                   typeahead-min-length="3" />
+                           <button type="button"
+                                class="form-control"
+                                data-toggle="tooltip"
+                                data-placement="bottom"
+                                ng-click="home.onLocationClicked()"
+                                title="Your Location">
+                            <i class="md-icon-location"></i>
+                        </button>
+                        </div>
+                        <a style="display: none;" ng-click="home.onSearchClicked()" class="btn btn-primary">Search</a>
+                    </form> <!-- /form -->
+                </div>
+        </div>
+    </div>
+</div>
 
     <cartodb-vis></cartodb-vis>
 
-    <div class="action-bar" action-bar-affix>
+    <div class="action-bar" action-bar-affix  ng-if="home.pageState === home.states.LIST">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-4" ng-if="home.pageState === home.states.LIST">
+                <div class="col-xs-8">
                     <h3>{{ home.list.length }} Results Found</h3>
+                </div>
+                <div class="col-xs-4 text-right">
                     <div class="dropdown" dropdown>
                         <span class="dropdown-toggle" dropdown-toggle>
                             Download Museum Info <i class="md-icon-down-mini"></i>
                         </span>
-                        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                        <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dropdownMenu1">
                             <li role="menuitem"><a ng-click="home.onDownloadRowClicked()">Search Results</a></li>
                             <li role="menuitem"><a href="http://www.imls.gov/research/museum_universe_data_file.aspx" target="_blank">Full Museum Dataset</a></li>
                         </ul>
                     </div>
-                </div>
-                <div ng-class="{
-                    'col-md-8': home.pageState === home.states.LIST,
-                    'text-right': home.pageState === home.states.LIST,
-                    'col-md-12': home.pageState === home.states.DISCOVER,
-                    'pull-right': home.pageState === home.states.ERROR }">
-                    <form class="form-inline">
-                        <div class="action-group">
-                            <div class="form-group search-bar">
-                                <div class="input-group">
-                                    <label class="input-group-addon" for="searchInput"><i class="md-icon-search"></i></label>
-                                    <input type="text"
-                                           placeholder="Search"
-                                           class="form-control search-field"
-                                           ng-model="home.searchText"
-                                           typeahead="location as location.name for location in home.search($viewValue)"
-                                           typeahead-on-select="home.onTypeaheadSelected($item)"
-                                           typeahead-wait-ms="300"
-                                           typeahead-min-length="3" />
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <button type="button"
-                                        class="form-control"
-                                        data-toggle="tooltip"
-                                        data-placement="bottom"
-                                        ng-click="home.onLocationClicked()"
-                                        title="Your Location">
-                                    <i class="md-icon-location"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <a style="display: none;" ng-click="home.onSearchClicked()" class="btn btn-primary">Search</a>
-                    </form> <!-- /form -->
                 </div>
             </div>
         </div> <!-- /.container-fluid -->
@@ -59,12 +64,20 @@
 
     <section class="main-content">
         <div class="container-fluid" ng-if="home.pageState === home.states.DISCOVER">
-            <img class="museum-icon" src="/images/museum-icon.svg">
-            <h2>Discover Museums by Address, <br> City, Zip or Museum Name</h2>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <img class="museum-icon" src="/images/museum-icon.svg">
+                    <h3>Discover Museums by Address, <br> City, Zip or Museum Name</h3>
+                </div>
+            </div>
         </div>
-        <div class="container-fluid empty-search" ng-if="home.pageState === home.states.ERROR">
-            <img class="museum-icon" src="/images/museum-icon.svg">
-            <h2>Sorry, your search has returned no museums. <br> Please refine your search.</h2>
+        <div class="container-fluid" ng-if="home.pageState === home.states.ERROR">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <img class="museum-icon" src="/images/museum-icon.svg">
+                    <h3>Sorry, your search has returned no museums. <br> Please refine your search.</h3>
+                </div>
+            </div>
         </div>
         <table st-table="home.safeList" st-safe-src="home.list" ng-if="home.pageState === home.states.LIST" class="table table-striped">
             <thead>

@@ -1,17 +1,28 @@
 .home-page {
 
-	.action-bar {
+	.main-content {
+		padding: 50px 0;
 		text-align: center;
 	}
 
-	.main-content {
-		padding: 50px 0;
-		text-align: center;	
-	}
+    .panel {
+        border-radius: 0;
+        max-width: 600px;
+        margin: auto;
+    }
 
-	@include respond-to('laptop-up') {
-		.action-bar.fixed + .main-content {
-			padding-top: 155px;
-		}
-	}
+    .panel-body {
+        padding-left: 40px;
+        padding-right: 40px;
+    }
+
+    .museum-icon {
+        width: 150px;
+    }
+
+    @include respond-to('laptop-up') {
+        .action-bar.fixed + .main-content {
+            padding-top: 50px;
+        }
+    }
 }
