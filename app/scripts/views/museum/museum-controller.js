@@ -105,14 +105,16 @@
                 $log.info(points);
                 acsRequest = ACS.getPolygon(points);
                 nearbyRequest = Museum.byTypeInPolygon(points);
-                setACSSearchPolygon(_.map(points, function (p) { return [p[1], p[0]]; }));
+                setACSSearchPolygon(_.map(points, function (p) { return [p[1], p[0]]; }), {
+                    resetBounds: false
+                });
                 setMapExpanded(false);
             } else if (event.layerType === 'circle') {
                 var latlng = layer.getLatLng();
                 var radius = layer.getRadius();
                 acsRequest = ACS.getRadius(latlng.lng, latlng.lat, radius);
                 nearbyRequest = Museum.byTypeInRadius(latlng.lng, latlng.lat, radius);
-                setACSSearchRadius(latlng, radius);
+                setACSSearchRadius(latlng, radius, { resetBounds: false });
                 setMapExpanded(false);
             }
             acsRequest.then(onACSDataComplete, onACSDataError);
@@ -125,9 +127,10 @@
             ctl.mapExpanded = !!(isExpanded);
             $timeout(function () {
                 map.invalidateSize();
-                // TODO: Figure out how to properly refit bounds to searchPolygon once
-                // the slide transition completes
-            }, MAP_SLIDE_TRANSITION_MS);
+                if (searchPolygon) {
+                    map.fitBounds(searchPolygon.getBounds());
+                }
+            }, MAP_SLIDE_TRANSITION_MS * 1.5);
         }
 
         function onACSDataComplete(data) {
@@ -138,18 +141,26 @@
             $log.error('ACS Data Load:', error);
         }
 
-        function setACSSearchPolygon(points) {
+        function setACSSearchPolygon(points, options) {
+            var defaults = { resetBounds: true };
+            var opts = angular.extend({}, defaults, options);
             clearSearchPolygon();
             searchPolygon = L.polygon(points, searchPolygonStyle);
             map.addLayer(searchPolygon);
-            map.fitBounds(searchPolygon.getBounds());
+            if (opts.resetBounds) {
+                map.fitBounds(searchPolygon.getBounds());
+            }
         }
 
-        function setACSSearchRadius(center, radius) {
+        function setACSSearchRadius(center, radius, options) {
+            var defaults = { resetBounds: true };
+            var opts = angular.extend({}, defaults, options);
             clearSearchPolygon();
             searchPolygon = L.circle(center, radius, searchPolygonStyle);
             map.addLayer(searchPolygon);
-            map.fitBounds(searchPolygon.getBounds());
+            if (opts.resetBounds) {
+                map.fitBounds(searchPolygon.getBounds());
+            }
         }
 
         function setLastPositionCookie() {
