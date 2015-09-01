@@ -29,8 +29,8 @@
                                 data-placement="bottom"
                                 ng-click="home.onLocationClicked()"
                                 title="Your Location">
-                            <i class="md-icon-location"></i>
-                        </button>
+                                <i class="md-icon-location"></i>
+                            </button>
                         </div>
                         <a style="display: none;" ng-click="home.onSearchClicked()" class="btn btn-primary">Search</a>
                     </form> <!-- /form -->
@@ -70,6 +70,9 @@
                     <h3>Discover Museums by Address, <br> City, Zip or Museum Name</h3>
                 </div>
             </div>
+        </div>
+        <div class="container-fluid" ng-if="home.pageState === home.states.LOADING">
+            <div class="preloader large"></div>
         </div>
         <div class="container-fluid" ng-if="home.pageState === home.states.ERROR">
             <div class="panel panel-default">

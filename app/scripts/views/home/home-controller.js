@@ -6,11 +6,15 @@
      * Controller for the imls app home view
      */
     /* ngInject */
-    function HomeController($cookies, $log, $q, $scope, $geolocation, $modal, $state, Config, Geocoder, Museum) {
+    function HomeController($cookies, $log, $q, $scope, $timeout,
+                            $geolocation, $modal, $state,
+                            Config, Geocoder, Museum) {
         var ctl = this;
 
         var map = null;
         var searchMarker = null;
+        var loadingTimeoutMs = 300;
+        var listTimeoutId = null;
 
         var SEARCH_DIST_METERS = 1609.34;  // 1 mile
 
@@ -22,6 +26,7 @@
             ctl.states = {
                 DISCOVER: 0,
                 LIST: 1,
+                LOADING: 2,
                 ERROR: -1
             };
             ctl.pageState = ctl.states.DISCOVER;
@@ -76,6 +81,9 @@
         }
 
         function onTypeaheadSelected(item) {
+            listTimeoutId = $timeout(function () {
+                ctl.pageState = ctl.states.LOADING;
+            }, loadingTimeoutMs);
             if (item.ismuseum) {
                 requestNearbyMuseums({
                     x: item.longitude,
@@ -92,9 +100,6 @@
 
         // position is an object with x and y keys
         function requestNearbyMuseums(position) {
-            map.setView([position.y, position.x], Config.detailZoom);
-            addSearchLocationMarker(position);
-
             Museum.list(position, SEARCH_DIST_METERS).then(function (rows) {
                 if (rows.length) {
                     ctl.list = rows;
@@ -105,6 +110,12 @@
             }).catch(function (error) {
                 $log.error(error);
                 ctl.pageState = ctl.states.ERROR;
+            }).finally(function () {
+                $timeout.cancel(listTimeoutId);
+                listTimeoutId = null;
+
+                map.setView([position.y, position.x], Config.detailZoom);
+                addSearchLocationMarker(position);
             });
         }
 
