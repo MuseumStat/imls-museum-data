@@ -87,8 +87,8 @@
 
     <section class="main-content">
         <div class="container-fluid">
-            <div class="preloader large" ng-if="museum.loadingAcs"></div>
-            <tabset justified="true" ng-if="!museum.loadingAcs">
+            <div class="preloader large" ng-if="museum.tabState === museum.tabStates.LOADING"></div>
+            <tabset justified="true" ng-if="museum.tabState === museum.tabStates.TABS">
                 <tab class="tab-pane fade in" select="museum.activeTab = 'people'">
                     <tab-heading>People</tab-heading>
                     <imls-tab-people ng-if="museum.acsData"
@@ -112,6 +112,13 @@
                     </imls-tab-nearby-museums>
                 </tab>
             </tabset>
+            <div ng-if="museum.tabState === museum.tabStates.ERROR">
+                <div class="panel panel-default">
+                    <div class="panel-body text-center">
+                        <h3>Error retrieving ACS data.</h3>
+                    </div>
+                </div>
+            </div>
         </div> <!-- /.container-fluid -->
     </section> <!-- /.main-content -->
 

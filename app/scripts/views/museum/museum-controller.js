@@ -33,10 +33,15 @@
                 value: ONE_MILE_IN_M * 5,
                 label: '5 Mile Radius'
             }];
+            ctl.tabStates = {
+                LOADING: 0,
+                TABS: 1,
+                ERROR: 2
+            };
             ctl.acsRadius = ctl.acsRadiusOptions[0].value;
             ctl.mapExpanded = false;
             ctl.activeTab = 'people';
-            ctl.loadingAcs = true;
+            ctl.tabState = ctl.tabStates.LOADING;
 
             ctl.onBackButtonClicked = onBackButtonClicked;
             ctl.onRadiusChanged = onRadiusChanged;
@@ -137,10 +142,12 @@
         }
 
         function onACSDataComplete(data) {
+            ctl.tabState = ctl.tabStates.TABS;
             ctl.acsData = data;
         }
 
         function onACSDataError(error) {
+            ctl.tabState = ctl.tabStates.ERROR;
             $log.error('ACS Data Load:', error);
         }
 
@@ -196,11 +203,10 @@
 
         function attachSpinner(dfd) {
             var timeoutId = $timeout(function () {
-                ctl.loadingAcs = true;
+                ctl.tabState = ctl.tabStates.LOADING;
             }, LOAD_TIMEOUT_MS);
             return dfd.finally(function () {
                 $timeout.cancel(timeoutId);
-                ctl.loadingAcs = false;
             });
         }
     }
