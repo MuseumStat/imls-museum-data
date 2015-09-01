@@ -56,6 +56,7 @@
                 cartodb.createLayer(map, Config.cartodb.demographicVisUrl, {
                     tooltip: true
                 }).addTo(map).done(function (layer) {
+                    $('div.cartodb-legend-stack').filter(':first').css('bottom', '150px');
                     ctl.sublayers = layer.getSubLayers();
                     ctl.onSublayerChange(ctl.sublayers[0]);
                     $scope.$apply();
