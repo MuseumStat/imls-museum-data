@@ -11,6 +11,7 @@
 
         var MAP_SLIDE_TRANSITION_MS = 400;
         var ONE_MILE_IN_M = 1609.344;
+        var LOAD_TIMEOUT_MS = 300;
 
         var vis = null;
         var map = null;
@@ -35,6 +36,7 @@
             ctl.acsRadius = ctl.acsRadiusOptions[0].value;
             ctl.mapExpanded = false;
             ctl.activeTab = 'people';
+            ctl.loadingAcs = true;
 
             ctl.onBackButtonClicked = onBackButtonClicked;
             ctl.onRadiusChanged = onRadiusChanged;
@@ -75,7 +77,8 @@
             var center = L.latLng(ctl.museum.latitude, ctl.museum.longitude);
             // Initialize charts with data in a 1 mi radius
             setACSSearchRadius(center, ctl.acsRadius);
-            ACS.getRadius(center.lng, center.lat, ctl.acsRadius).then(onACSDataComplete, onACSDataError);
+            var dfd = ACS.getRadius(center.lng, center.lat, ctl.acsRadius).then(onACSDataComplete, onACSDataError);
+            attachSpinner(dfd);
             Museum.byTypeInRadius(center.lng, center.lat, ctl.acsRadius).then(function (data) {
                 ctl.nearbyInArea = data;
             });
@@ -117,7 +120,7 @@
                 setACSSearchRadius(latlng, radius, { resetBounds: false });
                 setMapExpanded(false);
             }
-            acsRequest.then(onACSDataComplete, onACSDataError);
+            attachSpinner(acsRequest.then(onACSDataComplete, onACSDataError));
             nearbyRequest.then(function (data) {
                 ctl.nearbyInArea = data;
             });
@@ -189,6 +192,16 @@
                 map.removeLayer(searchPolygon);
                 searchPolygon = null;
             }
+        }
+
+        function attachSpinner(dfd) {
+            var timeoutId = $timeout(function () {
+                ctl.loadingAcs = true;
+            }, LOAD_TIMEOUT_MS);
+            return dfd.finally(function () {
+                $timeout.cancel(timeoutId);
+                ctl.loadingAcs = false;
+            });
         }
     }
 

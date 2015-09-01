@@ -87,30 +87,31 @@
 
     <section class="main-content">
         <div class="container-fluid">
-                <tabset justified="true">
-                    <tab class="tab-pane fade in" select="museum.activeTab = 'people'">
-                        <tab-heading>People</tab-heading>
-                        <imls-tab-people ng-if="museum.acsData"
+            <div class="preloader large" ng-if="museum.loadingAcs"></div>
+            <tabset justified="true" ng-if="!museum.loadingAcs">
+                <tab class="tab-pane fade in" select="museum.activeTab = 'people'">
+                    <tab-heading>People</tab-heading>
+                    <imls-tab-people ng-if="museum.acsData"
+                                     data="museum.acsData"
+                                     is-tab-visible="museum.activeTab === 'people'">
+                    </imls-tab-people>
+                </tab> <!-- /.tab-pane #people -->
+                <tab class="tab-pane fade in" select="museum.activeTab = 'households'">
+                    <tab-heading>Households</tab-heading>
+                    <imls-tab-households ng-if="museum.acsData"
                                          data="museum.acsData"
-                                         is-tab-visible="museum.activeTab === 'people'">
-                        </imls-tab-people>
-                    </tab> <!-- /.tab-pane #people -->
-                    <tab class="tab-pane fade in" select="museum.activeTab = 'households'">
-                        <tab-heading>Households</tab-heading>
-                        <imls-tab-households ng-if="museum.acsData"
-                                             data="museum.acsData"
-                                             is-tab-visible="museum.activeTab === 'households'">
-                        </imls-tab-households>
-                    </tab>
-                    <tab class="tab-pane fade in" select="museum.activeTab = 'similar'">
-                        <tab-heading>Nearby Museums</tab-heading>
-                        <imls-tab-nearby-museums ng-if="museum.nearbyInState && museum.nearbyInArea"
-                                             state-data="museum.nearbyInState"
-                                             area-data="museum.nearbyInArea"
-                                             is-tab-visible="museum.activeTab === 'similar'">
-                        </imls-tab-nearby-museums>
-                    </tab>
-                </tabset>
+                                         is-tab-visible="museum.activeTab === 'households'">
+                    </imls-tab-households>
+                </tab>
+                <tab class="tab-pane fade in" select="museum.activeTab = 'similar'">
+                    <tab-heading>Nearby Museums</tab-heading>
+                    <imls-tab-nearby-museums ng-if="museum.nearbyInState && museum.nearbyInArea"
+                                         state-data="museum.nearbyInState"
+                                         area-data="museum.nearbyInArea"
+                                         is-tab-visible="museum.activeTab === 'similar'">
+                    </imls-tab-nearby-museums>
+                </tab>
+            </tabset>
         </div> <!-- /.container-fluid -->
     </section> <!-- /.main-content -->
 
