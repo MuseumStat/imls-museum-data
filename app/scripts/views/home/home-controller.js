@@ -6,11 +6,14 @@
      * Controller for the imls app home view
      */
     /* ngInject */
-    function HomeController($cookies, $log, $q, $scope, $geolocation, $modal, $state, Config, Geocoder, Museum) {
+    function HomeController($cookies, $log, $q, $scope, $timeout,
+                            $geolocation, $modal, $state,
+                            Config, Geocoder, Museum) {
         var ctl = this;
 
         var map = null;
         var searchMarker = null;
+        var LOADING_TIMEOUT_MS = 300;
 
         var SEARCH_DIST_METERS = 1609.34;  // 1 mile
 
@@ -22,6 +25,7 @@
             ctl.states = {
                 DISCOVER: 0,
                 LIST: 1,
+                LOADING: 2,
                 ERROR: -1
             };
             ctl.pageState = ctl.states.DISCOVER;
@@ -66,12 +70,15 @@
         }
 
         function search(text) {
+            ctl.loadingSearch = true;
             return $q.all([Geocoder.search(text), Museum.suggest(text)]).then(function (results) {
                 $log.info(results);
                 return _.flatten(results);
             }).catch(function (error) {
                 ctl.pageState = ctl.states.ERROR;
                 $log.error(error);
+            }).finally(function () {
+                ctl.loadingSearch = false;
             });
         }
 
@@ -92,9 +99,9 @@
 
         // position is an object with x and y keys
         function requestNearbyMuseums(position) {
-            map.setView([position.y, position.x], Config.detailZoom);
-            addSearchLocationMarker(position);
-
+            var timeoutId = $timeout(function () {
+                ctl.pageState = ctl.states.LOADING;
+            }, LOADING_TIMEOUT_MS);
             Museum.list(position, SEARCH_DIST_METERS).then(function (rows) {
                 if (rows.length) {
                     ctl.list = rows;
@@ -105,6 +112,11 @@
             }).catch(function (error) {
                 $log.error(error);
                 ctl.pageState = ctl.states.ERROR;
+            }).finally(function () {
+                $timeout.cancel(timeoutId);
+
+                map.setView([position.y, position.x], Config.detailZoom);
+                addSearchLocationMarker(position);
             });
         }
 

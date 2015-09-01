@@ -14,7 +14,10 @@
                 <div class="col-xs-5">
                     <form class="form-inline">
                         <div class="action-group">
-                            <label class="input-group-addon" for="searchInput"><i class="md-icon-search"></i></label>
+                            <label class="input-group-addon" for="searchInput">
+                                <i class="md-icon-search" ng-if="!home.loadingSearch"></i>
+                                <i class="preloader small" ng-if="home.loadingSearch"></i>
+                            </label>
                             <input type="text"
                                    placeholder="Search"
                                    class="form-control search-field"
@@ -29,8 +32,8 @@
                                 data-placement="bottom"
                                 ng-click="home.onLocationClicked()"
                                 title="Your Location">
-                            <i class="md-icon-location"></i>
-                        </button>
+                                <i class="md-icon-location"></i>
+                            </button>
                         </div>
                         <a style="display: none;" ng-click="home.onSearchClicked()" class="btn btn-primary">Search</a>
                     </form> <!-- /form -->
@@ -70,6 +73,9 @@
                     <h3>Discover Museums by Address, <br> City, Zip or Museum Name</h3>
                 </div>
             </div>
+        </div>
+        <div class="container-fluid" ng-if="home.pageState === home.states.LOADING">
+            <div class="preloader large"></div>
         </div>
         <div class="container-fluid" ng-if="home.pageState === home.states.ERROR">
             <div class="panel panel-default">
