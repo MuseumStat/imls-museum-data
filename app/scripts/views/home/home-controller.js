@@ -13,8 +13,7 @@
 
         var map = null;
         var searchMarker = null;
-        var loadingTimeoutMs = 300;
-        var listTimeoutId = null;
+        var LOADING_TIMEOUT_MS = 300;
 
         var SEARCH_DIST_METERS = 1609.34;  // 1 mile
 
@@ -71,19 +70,19 @@
         }
 
         function search(text) {
+            ctl.loadingSearch = true;
             return $q.all([Geocoder.search(text), Museum.suggest(text)]).then(function (results) {
                 $log.info(results);
                 return _.flatten(results);
             }).catch(function (error) {
                 ctl.pageState = ctl.states.ERROR;
                 $log.error(error);
+            }).finally(function () {
+                ctl.loadingSearch = false;
             });
         }
 
         function onTypeaheadSelected(item) {
-            listTimeoutId = $timeout(function () {
-                ctl.pageState = ctl.states.LOADING;
-            }, loadingTimeoutMs);
             if (item.ismuseum) {
                 requestNearbyMuseums({
                     x: item.longitude,
@@ -100,6 +99,9 @@
 
         // position is an object with x and y keys
         function requestNearbyMuseums(position) {
+            var timeoutId = $timeout(function () {
+                ctl.pageState = ctl.states.LOADING;
+            }, LOADING_TIMEOUT_MS);
             Museum.list(position, SEARCH_DIST_METERS).then(function (rows) {
                 if (rows.length) {
                     ctl.list = rows;
@@ -111,8 +113,7 @@
                 $log.error(error);
                 ctl.pageState = ctl.states.ERROR;
             }).finally(function () {
-                $timeout.cancel(listTimeoutId);
-                listTimeoutId = null;
+                $timeout.cancel(timeoutId);
 
                 map.setView([position.y, position.x], Config.detailZoom);
                 addSearchLocationMarker(position);

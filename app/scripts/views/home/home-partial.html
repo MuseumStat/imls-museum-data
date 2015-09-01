@@ -14,7 +14,10 @@
                 <div class="col-xs-5">
                     <form class="form-inline">
                         <div class="action-group">
-                            <label class="input-group-addon" for="searchInput"><i class="md-icon-search"></i></label>
+                            <label class="input-group-addon" for="searchInput">
+                                <i class="md-icon-search" ng-if="!home.loadingSearch"></i>
+                                <i class="preloader small" ng-if="home.loadingSearch"></i>
+                            </label>
                             <input type="text"
                                    placeholder="Search"
                                    class="form-control search-field"
