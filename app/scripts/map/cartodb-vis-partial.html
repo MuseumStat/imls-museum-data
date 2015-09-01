@@ -4,7 +4,7 @@
          ng-mouseleave="vis.layersVisible = false">
         <div class="vis-layer-selector-button" 
              ng-class="{ 'visible': vis.layersVisible }"
-             ng-click="vis.layersVisible = true">
+             ng-click="vis.layersVisible = !vis.layersVisible">
             <i class="md-icon-layers"></i><span ng-show="vis.layersVisible">Demographics</span>
         </div>
         <div class="vis-layer-selector-body"
@@ -17,6 +17,14 @@
                                value="{{ $index }}"
                                ng-change="vis.onSublayerChange(sublayer)">
                                {{ sublayer.legend.get('title') }}
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        <input type="radio"
+                               ng-model="vis.radio"
+                               value="-1"
+                               ng-change="vis.onSublayerChange(null)"> Off
                     </label>
                 </li>
             </ul>

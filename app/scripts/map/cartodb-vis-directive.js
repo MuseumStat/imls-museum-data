@@ -40,8 +40,13 @@
                 s.hide();
                 s.legend.set('visible', false);
             });
-            sublayer.show();
-            sublayer.legend.set('visible', true);
+            if (sublayer) {
+                sublayer.show();
+                sublayer.legend.set('visible', true);
+            } else {
+                // Hide the sticky tooltip by clearing block styling...weee this is messy
+                $('div.cartodb-tooltip').css('display', '');
+            }
         }
 
         function onVisReady(vis) {
