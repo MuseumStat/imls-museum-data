@@ -59,7 +59,7 @@
         'B23025_007E':   'Not in labor force',
 
         // Poverty Status -- number
-        'B17001_001E':   'Total People in Poverty',
+        'B17001_002E':   'Total People in Poverty',
 
         /* Households Tab */
 
