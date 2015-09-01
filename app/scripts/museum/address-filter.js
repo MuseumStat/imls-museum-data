@@ -13,10 +13,10 @@
     /* ngInject */
     function AddressFilter() {
         return function (input) {
-            var address = input.gaddress;
-            var city = input.gcity;
-            var state = input.gstate;
-            var zip = input.gzip;
+            var address = input.adstreet;
+            var city = input.adcity;
+            var state = input.adstate;
+            var zip = input.adzip;
 
             return address + ', ' + city + ', ' + state + ' ' + zip;
         };

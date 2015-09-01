@@ -110,9 +110,15 @@
 
         function addSearchLocationMarker(position) {
             clearSearchLocationMarker();
+            var icon = L.icon({
+                iconUrl: 'images/map-marker-icon.png',
+                iconSize: [25, 41],
+                iconAnchor: [12, 41]
+            });
             searchMarker = L.marker([position.y, position.x], {
                 clickable: false,
-                keyboard: false
+                keyboard: false,
+                icon: icon
             });
             searchMarker.addTo(map);
         }

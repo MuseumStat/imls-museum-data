@@ -14,7 +14,7 @@
     <div class="col-xs-4">
         <div class="chart-graph">
             <h4>Total People in Poverty</h4>
-            <span class="numerical">{{ people.data['B17001_001E'].sum | number }}</span>
+            <span class="numerical">{{ people.data['B17001_002E'].sum | number }}</span>
         </div>
     </div> <!-- /.col -->
 </div>
@@ -36,8 +36,8 @@
     <div class="col-xs-4">
         <div class="chart-graph">
             <h4>Median Age</h4>
-            <span class="numerical">M: {{ people.data['B01002_002E'].popAvg | number:1 }}</span><br />
-            <span class="numerical">F: {{ people.data['B01002_003E'].popAvg | number:1 }}</span>
+            <span class="numerical">Male: {{ people.data['B01002_002E'].popAvg | number:1 }}</span><br />
+            <span class="numerical">Female: {{ people.data['B01002_003E'].popAvg | number:1 }}</span>
         </div>
     </div> <!-- /.col -->
     <div class="col-xs-4">

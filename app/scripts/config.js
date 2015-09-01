@@ -21,16 +21,17 @@
         },
         detailZoom: 14,
         cartodb: {
-            visId: 'a4ed4438-ffec-11e4-8b9a-0e9d821ea90d',
-            account: 'azavea-demo',
-            tableName: 'mudf15q1int',
-            tractsTableName: 'seattle_area_tracts'
+            visId: '53d43566-4ff1-11e5-93fd-0e9d821ea90d',
+            account: 'museumstat',
+            tableName: 'mudf15q3pub',
+            tractsTableName: 'tracts',
+            demographicVisUrl: 'https://museumstat.cartodb.com/api/v2/viz/fef9775c-4ff7-11e5-b0ab-0e4fddd5de28/viz.json'
         },
-        // :site: will be replaced with each value of socialSites 
+        // :site: will be replaced with each value of socialSites
         socialColumn: ':site:_url',
         // The sites to pull factual social media urls from.
         //  these strings should be a subset of the options available here:
-        //  http://developer.factual.com/places-crosswalk/#namespaces 
+        //  http://developer.factual.com/places-crosswalk/#namespaces
         // The cartodb table for this app must then have a socialColumn manually added for
         //  each entry here, with the column name equal to the value used in socialColumn
         socialSites: [
