@@ -141,12 +141,10 @@
        .tab-content  .tab-pane {
             display: block !important;
             page-break-after: always;
-              position: relative;
-              transform: scale(1);
 
             .col-xs-4,
             .col-xs-8 {
-                width: 100%;
+                width: 50%;
             }
         }
 
@@ -183,10 +181,6 @@
             .numerical {
                 @include font-size(25);
             }
-        }
-
-        .nv-pieChart {
-          min-width: 200px;
         }
 
         footer {
