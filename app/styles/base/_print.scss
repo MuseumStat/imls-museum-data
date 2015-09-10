@@ -1,10 +1,25 @@
 @media print {
 
+    * {
+        text-shadow: none !important;
+        color: #000 !important;
+        background: transparent !important;
+        box-shadow: none !important;
+      }
+
     @page {
         margin: .5cm;
     }
 
     .museum-page {
+
+        .map-container {
+            height: 5in;
+
+            .cartodb-logo {
+                display: none;
+            }
+        }
 
         .cartodb-zoom,
         .vis-layer-selector,
@@ -71,9 +86,39 @@
             }
 
             .museum-info {
+                h1 {
+                    text-align: center;
+                    font-size: 35pt !important;
+                    max-width: 8.5in;
+                    margin-top: 4cm;
+                    margin-left: auto;
+                    margin-right: auto;
+                    padding-bottom: 1cm;
+                    display: block;
+                    font-weight: 800;
+                    border-bottom: 2px solid;
+                }
+
+                h5 {
+                    text-align: center;
+                    font-size: 25pt !important;
+                    max-width: 8in;
+                    margin-top: 1cm;
+                    margin-left: auto;
+                    margin-right: auto;
+                    display: block;
+                }
+
+                .social-media {
+                    display: none;
+                }
+
                 .list-unstyled {
+                    text-align: center;
+                    font-size: 18pt !important;
                     li:last-child,
-                    li:nth-child(4) {
+                    li:nth-child(4),
+                    li:nth-child(3), {
                         display: none;
                     }
                 }
@@ -96,10 +141,12 @@
        .tab-content  .tab-pane {
             display: block !important;
             page-break-after: always;
+              position: relative;
+              transform: scale(1);
 
             .col-xs-4,
             .col-xs-8 {
-                width: 50%;
+                width: 100%;
             }
         }
 
@@ -107,9 +154,10 @@
         imls-tab-households:before,
         imls-tab-nearby-museums:before {
             display: block;
-            font-size: 18pt;
+            font-size: 25pt;
             text-align: center;
             margin-bottom: 1cm;
+            font-weight: 800;
         }
 
         imls-tab-people {
@@ -135,6 +183,10 @@
             .numerical {
                 @include font-size(25);
             }
+        }
+
+        .nv-pieChart {
+          min-width: 200px;
         }
 
         footer {
