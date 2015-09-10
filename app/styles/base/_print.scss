@@ -140,11 +140,15 @@
 
        .tab-content  .tab-pane {
             display: block !important;
-            page-break-after: always;
+            position: relative !important;
+            transform: scale(1) !important;
+            //page-break-after: always;
 
             .col-xs-4,
-            .col-xs-8 {
-                width: 50%;
+            .col-md-6,
+            .col-xs-8, {
+                width: 100%;
+                border-bottom: 1px solid;
             }
         }
 
@@ -153,9 +157,14 @@
         imls-tab-nearby-museums:before {
             display: block;
             font-size: 25pt;
-            text-align: center;
+            text-align: left;
             margin-bottom: 1cm;
             font-weight: 800;
+        }
+
+        imls-tab-households:before,
+        imls-tab-nearby-museums:before {
+            margin-top: 2cm;
         }
 
         imls-tab-people {
@@ -175,8 +184,9 @@
         }
 
         .chart-graph {
-            text-align: center;
+            text-align: left;
             margin-bottom: 20px;
+            border: none;
 
             .numerical {
                 @include font-size(25);
@@ -185,6 +195,10 @@
 
         footer {
             display: none;
+        }
+
+        svg {
+           max-width: 100% !important;
         }
     }
 }

@@ -101,5 +101,20 @@
 	// Main Content section changes
 	.main-content {
 		padding: 50px 0;
+
+        /*
+         * TODO: Come up with a better solution to fix this hack
+         * for NVD3 charts with print stylesheets within hidden tabs
+         */
+        .tab-content .tab-pane {
+            display: block;
+            position: absolute;
+            transform: scale(0);
+
+            &.active {
+                position: relative;
+                transform: scale(1);
+            }
+        }
 	}
 }
