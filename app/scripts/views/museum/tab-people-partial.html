@@ -29,6 +29,10 @@
         <div class="chart-graph">
             <h4>Race</h4>
             <div id="bar-chart-race"><svg></svg></div>
+            <div id="bar-chart-race-footnote">
+                {{ people.data['B03001_003E'].popAvg | number:0 }}%
+                Hispanic or Latino
+            </div>
         </div>
     </div> <!-- /.col -->
 </div>
