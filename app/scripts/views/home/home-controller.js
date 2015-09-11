@@ -84,10 +84,7 @@
 
         function onTypeaheadSelected(item) {
             if (item.ismuseum) {
-                requestNearbyMuseums({
-                    x: item.longitude,
-                    y: item.latitude
-                });
+                $state.go('museum', {museum: item.id});
             } else if (item.feature) {
                 // TODO: Additional handling to pass extent to requestNearbyMuseums?
                 requestNearbyMuseums(item.feature.geometry);
