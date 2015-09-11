@@ -8,6 +8,8 @@
         initialize();
 
         function initialize() {
+            ctl.stateTotal = 0;
+            ctl.areaTotal = 0;
             $scope.$watch(function () { return ctl.stateData; }, onStateDataChanged);
             $scope.$watch(function () { return ctl.areaData; }, onAreaDataChanged);
             $scope.$watch(function () { return ctl.isTabVisible; }, onTabVisibleChanged);
@@ -16,6 +18,7 @@
         function onStateDataChanged(newData) {
             if (newData) {
                 ctl.stateData = newData;
+                ctl.stateTotal = _(newData).pluck('value').reduce(_.add, 0);
                 if (ctl.areaData) {
                     draw();
                 }
@@ -25,6 +28,7 @@
         function onAreaDataChanged(newData) {
             if (newData) {
                 ctl.areaData = newData;
+                ctl.areaTotal = _(newData).pluck('value').reduce(_.add, 0);
                 if (ctl.stateData) {
                     draw();
                 }
