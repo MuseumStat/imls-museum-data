@@ -10,11 +10,12 @@
     /* ngInject */
     function TelFilter() {
         return function (input) {
-            var inputAsInt = parseInt(input, 10);
-            if (isNaN(inputAsInt) || input.length !== 10) {
+            var inputAsStr = input.toString();
+            // we're lucky no phone number in the US begins with a 0
+            if (inputAsStr.length !== 10) {
                 return input;
             }
-            return input.substr(0, 3) + '-' + input.substr(3, 3) + '-' + input.substr(6);
+            return inputAsStr.substr(0, 3) + '-' + inputAsStr.substr(3, 3) + '-' + inputAsStr.substr(6);
         };
     }
 
