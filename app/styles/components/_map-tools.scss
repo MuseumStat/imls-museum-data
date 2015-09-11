@@ -61,6 +61,18 @@
             list-style: none;
         }
     }
+
+    .vis-layer-selector-button {
+        cursor: pointer;
+
+        &:after {
+            content: 'Demographics';
+        }
+
+        &.visible:after {
+            display: none;
+        }
+    }
 }
 
 .leaflet-bar {
