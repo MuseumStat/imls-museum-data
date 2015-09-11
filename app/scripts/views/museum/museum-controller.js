@@ -32,6 +32,9 @@
             }, {
                 value: ONE_MILE_IN_M * 5,
                 label: '5 Mile Radius'
+            }, {
+                value: ONE_MILE_IN_M * 25,
+                label: '25 Mile Radius'
             }];
             ctl.tabStates = {
                 LOADING: 0,
