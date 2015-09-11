@@ -24,7 +24,7 @@
         function initialize() {
             ctl.demographics = !!($scope.$eval($attrs.demographics));
             ctl.sublayers = [];
-            ctl.radio = '0';
+            ctl.radio = '-1';
             ctl.layersVisible = false;
             ctl.visId = ctl.visId || Config.cartodb.visId;
             ctl.visOptions = ctl.visOptions || defaultOptions;
@@ -59,7 +59,7 @@
                 }).addTo(map).done(function (layer) {
                     $('div.cartodb-legend-stack').filter(':first').css('bottom', '150px');
                     ctl.sublayers = layer.getSubLayers();
-                    ctl.onSublayerChange(ctl.sublayers[0]);
+                    ctl.onSublayerChange(ctl.sublayers[-1]);
                     $scope.$apply();
                 });
             }
