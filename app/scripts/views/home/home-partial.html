@@ -89,7 +89,6 @@
             <thead>
                 <tr>
                     <th>Museum Name</th>
-                    <th>Address</th>
                     <th>City/State</th>
                     <th>Type</th>
                     <th>Revenue</th>
@@ -99,9 +98,8 @@
             <tbody>
                 <tr ng-repeat="row in home.safeList">
                     <td>{{ ::row.commonname }}</td>
-                    <td>{{ ::row.adaddress }}</td>
                     <td>{{ ::row.adcity }}, {{ ::row.adstate }}</td>
-                    <td>{{ ::row.discipl }}</td>
+                    <td>{{ ::row.description }}</td>
                     <td>{{ ::row.revenue | currency }}</td>
                     <td><a ui-sref="museum({ museum: row.mid })" class="btn btn-primary-ghost">View</a></td>
                 </tr>
