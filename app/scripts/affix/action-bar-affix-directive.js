@@ -31,7 +31,7 @@
                         $header.removeClass('fixed');
                     }
                 });
-            }, 10);
+            }, 0);
         }
     }
 
