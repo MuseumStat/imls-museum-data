@@ -32,6 +32,9 @@
             }, {
                 value: ONE_MILE_IN_M * 5,
                 label: '5 Mile Radius'
+            }, {
+                value: ONE_MILE_IN_M * 25,
+                label: '25 Mile Radius'
             }];
             ctl.tabStates = {
                 LOADING: 0,
@@ -65,11 +68,27 @@
             });
         }
 
+        function addLocationMarker(position) {
+            // should only happen once
+            var icon = L.icon({
+                iconUrl: 'images/map-marker-icon.png',
+                iconSize: [25, 41],
+                iconAnchor: [12, 41]
+            });
+            var marker = L.marker([position.y, position.x], {
+                clickable: false,
+                keyboard: false,
+                icon: icon
+            });
+            marker.addTo(map);
+        }
+
         function setMuseum(rows) {
             ctl.museum = rows[0];
             Museum.byTypeInState(ctl.museum.gstate).then(function (response) {
                 ctl.nearbyInState = response;
             });
+            addLocationMarker({x: ctl.museum.longitude, y: ctl.museum.latitude});
             $log.info(ctl.museum);
             onRadiusChanged();
         }
