@@ -103,6 +103,9 @@
         // Per Capita Income
         'B19301_001E':   'B01001_001E',  // total population
 
+        // Percentage Hispanic or Latino
+        'B03001_003E':   'B01001_001E',  // total population
+
         // Median household income
         'B19013_001E':   'B11001_001E',  // total households
 
