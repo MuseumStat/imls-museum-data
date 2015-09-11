@@ -12,7 +12,8 @@
             shareable: false,
             search: false,
             fullscreen: false,
-            scrollwheel: false
+            scrollwheel: false,
+            cartodb_logo: false
         };
         var ctl = this;
         var url;
