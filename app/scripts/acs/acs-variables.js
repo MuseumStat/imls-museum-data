@@ -27,7 +27,7 @@
         'B02001_007E':   'Some other race alone',
         'B02001_008E':   'Two or more races',
 
-        // Hispanic -- number (% Hispanic or Latino)
+        // Hispanic or Latino population -- number
         'B03001_003E':   'Hispanic or Latino',
 
         // Population Under 18 Years Old -- number
@@ -102,9 +102,6 @@
 
         // Per Capita Income
         'B19301_001E':   'B01001_001E',  // total population
-
-        // Percentage Hispanic or Latino
-        'B03001_003E':   'B01001_001E',  // total population
 
         // Median household income
         'B19013_001E':   'B11001_001E',  // total households

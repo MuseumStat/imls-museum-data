@@ -30,7 +30,8 @@
             <h4>Race</h4>
             <div id="bar-chart-race"><svg></svg></div>
             <div id="bar-chart-race-footnote">
-                {{ people.data['B03001_003E'].popAvg | number:0 }}%
+                <!-- hispanic/latino pop / total population -->
+                {{ (100 * people.data['B03001_003E'].sum / people.data['B01001_001E'].sum)  | number:1 }}%
                 Hispanic or Latino
             </div>
         </div>
