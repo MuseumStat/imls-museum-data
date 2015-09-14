@@ -1,5 +1,5 @@
 .secondary-page {
-	
+
 	.map-container {
 		min-height: 250px;
 
@@ -16,6 +16,16 @@
 			display: block;
 			margin: 0 auto 20px;
 		}
+
+        ~ .content-title {
+            margin-top: 80px;
+            padding-top: 40px;
+            border-top: 1px solid $border-color;
+
+            h3 {
+                color: $brand-primary;
+            }
+        }
 	}
 
 	.main-content {
