@@ -7,6 +7,8 @@
 
         var charts = {};
 
+        var numberFilter = $filter('number');
+
         var module = {
             drawBarChart: drawBarChart,
             drawPieChart: drawPieChart,
@@ -14,6 +16,7 @@
             updateCharts: updateCharts
         };
         return module;
+
 
         function addElipses(text, max) {
             if (text.length > max) {
@@ -29,6 +32,7 @@
         }
 
         function drawBarChart(key, series, options) {
+            var total = _(series).pluck('value').reduce(_.add, 0);
             var defaults = {
                 margin: {
                     top: 10,
@@ -51,7 +55,9 @@
                         .x(function(d) { return addElipses(d.label, 30); })
                         .y(function(d) { return d.value; })
                         .tooltipContent(function(d) {
-                            return '<b>' + d.data.label + ': </b>' + $filter('number')(d.data.value);
+                            var percent = numberFilter(d.data.value / total * 100, 1);
+                            return ['<b>', d.data.label, ': </b>', numberFilter(d.data.value),
+                                    ' (', percent, '%)'].join('');
                         })
                         .color(function () { return '#bc5405'; })
                         .margin(opts.margin)
@@ -62,7 +68,9 @@
                         .x(function(d) { return addElipses(d.label, 20); })
                         .y(function(d) { return d.value; })
                         .tooltipContent(function(d) {
-                            return '<b>' + d.data.label + ': </b>' + $filter('number')(d.data.value);
+                            var percent = numberFilter(d.data.value / total * 100, 1);
+                            return ['<b>', d.data.label, ': </b>', numberFilter(d.data.value),
+                                    ' (', percent, '%)'].join('');
                         })
                         .staggerLabels(true)
                         .color(function () { return '#bc5405'; })
@@ -77,6 +85,7 @@
         }
 
         function drawPieChart(key, data, forceRedraw) {
+            var total = _(data).pluck('value').reduce(_.add, 0);
             if (forceRedraw && charts[key]) {
                 // completely remove chart if forcing redraw
                 d3.select('#pie-chart-' + key + ' svg').remove();
@@ -87,7 +96,9 @@
                     .x(function(d) { return addElipses(d.label, 10); })
                     .y(function(d) { return d.value; })
                     .tooltipContent(function(d) {
-                        return '<b>' + d.data.label + ': </b>' + $filter('number')(d.data.value);
+                        var percent = $filter('number')(d.data.value / total * 100, 1);
+                        return ['<b>', d.data.label, ': </b>', numberFilter(d.data.value),
+                                ' (', percent, '%)'].join('');
                     })
                     .color(function () { return '#bc5405'; })
                     .margin({top: 0, left: 10, bottom: 0, right: 10})
