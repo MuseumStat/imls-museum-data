@@ -21,6 +21,20 @@
         $rootScope.$on('$stateChangeSuccess', function () {
             $window.scrollTo(0,0);
         });
+
+
+        // monkeypatch leaflet draw
+        L.GeometryUtil.readableArea = function (area) {
+            // bypass all metric/yds/acres/miles logic and just return
+            // square miles
+            area /= 0.836127; // Square yards in 1 meter
+            return (area / 3097600).toFixed(2) + ' mi&sup2;';
+        };
+        L.GeometryUtil.readableDistance = function (distance) {
+            // just return miles
+            distance *= 1.09361; // to yards
+            return (distance / 1760).toFixed(2) + ' miles';
+        };
     }
 
     /**
