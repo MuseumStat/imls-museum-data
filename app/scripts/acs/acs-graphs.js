@@ -7,6 +7,8 @@
 
         var charts = {};
 
+        var numberFilter = $filter('number');
+
         var module = {
             drawBarChart: drawBarChart,
             drawPieChart: drawPieChart,
@@ -14,6 +16,7 @@
             updateCharts: updateCharts
         };
         return module;
+
 
         function addElipses(text, max) {
             if (text.length > max) {
@@ -52,8 +55,9 @@
                         .x(function(d) { return addElipses(d.label, 30); })
                         .y(function(d) { return d.value; })
                         .tooltipContent(function(d) {
-                            var percent = $filter('number')(d.data.value / total * 100, 1);
-                            return '<b>' + d.data.label + ': </b>' + $filter('number')(d.data.value) + ' (' + percent + '%)';
+                            var percent = numberFilter(d.data.value / total * 100, 1);
+                            return ['<b>', d.data.label, ': </b>', numberFilter(d.data.value),
+                                    ' (', percent, '%)'].join('');
                         })
                         .color(function () { return '#bc5405'; })
                         .margin(opts.margin)
@@ -64,8 +68,9 @@
                         .x(function(d) { return addElipses(d.label, 20); })
                         .y(function(d) { return d.value; })
                         .tooltipContent(function(d) {
-                            var percent = $filter('number')(d.data.value / total * 100, 1);
-                            return '<b>' + d.data.label + ': </b>' + $filter('number')(d.data.value) + ' (' + percent + '%)';
+                            var percent = numberFilter(d.data.value / total * 100, 1);
+                            return ['<b>', d.data.label, ': </b>', numberFilter(d.data.value),
+                                    ' (', percent, '%)'].join('');
                         })
                         .staggerLabels(true)
                         .color(function () { return '#bc5405'; })
@@ -92,7 +97,8 @@
                     .y(function(d) { return d.value; })
                     .tooltipContent(function(d) {
                         var percent = $filter('number')(d.data.value / total * 100, 1);
-                        return '<b>' + d.data.label + ': </b>' + $filter('number')(d.data.value) + ' (' + percent + '%)';
+                        return ['<b>', d.data.label, ': </b>', numberFilter(d.data.value),
+                                ' (', percent, '%)'].join('');
                     })
                     .color(function () { return '#bc5405'; })
                     .margin({top: 0, left: 10, bottom: 0, right: 10})
