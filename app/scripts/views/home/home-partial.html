@@ -67,23 +67,14 @@
 
     <section class="main-content">
         <div class="container-fluid" ng-if="home.pageState === home.states.DISCOVER">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <img class="museum-icon" src="/images/museum-icon.svg">
-                    <h3>Discover Museums by Address, <br> City, Zip or Museum Name</h3>
-                </div>
-            </div>
+            <img class="museum-logo" srcset="/images/2x/museum-stat-logo-xl@2x.png 2x" src="/images/museum-stat-logo-xl.png">
         </div>
         <div class="container-fluid" ng-if="home.pageState === home.states.LOADING">
             <div class="preloader large"></div>
         </div>
         <div class="container-fluid" ng-if="home.pageState === home.states.ERROR">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <img class="museum-icon" src="/images/museum-icon.svg">
-                    <h3>Sorry, your search has returned no museums. <br> Please refine your search.</h3>
-                </div>
-            </div>
+            <img class="museum-icon" src="/images/museum-icon.svg">
+            <h3>Sorry, your search has returned no museums. <br> Please refine your search.</h3>
         </div>
         <table st-table="home.safeList" st-safe-src="home.list" ng-if="home.pageState === home.states.LIST" class="table table-striped">
             <thead>
