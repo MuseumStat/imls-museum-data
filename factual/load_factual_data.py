@@ -84,26 +84,30 @@ def main():
 
     imports = 0
 
-    for row in rows:
-        social_urls = get_social_urls(api, row['factual_id'])
+    try:
+        for row in rows:
+            social_urls = get_social_urls(api, row['factual_id'])
 
-        update_template = "{column} = '{value}'"
-        update = ', '.join([update_template.format(column=SOCIAL_COLUMNS[key],
-                                                   value=value)
-                            for key, value in social_urls.iteritems()])
-        query = """UPDATE {cartodb_table}
-                   SET {update}
-                   WHERE mid = '{mid}'""".format(cartodb_table=config['CARTODB_TABLE'],
-                                                 update=update,
-                                                 mid=row['mid'])
-        request_url = SQL_API_URL.format(cartodb_account=config['CARTODB_ACCOUNT'],
-                                         key=config['CARTODB_API_KEY'],
-                                         query=query)
-        response = requests.get(request_url)
-        if response.status_code == 200:
-            imports = imports + 1
-        else:
-            print "ERROR {mid}: {error}".format(mid=row['mid'], error=response.json()['error'])
+            update_template = "{column} = '{value}'"
+            update = ', '.join([update_template.format(column=SOCIAL_COLUMNS[key],
+                                                       value=value)
+                                for key, value in social_urls.iteritems()])
+            query = """UPDATE {cartodb_table}
+                       SET {update}
+                       WHERE mid = '{mid}'""".format(cartodb_table=config['CARTODB_TABLE'],
+                                                     update=update,
+                                                     mid=row['mid'])
+            request_url = SQL_API_URL.format(cartodb_account=config['CARTODB_ACCOUNT'],
+                                             key=config['CARTODB_API_KEY'],
+                                             query=query)
+            response = requests.get(request_url)
+            if response.status_code == 200:
+                imports = imports + 1
+            else:
+                print "ERROR {mid}: {error}".format(mid=row['mid'], error=response.json()['error'])
+    except Exception as e:
+        print "EXCEPTION: imports = {}".format(imports)
+        raise e
 
     print "Imported {imports}/{total}".format(imports=imports, total=len(rows))
 
