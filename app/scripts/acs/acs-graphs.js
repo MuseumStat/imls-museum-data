@@ -33,6 +33,7 @@
 
         function drawBarChart(key, series, options) {
             var total = _(series).pluck('value').reduce(_.add, 0);
+            var max = _(series).pluck('value').max();
             var defaults = {
                 margin: {
                     top: 10,
@@ -75,6 +76,10 @@
                         .staggerLabels(true)
                         .color(function () { return '#bc5405'; })
                         .margin(opts.margin);
+                }
+                chart.yAxis.tickFormat(function (n) { return numberFilter(n, 0); });
+                if(max < 10) {
+                    chart.yAxis.tickValues([0,1,2,3,4,5,6,7,8,9]);
                 }
                 nv.utils.windowResize(chart.update);
                 charts[key] = chart;

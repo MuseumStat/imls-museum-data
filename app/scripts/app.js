@@ -49,6 +49,7 @@
         'imls.views.home',
         'imls.views.about',
         'imls.views.contact',
+        'imls.views.help',
         'imls.views.museum'
     ])
     .config(DefaultRoutingConfig)
