@@ -1,0 +1,204 @@
+@media print {
+
+    * {
+        text-shadow: none !important;
+        color: #000 !important;
+        background: transparent !important;
+        box-shadow: none !important;
+      }
+
+    @page {
+        margin: .5cm;
+    }
+
+    .museum-page {
+
+        .map-container {
+            height: 5in;
+
+            .cartodb-logo {
+                display: none;
+            }
+        }
+
+        .cartodb-zoom,
+        .vis-layer-selector,
+        .leaflet-bottom.leaflet-right {
+            display: none;
+        }
+
+        .cartodb-legend-stack {
+            background-color: #fff !important;
+            -webkit-print-color-adjust: exact;
+
+            .choropleth .quartile {
+                -webkit-print-color-adjust: exact;
+
+                &:first-child {
+                    background-color: #f7f7f7 !important;
+                }
+                &:nth-child(2) {
+                    background-color: #cccccc !important;
+                }
+                &:nth-child(3) {
+                    background-color: #969696 !important;
+                }
+                &:nth-child(4) {
+                    background-color: #636363 !important;
+                }
+                &:last-child {
+                    background-color: #252525 !important;
+                }
+            }
+        }
+
+        .navbar.action-bar {
+            display: none;
+        }
+
+        .back-to-results {
+            display: none;
+        }
+
+        .action-bar:not(.navbar) {
+            display: block;
+
+            button {
+                display: none;
+            }
+
+            select {
+                background: none;
+                //-webkit-appearance: menulist;
+                border: none !important;
+                padding: 0;
+            }
+
+
+
+            .museum-info,
+            .col-xs-9,
+            .col-xs-3 {
+                display: block;
+                width: 100%;
+                background: none;
+                padding: .25cm;
+            }
+
+            .museum-info {
+                h1 {
+                    text-align: center;
+                    font-size: 35pt !important;
+                    max-width: 8.5in;
+                    margin-top: 4cm;
+                    margin-left: auto;
+                    margin-right: auto;
+                    padding-bottom: 1cm;
+                    display: block;
+                    font-weight: 800;
+                    border-bottom: 2px solid;
+                }
+
+                h5 {
+                    text-align: center;
+                    font-size: 25pt !important;
+                    max-width: 8in;
+                    margin-top: 1cm;
+                    margin-left: auto;
+                    margin-right: auto;
+                    display: block;
+                }
+
+                .social-media {
+                    display: none;
+                }
+
+                .list-unstyled {
+                    text-align: center;
+                    font-size: 18pt !important;
+                    li:last-child,
+                    li:nth-child(4),
+                    li:nth-child(3), {
+                        display: none;
+                    }
+                }
+            }
+
+            .museum-boundary {
+                display: none;
+            }
+        }
+
+        .main-content {
+            padding: 0 !important;
+            page-break-before: always;
+        }
+
+        .nav-tabs.nav-justified {
+            display: none;
+        }
+
+       .tab-content  .tab-pane {
+            display: block !important;
+            position: relative !important;
+            transform: scale(1) !important;
+            //page-break-after: always;
+
+            .col-xs-4,
+            .col-md-6,
+            .col-xs-8, {
+                width: 100%;
+                border-bottom: 1px solid;
+            }
+        }
+
+        imls-tab-people:before,
+        imls-tab-households:before,
+        imls-tab-nearby-museums:before {
+            display: block;
+            font-size: 25pt;
+            text-align: left;
+            margin-bottom: 1cm;
+            font-weight: 800;
+        }
+
+        imls-tab-households:before,
+        imls-tab-nearby-museums:before {
+            margin-top: 2cm;
+        }
+
+        imls-tab-people {
+            &:before {
+                content: 'People';
+            }
+        }
+        imls-tab-households {
+            &:before {
+                content: 'Households';
+            }
+        }
+        imls-tab-nearby-museums {
+            &:before {
+                content: 'Nearby Museums';
+            }
+        }
+
+        .chart-graph {
+            text-align: left;
+            margin-bottom: 20px;
+            border: none;
+
+            .numerical {
+                @include font-size(25);
+            }
+        }
+
+        footer {
+            display: none;
+        }
+
+        svg {
+           max-width: 100% !important;
+        }
+    }
+}
