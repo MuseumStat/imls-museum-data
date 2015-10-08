@@ -5,6 +5,7 @@
 	padding-bottom: 30px;
 	position: relative;
 	z-index: 1000;
+    width: 100%;
 	@include font-size(14);
 
 	h1, h2, h3, p {
