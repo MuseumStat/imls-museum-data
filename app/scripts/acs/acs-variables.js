@@ -76,9 +76,9 @@
         // Household Language -- column
         'B16002_002E':   'English only',
         'B16002_003E':   'Spanish',
-        'B16002_006E':   'Other Indo-European languages',
-        'B16002_009E':   'Asian and Pacific Island languages',
-        'B16002_012E':   'Other languages',
+        'B16002_006E':   'Other Indo-European',
+        'B16002_009E':   'Asian & Pacific Island',
+        'B16002_012E':   'Other',
 
         // Household Tenure -- pie
         'B25003_002E':   'Owner occupied',
