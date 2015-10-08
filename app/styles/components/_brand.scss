@@ -5,4 +5,14 @@
     display: inline-block;
     vertical-align: middle;
 	z-index: 10;
+    margin-top: -5px;
+    margin-bottom: -5px;
+
+    &:after {
+        content: 'beta';
+        position: absolute;
+        @include font-size(13);
+        right: 0;
+        top: -2px;
+    }
 }

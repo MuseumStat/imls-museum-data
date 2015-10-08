@@ -1,16 +1,16 @@
 .navbar.action-bar {
     background: $base-darker;
-    padding-top: 15px;
-    padding-bottom: 15px;
+    padding-top: 10px;
+    padding-bottom: 10px;
     position: relative;
-    min-height: 91px;
+    min-height: 76px;
 
     nav, .nav {
         display: inline-block;
         vertical-align: middle;
 
         a {
-            @include font-size(14);
+            @include font-size(15);
             padding: 15px;
         }
 
@@ -22,7 +22,7 @@
     .action-group {
         display: block;
         position: relative;
-        margin-top: 10px;
+        margin-top: 5px;
 
         input.form-control {
             display: block;
