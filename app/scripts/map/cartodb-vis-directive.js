@@ -54,9 +54,9 @@
             map = vis.getNativeMap();
 
             if (ctl.demographics) {
-                cartodb.createLayer(map, Config.cartodb.demographicVisUrl, {
-                    tooltip: true
-                }).addTo(map).done(function (layer) {
+                var demographicsOptions = angular.extend({}, defaultOptions, {tooltip: true});
+                cartodb.createLayer(map, Config.cartodb.demographicVisUrl, demographicsOptions)
+                .addTo(map).done(function (layer) {
                     $('div.cartodb-legend-stack').filter(':first').css('bottom', '150px');
                     ctl.sublayers = layer.getSubLayers();
                     ctl.onSublayerChange(ctl.sublayers[-1]);
@@ -71,7 +71,18 @@
                 visLayers[1].setZIndex(9999);
             }
 
+            hackCartoDBLegendBulletsForPrint();
             $scope.$emit('imls:vis:ready', vis, map);
+        }
+
+        // Super ugly hack to get the legend bullets to show in the print css
+        //  No better way to override the !important transparent for print view elsewhere
+        function hackCartoDBLegendBulletsForPrint() {
+            var $bullets = $('.leaflet-container .cartodb-legend-stack .bullet');
+            $bullets.each(function (i, element) {
+                var $element = $(element);
+                $element.attr('style', $element.attr('style') + ' !important');
+            });
         }
     }
 

@@ -65,9 +65,10 @@
             var raceOpts = {
                 forceRedraw: forceRedraw,
                 margin: {
-                    left: 200,
+                    left: 260,
                     right: 30
-                }
+                },
+                labelCharacters: null
             };
             var empOpts = {
                 forceRedraw: forceRedraw,

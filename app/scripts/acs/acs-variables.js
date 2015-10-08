@@ -19,12 +19,12 @@
         'B01002_003E':   'Female',
 
         // Race -- bar
-        'B02001_002E':   'White alone',
-        'B02001_003E':   'Black or African American alone',
-        'B02001_004E':   'American Indian and Alaska Native alone',
-        'B02001_005E':   'Asian alone',
-        'B02001_006E':   'Native Hawaiian and Other Pacific Islander alone',
-        'B02001_007E':   'Some other race alone',
+        'B02001_002E':   'White',
+        'B02001_003E':   'Black or African American',
+        'B02001_004E':   'American Indian and Alaska Native',
+        'B02001_005E':   'Asian',
+        'B02001_006E':   'Native Hawaiian and Other Pacific Islander',
+        'B02001_007E':   'Some other race',
         'B02001_008E':   'Two or more races',
 
         // Hispanic or Latino population -- number
@@ -76,9 +76,9 @@
         // Household Language -- column
         'B16002_002E':   'English only',
         'B16002_003E':   'Spanish',
-        'B16002_006E':   'Other Indo-European languages',
-        'B16002_009E':   'Asian and Pacific Island languages',
-        'B16002_012E':   'Other languages',
+        'B16002_006E':   'Other Indo-European',
+        'B16002_009E':   'Asian & Pacific Island',
+        'B16002_012E':   'Other',
 
         // Household Tenure -- pie
         'B25003_002E':   'Owner occupied',

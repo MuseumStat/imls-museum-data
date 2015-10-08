@@ -12,6 +12,7 @@
         var MAP_SLIDE_TRANSITION_MS = 400;
         var ONE_MILE_IN_M = 1609.344;
         var LOAD_TIMEOUT_MS = 300;
+        var CUSTOM_RADIUS_VALUE = -1;
 
         var vis = null;
         var map = null;
@@ -23,6 +24,8 @@
         initialize();
 
         function initialize() {
+            // A 'custom' option is dynamically added to this list whenever
+            //  the user draws a custom polygon
             ctl.acsRadiusOptions = [{
                 value: ONE_MILE_IN_M,
                 label: '1 Mile Radius'
@@ -98,6 +101,7 @@
         }
 
         function onRadiusChanged() {
+            clearCustomRadiusOption();
             var center = L.latLng(ctl.museum.latitude, ctl.museum.longitude);
             // Initialize charts with data in a 1 mi radius
             setACSSearchRadius(center, ctl.acsRadius);
@@ -106,10 +110,11 @@
             Museum.byTypeInRadius(center.lng, center.lat, ctl.acsRadius).then(function (data) {
                 ctl.nearbyInArea = data;
             });
-
         }
 
         function onStartDrawPolygon() {
+            addCustomRadiusOption();
+            ctl.acsRadius = -1;
             clearSearchPolygon();
             var polygonDrawOptions = {};
             new L.Draw.Polygon(map, polygonDrawOptions).enable();
@@ -117,6 +122,8 @@
         }
 
         function onStartDrawCircle() {
+            addCustomRadiusOption();
+            ctl.acsRadius = -1;
             clearSearchPolygon();
             var circleDrawOptions = {};
             new L.Draw.Circle(map, circleDrawOptions).enable();
@@ -218,6 +225,18 @@
                 map.removeLayer(searchPolygon);
                 searchPolygon = null;
             }
+        }
+
+        function addCustomRadiusOption() {
+            if (!_.find(ctl.acsRadiusOptions, function (option) { option.value === CUSTOM_RADIUS_VALUE })) {
+                ctl.acsRadiusOptions.splice(0, 0, { value: CUSTOM_RADIUS_VALUE, label: 'Custom' });
+            }
+        }
+
+        function clearCustomRadiusOption() {
+            _.remove(ctl.acsRadiusOptions, function (option) {
+                return option.value === CUSTOM_RADIUS_VALUE;
+            })
         }
 
         function attachSpinner(dfd) {
