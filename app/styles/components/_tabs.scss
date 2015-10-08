@@ -3,7 +3,7 @@
 	a {
 		@include font-size(24);
 		text-transform: uppercase;
-		color: #ddd;
+		color: lighten($base, 10%);
 		letter-spacing: 4px;
 		font-weight: 600;
 		position: relative;
