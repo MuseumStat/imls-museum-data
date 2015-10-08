@@ -68,7 +68,7 @@
                     left: 260,
                     right: 30
                 },
-                labelCharacters: -1
+                labelCharacters: null
             };
             var empOpts = {
                 forceRedraw: forceRedraw,

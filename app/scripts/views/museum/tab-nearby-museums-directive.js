@@ -68,7 +68,7 @@
                     left: 150,
                     right: 30
                 },
-                labelCharacters: -1
+                labelCharacters: null
             };
             ACSGraphs.drawBarChart('nearby-state',
                                    prepareBarChartData(ctl.stateData),

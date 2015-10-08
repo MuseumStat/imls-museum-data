@@ -49,7 +49,7 @@
                     left: 120,
                     right: 30
                 },
-                labelCharacters: -1
+                labelCharacters: null
             };
             ACSGraphs.drawBarChart('household-language',
                                    ACSGraphs.generateSeries(ctl.data, 'sum', houseLangVariables),

@@ -20,11 +20,12 @@
 
         /**
          * Replace text of length > max with an ellipsis
-         * Do no replacement if max === -1
+         * Do no replacement if max falsy
          */
         function addElipses(text, max) {
-            if (max !== -1 && text.length > max) {
-                return text.substr(0, max-1) + '...';
+            var maxInt = parseInt(max, 10);
+            if (!isNaN(maxInt) && maxInt > 0 && text.length > maxInt) {
+                return text.substr(0, maxInt-1) + '...';
             }
             return text;
         }
