@@ -199,6 +199,10 @@
 
         svg {
            max-width: 100% !important;
+
+           g.nvd3 {
+             width: 100% !important;
+           }
         }
     }
 }

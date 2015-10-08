@@ -58,6 +58,11 @@
             $scope.$on('imls:vis:ready', onVisReady);
 
             resize($scope).call(ACSGraphs.updateCharts);
+
+            if (window.matchMedia) {
+                var printMql = window.matchMedia('print');
+                printMql.addListener(onPrint);
+            }
         }
 
         function onVisReady(event, newVis, newMap) {
@@ -228,7 +233,7 @@
         }
 
         function addCustomRadiusOption() {
-            if (!_.find(ctl.acsRadiusOptions, function (option) { option.value === CUSTOM_RADIUS_VALUE })) {
+            if (!_.find(ctl.acsRadiusOptions, function (option) { return option.value === CUSTOM_RADIUS_VALUE; })) {
                 ctl.acsRadiusOptions.splice(0, 0, { value: CUSTOM_RADIUS_VALUE, label: 'Custom' });
             }
         }
@@ -237,6 +242,14 @@
             _.remove(ctl.acsRadiusOptions, function (option) {
                 return option.value === CUSTOM_RADIUS_VALUE;
             })
+        }
+
+        function onPrint(mql) {
+            $log.info('onPrint triggered');
+            if (mql.matches) {  // before print
+                $log.info('Before onPrint triggered');
+                ACSGraphs.updateCharts();
+            }
         }
 
         function attachSpinner(dfd) {
