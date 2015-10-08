@@ -46,9 +46,10 @@
             var householdOpts = {
                 forceRedraw: forceRedraw,
                 margin: {
-                    left: 200,
+                    left: 120,
                     right: 30
-                }
+                },
+                labelCharacters: -1
             };
             ACSGraphs.drawBarChart('household-language',
                                    ACSGraphs.generateSeries(ctl.data, 'sum', houseLangVariables),

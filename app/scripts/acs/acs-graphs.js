@@ -18,8 +18,12 @@
         return module;
 
 
+        /**
+         * Replace text of length > max with an ellipsis
+         * Do no replacement if max === -1
+         */
         function addElipses(text, max) {
-            if (text.length > max) {
+            if (max !== -1 && text.length > max) {
                 return text.substr(0, max-1) + '...';
             }
             return text;
@@ -41,6 +45,7 @@
                     bottom: 10,
                     right: 10
                 },
+                labelCharacters: 20,
                 forceRedraw: false,
                 horizontal: true
             };
@@ -53,7 +58,7 @@
                 var chart;
                 if(opts.horizontal) {
                     chart = nv.models.multiBarHorizontalChart()
-                        .x(function(d) { return addElipses(d.label, 30); })
+                        .x(function(d) { return addElipses(d.label, opts.labelCharacters); })
                         .y(function(d) { return d.value; })
                         .tooltipContent(function(d) {
                             var percent = numberFilter(d.data.value / total * 100, 1);
@@ -66,7 +71,7 @@
                         .showLegend(false);
                 } else {
                     chart = nv.models.discreteBarChart()
-                        .x(function(d) { return addElipses(d.label, 20); })
+                        .x(function(d) { return addElipses(d.label, opts.labelCharacters); })
                         .y(function(d) { return d.value; })
                         .tooltipContent(function(d) {
                             var percent = numberFilter(d.data.value / total * 100, 1);
