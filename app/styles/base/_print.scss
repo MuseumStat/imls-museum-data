@@ -30,9 +30,11 @@
         .cartodb-legend-stack {
             background-color: #fff !important;
             -webkit-print-color-adjust: exact;
+            -moz-print-color-adjust: exact;
 
             .choropleth .quartile {
                 -webkit-print-color-adjust: exact;
+                -moz-print-color-adjust: exact;
 
                 &:first-child {
                     background-color: #f7f7f7 !important;
@@ -200,5 +202,39 @@
         svg {
            max-width: 100% !important;
         }
+    }
+}
+
+
+/* Hard fixes for carto bullets
+ */
+.cartodb-legend .bullet {
+
+    &.bullet-art {
+        background: #5CA2D1!important;
+    }
+    &.bullet-botanical {
+        background: #47aa64 !important;
+    }
+    &.bullet-children {
+        background: #cab2d6 !important;
+    }
+    &.bullet-general {
+        background: #257c89 !important;
+    }
+    &.bullet-historical {
+        background: #bc5405 !important;
+    }
+    &.bullet-history {
+        background: #65507b !important;
+    }
+    &.bullet-natural {
+        background: #be8e38 !important;
+    }
+    &.bullet-science {
+        background: #ef6f5f !important;
+    }
+    &.bullet-zoo {
+        background: #79dd34 !important;
     }
 }
