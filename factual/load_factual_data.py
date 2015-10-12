@@ -62,6 +62,9 @@ def main():
     limit = args.limit
     offset = args.offset
 
+    # Suppress urllib3 InsecurePlatformWarnings
+    requests.packages.urllib3.disable_warnings()
+
     with file('config.yaml', 'r') as f:
         config = yaml.load(f)
 
@@ -69,7 +72,9 @@ def main():
 
     query = """SELECT cartodb_id, mid, factual_id
                FROM {cartodb_table}
-               WHERE factual_id is not null
+               WHERE factual_id is not null AND
+                     factual_id <> '' AND
+                     factual_id <> ' '
                ORDER BY cartodb_id""".format(cartodb_table=config['CARTODB_TABLE'])
     if limit is not None:
         query += ' LIMIT {0}'.format(limit)
@@ -81,6 +86,7 @@ def main():
                              query=query)
     response = requests.get(url)
     rows = response.json()['rows']
+    total_rows = len(rows)
 
     imports = 0
 
@@ -105,11 +111,15 @@ def main():
                 imports = imports + 1
             else:
                 print "ERROR {mid}: {error}".format(mid=row['mid'], error=response.json()['error'])
+
+            if imports % 100 == 0:
+                print "Imported {imports}/{total}".format(imports=imports, total=total_rows)
+
     except Exception as e:
         print "EXCEPTION: imports = {}".format(imports)
         raise e
 
-    print "Imported {imports}/{total}".format(imports=imports, total=len(rows))
+    print "Imported {imports}/{total}".format(imports=imports, total=total_rows)
 
 if __name__ == "__main__":
     main()
