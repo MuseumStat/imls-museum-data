@@ -96,7 +96,7 @@ def main():
 
             update_template = "{column} = '{value}'"
             update = ', '.join([update_template.format(column=SOCIAL_COLUMNS[key],
-                                                       value=value)
+                                                       value=value.replace("'", "''"))
                                 for key, value in social_urls.iteritems()])
             query = """UPDATE {cartodb_table}
                        SET {update}
