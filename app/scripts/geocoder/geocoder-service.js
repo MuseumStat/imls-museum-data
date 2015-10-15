@@ -15,6 +15,7 @@
             Config.bounds.northEast.lat
         ].join(',');
         var maxResults = 10;
+        var sourceCountry = 'USA';
         var searchCategories = [
             'Street Address',
             'Neighborhood',
@@ -54,6 +55,7 @@
                 bbox: boundingBox,
                 category: searchCategories,
                 maxLocations: maxResults,
+                sourceCountry: sourceCountry,
                 f: 'pjson'
             };
             var params = angular.extend({}, defaults, options);
