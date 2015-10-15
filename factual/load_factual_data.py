@@ -39,7 +39,7 @@ def get_social_urls(factual_api, factual_id):
     """
     urls = deepcopy(URLS_TEMPLATE)
 
-    factual_data = (factual_api.crosswalk()
+    factual_data = (factual_api.table('crosswalk-us')
                     .filters({'factual_id': factual_id})
                     .data())
     for entry in factual_data:
