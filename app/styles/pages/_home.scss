@@ -1,0 +1,38 @@
+.home-page {
+
+	.main-content {
+		padding: 50px 0;
+		text-align: center;
+        background: $base-darker;
+        border-bottom: 2px solid $base-dark;
+	}
+
+    .museum-logo {
+        max-width: 400px;
+    }
+
+    .panel {
+        border-radius: 0;
+        max-width: 600px;
+        margin: auto;
+    }
+
+    .panel-body {
+        padding-left: 40px;
+        padding-right: 40px;
+    }
+
+    .museum-icon {
+        width: 150px;
+
+        + h3 {
+            color: $white;
+        }
+    }
+
+    @include respond-to('laptop-up') {
+        .action-bar.fixed + .main-content {
+            padding-top: 50px;
+        }
+    }
+}

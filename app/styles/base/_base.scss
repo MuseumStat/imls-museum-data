@@ -1,0 +1,40 @@
+html {
+	font-size: 62.5%;
+}
+
+body {
+	background-color: $white;
+	font-family: $font-base;
+	color: $base;
+	@include font-size(13);
+    min-width: 1024px;
+}
+
+a, .btn {
+	transition: .2s ease-in-out all;
+    cursor: pointer;
+}
+
+.display-block {
+	display: block !important;
+}
+
+.display-inline-block {
+	display: inline-block !important;
+}
+
+.display-inline {
+	display: inline !important;
+}
+
+.no-padding {
+	padding: 0 !important;
+}
+
+.no-margin {
+	margin: 0 !important;
+}
+
+.no-radius {
+	border-radius: 0 !important;
+}

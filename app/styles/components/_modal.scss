@@ -1,0 +1,30 @@
+.modal-backdrop {
+	background-color: $base-darker;
+}
+
+.modal .close {
+  font-size: 50px;
+  right: -40px;
+  position: absolute;
+  color: $white;
+  opacity: 1;
+}
+
+.modal-content {
+	border-radius: 5px;
+	border: none;
+	box-shadow: 0 5px 10px rgba(black, .2);
+	overflow: hidden;
+}
+
+.modal-body {
+	padding: 35px;
+}
+
+.modal-footer {
+	background-color: $off-white;
+
+	.btn {
+		padding: 12px 20px;
+	}
+}

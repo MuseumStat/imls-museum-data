@@ -1,0 +1,56 @@
+.secondary-page {
+
+	.map-container {
+		min-height: 250px;
+
+		.leaflet-top.leaflet-right {
+			display: none;
+		}
+	}
+
+	.content-title {
+		margin-bottom: 60px;
+
+		.content-title-icon {
+			max-width: 80px;
+			display: block;
+			margin: 0 auto 20px;
+		}
+
+        ~ .content-title {
+            margin-top: 80px;
+            padding-top: 40px;
+            border-top: 1px solid $border-color;
+
+            h3 {
+                color: $brand-primary;
+            }
+        }
+	}
+
+	.main-content {
+		margin-top: 60px;
+		margin-bottom: 60px;
+
+		h2, h3 {
+			text-align: center;
+		}
+
+		p {
+
+			+ img {
+				margin: 50px auto;
+				transform: translate(-50%);
+				left: 50%;
+				position: relative;
+			}
+		}
+
+		.btn {
+			padding: 15px 30px;
+			display: block;
+			width: inherit;
+			margin: 30px auto;
+		}
+	}
+}

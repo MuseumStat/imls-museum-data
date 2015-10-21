@@ -1,0 +1,169 @@
+.leaflet-container {
+
+	a {
+		color: $brand-primary;
+	}
+
+	.leaflet-control-attribution {
+		background: rgba($white, .2);
+	}
+
+	.leaflet-control-map-expand {
+		cursor: pointer;
+	}
+
+    div.cartodb-zoom,
+    div.cartodb-tiles-loader {
+        float: right;
+        margin: 20px 20px 0 0;
+    }
+
+    div.cartodb-tiles-loader {
+        margin-top: 0;
+    }
+
+    div.cartodb-legend-stack {
+        bottom: 40px;
+        left: 20px;
+        right: auto;
+    }
+}
+
+.map-container {
+    .vis-layer-selector {
+        padding: 10px;
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+        font-size: 13px;
+        -webkit-box-shadow: rgba(0,0,0,.2) 0 0 4px 2px;
+        -moz-box-shadow: rgba(0,0,0,.2) 0 0 4px 2px;
+        box-shadow: rgba(0,0,0,.2) 0 0 4px 2px;
+        background: #fff;
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        -ms-border-radius: 4px;
+        -o-border-radius: 4px;
+        border-radius: 4px;
+        border: 1px solid #999;
+        z-index: 999;
+
+        .visible {
+            font-size: 16px;
+        }
+
+        .vis-layer-selector-body {
+            margin: 10px 10px 0 10px;
+        }
+
+        ul {
+            padding: 0;
+            list-style: none;
+        }
+    }
+
+    .vis-layer-selector-button {
+        cursor: pointer;
+
+        &:after {
+            content: 'Add Demographics';
+        }
+
+        &.visible:after {
+            display: none;
+        }
+    }
+}
+
+.leaflet-bar {
+	box-shadow: 0 0 4px rgba($base-dark, .5);
+
+    a {
+        width: 28px;
+        height: 28px;
+        line-height: 28px;
+        border-bottom: none;
+
+        &:hover {
+            width: 28px;
+            height: 28px;
+            line-height: 28px;
+        }
+    }
+}
+
+
+// CartoDB Map
+.cartodb-map-wrapper {
+
+    .cartodb-legend.category {
+
+        li {
+            text-transform: none;
+        }
+
+        .bullet {
+            float: none;
+            display: inline-block;
+            vertical-align: middle;
+            width: 11px;
+            height: 11px;
+            border: none;
+            opacity: .8;
+        }
+    }
+
+    //hover tooltip
+    .cartodb-tooltip-content-wrapper {
+        background: $base-dark;
+
+        p {
+            color: $white;
+        }
+    }
+
+    //click popup
+    .cartodb-popup.v2 {
+        background: $base-dark;
+
+        h2 {
+            @include font-size(14);
+            color: $white;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+            border-bottom: 1px solid $base;
+        }
+
+        p {
+            color: $base-light;
+        }
+
+        .cartodb-popup-content a {
+            display: block;
+            text-align: center;
+            padding: 10px;
+            border-radius: 100px;
+            background: $brand-primary;
+            color: $white;
+            max-width: 90%;
+
+            &:hover {
+                text-decoration: none;
+                background: $brand-primary-light;
+            }
+        }
+
+        a.close {
+            background: $base;
+            color: $white;
+
+            &:before, &:after {
+                background: $white;
+            }
+        }
+
+        &:before {
+            border-top-color: $base-dark;
+        }
+    }
+}

@@ -1,0 +1,130 @@
+<div class="museum-page" ng-class="{'map-expanded': museum.mapExpanded}">
+    <div class="navbar action-bar">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xs-7">
+                    <imls-brand></imls-brand>
+                    <nav>
+                        <a ui-sref="about">About</a>
+                        <a ui-sref="help">Help</a>
+                        <a ui-sref="contact">Contact</a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <cartodb-vis demographics="true"></cartodb-vis>
+
+    <div class="action-bar" action-bar-affix>
+        <div class="museum-info">
+            <div class="row">
+                <div class="col-xs-9">
+                    <div ng-if="museum.museum">
+                        <a class="back-to-results" ng-click="museum.onBackButtonClicked()"><i class="md-icon-left-big"></i></a>
+                        <h1>{{ ::museum.museum.commonname }} </h1>
+                        <!--
+                            TODO: Create address via filter, so we can use proper version of the address
+                                  There is a physical, geocoded, and source address in the response
+                         -->
+                        <h5>{{ ::museum.museum | imlsAddress }}</h5>
+                        <imls-social-links museum="museum.museum"></imls-social-links>
+                    </div>
+                </div>
+                <div class="col-xs-3">
+                    <ul class="list-unstyled">
+                        <!-- TODO: Verify this value and make it more useful to user -->
+                        <li ng-if="museum.museum.discipl"><strong>Category:</strong> {{ museum.museum.discipl | imlsCategory }}</li>
+                        <!-- TODO: Filter to properly format phone number -->
+                        <li ng-if="museum.museum.phone"><strong>Phone:</strong> {{ ::museum.museum.phone | tel }}</li>
+                        <!-- TODO: Verify for bad data -->
+                        <li ng-if="museum.museum.weburl"><a href="{{ ::museum.museum.weburl }}" target="_blank">Visit Museum Website</a></li>
+                        <li ng-if="museum.museum.mid"><a href="mailto:info@museumstat.org?subject=Museum%20Update:%20{{ ::museum.museum.mid }}">Submit Museum Update</a></li>
+                        <li><a ng-click="museum.onPrintClicked()">Print This Report</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div> <!-- /.museum-info -->
+        <div class="museum-boundary">
+            <p>Change Analysis Area</p>
+            <form class="form-inline">
+                <div class="action-group">
+                    <div class="form-group">
+                        <select ng-model="museum.acsRadius"
+                                ng-change="museum.onRadiusChanged()"
+                                ng-options="opt.value as opt.label for opt in museum.acsRadiusOptions"
+                                class="form-control">
+                        </select>
+                    </div>
+                </div>
+
+                <div class="action-group">
+                    <div class="form-group">
+                        <button type="button"
+                                class="form-control mapExpand"
+                                data-toggle="tooltip"
+                                data-placement="bottom"
+                                ng-click="museum.onStartDrawPolygon()"
+                                title="Draw custom area">
+                            <i class="md-icon-polygon-draw"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="action-group">
+                    <div class="form-group">
+                        <button type="button"
+                                class="form-control mapExpand"
+                                data-toggle="tooltip"
+                                data-placement="bottom"
+                                ng-click="museum.onStartDrawCircle()"
+                                title="Draw custom radius">
+                            <i class="md-icon-polygon-circle"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div> <!-- /museum-boundary -->
+    </div> <!-- /.action-bar -->
+
+    <section class="main-content">
+        <div class="container-fluid">
+            <div class="preloader large" ng-if="museum.tabState === museum.tabStates.LOADING"></div>
+            <tabset justified="true" ng-if="museum.tabState === museum.tabStates.TABS">
+                <tab class="tab-pane fade in" select="museum.activeTab = 'people'">
+                    <tab-heading>People</tab-heading>
+                    <imls-tab-people ng-if="museum.acsData"
+                                     data="museum.acsData"
+                                     is-tab-visible="museum.activeTab === 'people'">
+                    </imls-tab-people>
+                </tab> <!-- /.tab-pane #people -->
+                <tab class="tab-pane fade in" select="museum.activeTab = 'households'">
+                    <tab-heading>Households</tab-heading>
+                    <imls-tab-households ng-if="museum.acsData"
+                                         data="museum.acsData"
+                                         is-tab-visible="museum.activeTab === 'households'">
+                    </imls-tab-households>
+                </tab>
+                <tab class="tab-pane fade in" select="museum.activeTab = 'similar'">
+                    <tab-heading>State &amp; Region</tab-heading>
+                    <imls-tab-nearby-museums ng-if="museum.nearbyInState && museum.nearbyInArea"
+                                         state-data="museum.nearbyInState"
+                                         area-data="museum.nearbyInArea"
+                                         is-tab-visible="museum.activeTab === 'similar'">
+                    </imls-tab-nearby-museums>
+                </tab>
+            </tabset>
+            <div ng-if="museum.tabState === museum.tabStates.ERROR">
+                <div class="panel panel-default">
+                    <div class="panel-body text-center">
+                        <h3>Error retrieving ACS data.</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="attribution">
+                <i>People and Household Data: U.S. Census Bureau, American Community Survey, 2009-2013.<br />
+                    Museum Data: Museum Universe Data File, Compiled by IMLS and Drexel University.</i>
+            </div>
+        </div> <!-- /.container-fluid -->
+    </section> <!-- /.main-content -->
+
+    <imls-footer></imls-footer>
+</div>

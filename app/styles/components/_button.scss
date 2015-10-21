@@ -1,0 +1,14 @@
+.btn {
+	font-weight: 600;
+}
+
+.btn-primary-ghost {
+    color: $brand-primary;
+    border: 2px solid $brand-primary;
+
+    &:hover,
+    &:focus {
+        color: $white;
+        background: $brand-primary;
+    }
+}

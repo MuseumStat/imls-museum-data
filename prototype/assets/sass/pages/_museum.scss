@@ -1,0 +1,101 @@
+.museum-page {
+
+	// Action bar Changes
+	.action-bar {
+		//margin-top: 0;
+		background: $base-darker;
+		padding: 0;
+		display: table;
+		width: 100%;
+	}
+
+	.museum-info {
+		width: 70%;
+		display: table-cell;
+		vertical-align: middle;
+		padding: 20px 25px 20px 80px;
+		transition: .2s ease-in-out;
+
+		h1 {
+			margin-top: 25px;
+		}
+
+		ul:not(.social-media) {
+			
+			li {
+				margin-bottom: 5px;
+			}
+
+			li a {
+				@include font-size(13);
+				font-style: italic;
+			}
+		}
+	
+		.dropdown.open .dropdown-toggle:hover {
+			color: $brand-primary;
+		}
+	
+		.dropdown-toggle {
+			@include font-size(13);
+			font-style: italic;
+		}
+	}
+
+	.museum-boundary {
+		width: 30%;
+		display: table-cell;
+		vertical-align: middle;
+		background: $base-dark;
+		padding-right: 80px;
+		padding-left: 25px;
+		transition: .5s ease transform;
+
+		p {
+			font-weight: 600;
+			margin-top: -10px;
+			margin-bottom: 15px;
+		}
+	}
+
+	// Fixed Action bar changes
+	@include respond-to('laptop-up') {
+		.action-bar.fixed {
+			padding-top: 0;
+			padding-bottom: 0;
+
+			.social-media,
+			.list-unstyled {
+				display: none;
+			}
+			
+			.museum-info {
+				width: 100%;
+				padding-top: 5px;
+				padding-bottom: 5px;
+
+				h1 {
+					margin-top: 5px;
+				}
+			}
+
+			.back-to-results {
+				top: 10px;
+			}
+
+			.museum-boundary {
+			  position: absolute;
+			  transform: translate(100%) scale(0);
+			}
+
+			+ .main-content {
+				padding-top: 200px;
+			}
+		}
+	}
+
+	// Main Content section changes
+	.main-content {
+		padding: 50px 0;
+	}
+}

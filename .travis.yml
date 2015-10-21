@@ -1,0 +1,21 @@
+language: node_js
+
+cache:
+    directories:
+        - node_modules
+        - bower_components
+
+node_js:
+  - '0.12'
+
+before_install:
+  - npm --version
+
+install:
+  - gem install sass compass
+  - npm install -g bower grunt-cli
+  - bower install
+  - npm install
+
+script:
+  - grunt test

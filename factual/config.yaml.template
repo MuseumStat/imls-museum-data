@@ -1,0 +1,7 @@
+---
+
+FACTUAL_ACCESS_KEY: "enter_your_key_here"
+FACTUAL_SECRET_KEY: "enter_your_secret_here"
+CARTODB_ACCOUNT: "your_account_name"
+CARTODB_TABLE: "mudf15q1int"
+CARTODB_API_KEY: "enter_your_key_here"

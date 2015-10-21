@@ -1,0 +1,44 @@
+.navbar.action-bar {
+    background: $base-darker;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    position: relative;
+    min-height: 76px;
+
+    nav, .nav {
+        display: inline-block;
+        vertical-align: middle;
+
+        a {
+            @include font-size(15);
+            padding: 15px;
+        }
+
+        .active {
+            color: $white;
+        }
+    }
+
+    .action-group {
+        display: block;
+        position: relative;
+        margin-top: 5px;
+
+        input.form-control {
+            display: block;
+            width: 100%;
+            border-radius: 100px;
+            padding-right: 25px;
+        }
+
+        button.form-control {
+            border-radius: 0 100px 100px 0;
+            position: absolute;
+            top: 0;
+            right: -25px;
+            border-left: 1px solid $border-color;
+            width: auto;
+            display: inline-block;
+        }
+    }
+}

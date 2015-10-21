@@ -1,0 +1,118 @@
+<!doctype html>
+<html class="no-js">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="description" content="">
+    <link rel="stylesheet" href="styles/fonts/fontello/css/museum-db.css" />
+    <link rel="stylesheet" href="https://cartodb-libs.global.ssl.fastly.net/cartodb.js/v3/3.15/themes/css/cartodb.css" />
+    <link rel="apple-touch-icon" sizes="57x57" href="/images/favicons/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/images/favicons/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/images/favicons/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/images/favicons/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/images/favicons/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/images/favicons/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/images/favicons/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/images/favicons/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/favicons/apple-touch-icon-180x180.png">
+    <link rel="icon" type="image/png" href="/images/favicons/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/images/favicons/android-chrome-192x192.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="/images/favicons/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="/images/favicons/favicon-16x16.png" sizes="16x16">
+    <link rel="manifest" href="/images/favicons/manifest.json">
+    <meta name="msapplication-TileColor" content="#00aba9">
+    <meta name="msapplication-TileImage" content="/images/favicons/mstile-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+    <!-- build:css(.) styles/vendor.css -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/leaflet-draw/dist/leaflet.draw.css" />
+    <link rel="stylesheet" href="bower_components/nvd3/build/nv.d3.css" />
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css(.tmp) styles/main.css -->
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- endbuild -->
+  </head>
+  <body ng-app="imls">
+    <!--[if lt IE 7]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+    <ui-view></ui-view>
+
+    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
+     <script>
+       !function(A,n,g,u,l,a,r){A.GoogleAnalyticsObject=l,A[l]=A[l]||function(){
+       (A[l].q=A[l].q||[]).push(arguments)},A[l].l=+new Date,a=n.createElement(g),
+       r=n.getElementsByTagName(g)[0],a.src=u,r.parentNode.insertBefore(a,r)
+       }(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+       ga('create', 'UA-68604229-1');
+       ga('send', 'pageview');
+    </script>
+
+    <script src="https://cartodb-libs.global.ssl.fastly.net/cartodb.js/v3/3.15/cartodb.js"></script>
+
+    <!-- build:js(.) scripts/vendor.js -->
+    <!-- bower:js -->
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="bower_components/leaflet-draw/dist/leaflet.draw-src.js"></script>
+    <script src="bower_components/lodash/lodash.js"></script>
+    <script src="bower_components/ngGeolocation/ngGeolocation.js"></script>
+    <script src="bower_components/angular-smart-table/dist/smart-table.js"></script>
+    <script src="bower_components/d3/d3.js"></script>
+    <script src="bower_components/nvd3/build/nv.d3.js"></script>
+    <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+    <script src="bower_components/angular-resize/dist/angular-resize.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+
+        <!-- build:js({.tmp,app}) scripts/scripts.js -->
+        <script src="scripts/config.js"></script>
+        <script src="scripts/affix/module.js"></script>
+        <script src="scripts/affix/action-bar-affix-directive.js"></script>
+        <script src="scripts/map/module.js"></script>
+        <script src="scripts/map/cartodb-vis-directive.js"></script>
+        <script src="scripts/map/map-style-service.js"></script>
+        <script src="scripts/brand/module.js"></script>
+        <script src="scripts/brand/brand-directive.js"></script>
+        <script src="scripts/geocoder/module.js"></script>
+        <script src="scripts/geocoder/geocoder-service.js"></script>
+        <script src="scripts/museum/module.js"></script>
+        <script src="scripts/museum/museum-service.js"></script>
+        <script src="scripts/museum/legend-constant.js"></script>
+        <script src="scripts/museum/address-filter.js"></script>
+        <script src="scripts/museum/category-filter.js"></script>
+        <script src="scripts/museum/tel-filter.js"></script>
+        <script src="scripts/acs/module.js"></script>
+        <script src="scripts/acs/acs-variables.js"></script>
+        <script src="scripts/acs/acs-service.js"></script>
+        <script src="scripts/acs/acs-graphs.js"></script>
+        <script src="scripts/util/module.js"></script>
+        <script src="scripts/util/util-service.js"></script>
+        <script src="scripts/views/footer/module.js"></script>
+        <script src="scripts/views/footer/footer-directive.js"></script>
+        <script src="scripts/views/home/module.js"></script>
+        <script src="scripts/views/home/home-controller.js"></script>
+        <script src="scripts/views/about/module.js"></script>
+        <script src="scripts/views/about/about-controller.js"></script>
+        <script src="scripts/views/help/module.js"></script>
+        <script src="scripts/views/help/help-controller.js"></script>
+        <script src="scripts/views/contact/module.js"></script>
+        <script src="scripts/views/contact/contact-controller.js"></script>
+        <script src="scripts/views/download/module.js"></script>
+        <script src="scripts/views/download/download-controller.js"></script>
+        <script src="scripts/views/museum/module.js"></script>
+        <script src="scripts/views/museum/museum-controller.js"></script>
+        <script src="scripts/views/museum/social-links-directive.js"></script>
+        <script src="scripts/views/museum/tab-people-directive.js"></script>
+        <script src="scripts/views/museum/tab-households-directive.js"></script>
+        <script src="scripts/views/museum/tab-nearby-museums-directive.js"></script>
+        <script src="scripts/app.js"></script>
+        <!-- endbuild -->
+</body>
+</html>

@@ -1,0 +1,27 @@
+h1, h2, h3 {
+	text-transform: uppercase;
+	font-weight: 600;
+	letter-spacing: 4px;
+}
+
+h1 {
+	@include font-size(30);
+}
+
+h2 {
+	@include font-size(25);
+	line-height: 1.8;
+}
+
+h3 {
+	@include font-size(20);
+}
+
+h4 {
+	@include font-size(18);
+}
+
+p {
+	@include font-size(14);
+	line-height: 2;
+}

@@ -1,0 +1,41 @@
+<div class="row">
+    <div class="col-xs-4">
+        <div class="chart-graph">
+            <h4>Total Households</h4>
+            <span class="numerical">{{ house.data['B11001_001E'].sum | number }}</span>
+        </div>
+    </div> <!-- /.col -->
+    <div class="col-xs-4">
+        <div class="chart-graph">
+            <h4>Median Household Income</h4>
+            <span class="numerical">{{ house.data['B19013_001E'].popAvg | currency:"$":0 }}</span>
+        </div>
+    </div> <!-- /.col -->
+    <div class="col-xs-4">
+        <div class="chart-graph">
+            <h4>Median Home Value</h4>
+            <span class="numerical">{{ house.data['B25077_001E'].popAvg | currency:"$":0 }}</span>
+        </div>
+    </div> <!-- /.col -->
+</div>
+<div class="row">
+    <div class="col-xs-4">
+        <div class="chart-graph">
+            <h4>Median Year Moved In</h4>
+            <span class="numerical">Owner: {{ house.data['B25039_002E'].popAvg | limitTo:4 }}</span>
+            <span class="numerical">Renter: {{ house.data['B25039_003E'].popAvg | limitTo:4 }}</span>
+        </div>
+    </div> <!-- /.col -->
+    <div class="col-xs-4">
+        <div class="chart-graph">
+            <h4>Household Types</h4>
+            <div id="pie-chart-household-type"><svg></svg></div>
+        </div>
+    </div> <!-- /.col -->
+    <div class="col-xs-4">
+        <div class="chart-graph">
+            <h4>Household Languages</h4>
+            <div id="bar-chart-household-language"><svg></svg></div>
+        </div>
+    </div> <!-- /.col -->
+</div>

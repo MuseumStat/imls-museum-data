@@ -1,0 +1,23 @@
+// map-expanded Class added to body when map is on full view mode
+.map-expanded {
+	overflow: hidden;
+
+	.map-container {
+		min-height: calc(100vh - 105px);
+	}
+}
+
+.map-container {
+	position: relative;
+	min-height: 400px;
+	transition: .4s ease-in-out min-height;
+}
+
+#map {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
+

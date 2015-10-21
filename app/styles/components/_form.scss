@@ -1,0 +1,45 @@
+.form-control,
+.input-group-addon {
+	@include font-size(14);
+	color: $base;
+	text-transform: uppercase;
+	font-weight: 600;
+	letter-spacing: 2px;
+	background-color: $white;
+	transition: .2s ease-in-out background;
+}
+
+.form-control {
+	box-shadow: none;
+
+	&:hover {
+		background-color: $off-white;
+	}
+
+	&:focus, &.focus {
+		outline: none;
+		box-shadow: none;
+	}
+}
+
+select.form-control {
+	text-transform: inherit;
+	letter-spacing: 0;
+	font-weight: 400;
+	-moz-appearance: none;
+	-webkit-appearance: none;
+	background-image: url('/images/2x/dropdown-arrow@2x.png');
+    background-repeat: no-repeat;
+    background-size: 14px;
+    background-position: right 10px center;
+    padding-right: 30px;
+    height: 45px;
+}
+
+.input-group-addon + .form-control {
+	padding-left: 50px;
+}
+
+.form-inline .input-group .form-control {
+	width: auto;
+}

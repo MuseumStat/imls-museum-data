@@ -1,0 +1,72 @@
+.nav.nav-tabs li {
+
+	a {
+		@include font-size(24);
+		text-transform: uppercase;
+		color: lighten($base, 10%);
+		letter-spacing: 4px;
+		font-weight: 600;
+		position: relative;
+        padding-left: 0;
+        padding-right: 0;
+
+		&:after {
+			content: '';
+			width: 0;
+			display: block;
+			position: absolute;
+			bottom: -3px;
+			left: 25%;
+			border-bottom: 5px solid $base-light;
+			transition: .4s cubic-bezier(0.4, 0, 0.2, 1) width;
+		}
+
+		&:hover, &.hover,
+		&:focus, &.focus {
+			background: none;
+			color: $base;
+			border-color: $white;
+			border-bottom-color: $border-color;
+
+			&:after {
+				width: 50%;
+			}
+		}
+	}
+
+	&.active a {
+		color: $base;
+		border-color: $white;
+		border-bottom-color: $border-color;
+
+		&:after {
+			content: '';
+			width: 50%;
+			display: block;
+			position: absolute;
+			bottom: -3px;
+			left: 25%;
+			border-bottom: 5px solid $brand-primary-light;
+		}
+
+		&:hover, &.hover,
+		&:focus, &.focus {
+			background: none;
+			color: $base;
+			border-color: $white;
+			border-bottom-color: $border-color;
+		}
+	}
+}
+
+// Contents of each tab
+.tab-content {
+	padding-top: 70px;
+}
+
+.tab-pane {
+
+	h4 {
+		font-weight: 600;
+	}
+}

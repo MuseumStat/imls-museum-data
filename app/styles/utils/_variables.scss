@@ -1,0 +1,69 @@
+/// Color variables
+///
+$base-light: lighten(#5f6062, 35%); //#a8adab
+$base: #5f6062;
+$base-dark: darken(#5f6062, 15%); //#2a2d2c
+$base-darker: darken(#5f6062, 20%); //#2a2d2c
+
+$brand-primary: #257c89;
+$brand-primary-light: lighten($brand-primary, 15%); //#35b3c5
+$brand-primary-lighter: lighten($brand-primary, 35%); //#83d2de
+
+$brand-secondary: #bc5405;
+
+$white: #fff;
+$off-white: #ededed;
+
+$border-color: #ddd;
+
+
+/// Base font-family declaration
+///
+$font-base: 'Open Sans', sans-serif;;
+
+
+/// Border Radius
+///
+$border-radius-base: 100px;
+$border-radius-large: 100px;
+
+/// Tooltips
+$tooltip-opacity: 1;
+$tooltip-bg: $base;
+$tooltip-color: $white;
+
+
+/// Buttons
+///
+$btn-font-weight:        600;
+
+$btn-default-color:      $base;
+$btn-default-border:     $border-color;
+
+$btn-info-color:         $brand-primary;
+$btn-info-bg:            $brand-primary-lighter;
+$btn-info-border:        $brand-primary-light;
+
+
+/// Links
+///
+$link-color:            $brand-primary-light;
+$link-hover-color:      $brand-primary;
+
+
+
+/// Screen Sizes
+/// Used in _mixins.scss > @mixin respond-to($breakpoint)
+$breakpoints: (
+  'phone': (max-width: 767px),
+
+  'tablet': (min-width: 768px) and (max-width: 991px),
+  'tablet-up': (min-width: 768px),
+  'tablet-down': (max-width: 991px),
+
+  'laptop': (min-width: 992px) and (max-width: 1200px),
+  'laptop-up': (min-width: 992px),
+  'laptop-down': (max-width: 1200px),
+
+  'desktop': (min-width: 1201px),
+);

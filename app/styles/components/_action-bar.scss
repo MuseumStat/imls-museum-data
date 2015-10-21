@@ -1,0 +1,164 @@
+.action-bar {
+	color: $white;
+	background: $base-darker;
+	padding-top: 30px;
+	padding-bottom: 30px;
+	position: relative;
+	z-index: 1000;
+    width: 100%;
+	@include font-size(14);
+
+	h1, h2, h3, p {
+		color: $white;
+	}
+
+	h1 {
+		margin-top: 3px;
+	}
+
+	h2 {
+		line-height: 1.1;
+		margin-top: 8px;
+	}
+
+	h3 {
+		margin-top: 0px;
+	}
+
+	h5 {
+		color: $white;
+		text-transform: uppercase;
+		font-weight: 600;
+		letter-spacing: .5px;
+	}
+
+	a:not(.btn),
+	// Reduce border radius on search typeahead
+	.dropdown-menu {
+		border-radius: 10px;
+	}
+	.dropdown-toggle {
+		color: $link-color;
+		cursor: pointer;
+        vertical-align: middle;
+
+		&:hover {
+			text-decoration: none;
+			color: $link-hover-color;
+		}
+	}
+    .dropdown.open .dropdown-menu {
+        min-width: 202px;
+    }
+
+	.back-to-results {
+		position: absolute;
+	  left: -45px;
+	  top: 22px;
+	  font-size: 35px;
+	}
+
+	.form-inline {
+		@include font-size(0);
+	}
+
+	.form-control {
+		height: 45px;
+		min-width: 45px;
+		border-radius: 0;
+		border: none;
+		border-right: 1px solid $border-color;
+	}
+
+	.input-group-addon {
+		position: absolute;
+		background: none;
+		border: none;
+		padding: 0;
+		z-index: 10;
+		min-width: 45px;
+		line-height: 45px;
+		@include font-size(13);
+	}
+
+	form {
+
+		.btn {
+			@include font-size(13);
+			line-height: 1;
+			padding: 15px 24px;
+			border-color: $base-darker;
+		}
+	}
+}
+
+// Group of buttons or inputs within action-bar which
+// create the search bar
+.action-group {
+	margin-right: 10px;
+	display: inline-block;
+	//position: relative;
+
+	.form-group:first-child .form-control {
+		border-bottom-left-radius: $border-radius-base;
+		border-top-left-radius: $border-radius-base;
+	}
+
+	.form-group:last-child .form-control {
+		border-right: 1px solid $base-darker;
+		border-bottom-right-radius: $border-radius-base;
+		border-top-right-radius: $border-radius-base;
+	}
+}
+
+// Define the width of the search bar
+.search-bar {
+
+	.form-control {
+		min-width: 300px;
+	}
+}
+
+// When search field is focused
+	.action-group.search-active {
+		position: relative;
+
+		.search-bar {
+			min-width: 300px;
+			min-height: 45px;
+		}
+
+		.input-group {
+			position: inherit;
+
+			.input-group-addon {
+				left: 0;
+				transition: .4s ease-in-out;
+			}
+		}
+		.search-expand {
+			position: absolute;
+			left: 0;
+			min-width: 100%;
+			border-radius: 5px !important;
+			box-shadow: 0 0 0 2px $base-light;
+			transition: .5s ease-in-out;
+		}
+	}
+
+// Action bar with a fixed class on scroll
+@include respond-to('laptop-up') {
+	.action-bar.fixed {
+	  position: fixed;
+	  top: 0px;
+		width: 100%;
+		padding-top: 10px;
+	  padding-bottom: 10px;
+	  transition: .2s ease-in-out;
+	  transition-delay: .4s;
+
+		+ .main-content {
+			padding-top: 105px;
+		}
+	}
+}

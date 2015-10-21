@@ -1,0 +1,111 @@
+<!doctype html>
+<html class="no-js">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="description" content="">
+    <link rel="stylesheet" href="styles/fonts/fontello/css/museum-db.css" />
+    <link rel="stylesheet" href="https://cartodb-libs.global.ssl.fastly.net/cartodb.js/v3/3.15/themes/css/cartodb.css" />
+    <link rel="apple-touch-icon" sizes="57x57" href="/images/favicons/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/images/favicons/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/images/favicons/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/images/favicons/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/images/favicons/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/images/favicons/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/images/favicons/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/images/favicons/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/favicons/apple-touch-icon-180x180.png">
+    <link rel="icon" type="image/png" href="/images/favicons/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/images/favicons/android-chrome-192x192.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="/images/favicons/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="/images/favicons/favicon-16x16.png" sizes="16x16">
+    <link rel="manifest" href="/images/favicons/manifest.json">
+    <meta name="msapplication-TileColor" content="#00aba9">
+    <meta name="msapplication-TileImage" content="/images/favicons/mstile-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+    <!-- build:css(.tmp) styles/main.css -->
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- endbuild -->
+  </head>
+  <body ng-app="imls">
+    <!--[if lt IE 7]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+<div class="secondary-page">
+    <div class="navbar action-bar">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xs-7">
+                    <div class="brand">
+                        <a class="logo" href="/">
+                            <img srcset="/images/2x/museum-stat-logo@2x.png 2x" src="/images/museum-stat-logo.png">
+                        </a>
+                    </div>
+                    <nav>
+                        <a href="/#/about">About</a>
+                        <a href="/#/help">Help</a>
+                        <a href="/#/contact">Contact</a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="main-content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xs-8 col-xs-push-2">
+                    <div class="content-title">
+                        <img class="content-title-icon" src="/images/museum-icon.svg">
+                        <h2>Page not found</h2>
+                        <!-- <hr> TODO: reinsert when there is content below -->
+                    </div>
+                    <!-- <p>Future content here. </p> -->
+                </div>
+            </div>
+        </div> <!-- /.container-fluid -->
+    </section> <!-- /.main-content -->
+
+    <imls-footer></imls-footer>
+<footer>
+    <div class="footer-section-secondary">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xs-3">
+                    <h3 class="white">A cooperative research project of:</h3>
+                    <a class="logo" href="http://www.imls.gov" target="_blank">
+                        <img srcset="/images/2x/logo@2x.png 2x" src="/images/logo.png">
+                    </a>
+                    <a class="logo" href="http://drexel.edu/westphal/graduate/AADM/" target="_blank">
+                        <img srcset="/images/2x/westphal-logo@2x.png 2x" src="/images/westphal-logo.png" >
+                    </a>
+                </div>
+                <div class="col-xs-3">
+                    <a ui-sref="about"><h3>About</h3></a>
+                    <p>MuseumStat is a powerful online resource to support museums, communities, and researchers in gaining useful insights into the scope and reach of museums and the communities they serve. <a ui-sref="about">More...</a></p>
+                </div>
+                <div class="col-xs-3">
+                    <a ui-sref="contact"><h3>Contact</h3></a>
+                    <p>We want to ensure that MuseumStat meets your needs and provides you with valuable information. Learn more and let us know how we can help. <a ui-sref="contact">More...</a></p>
+                </div>
+                <div class="col-xs-3">
+                    <a href="http://data.imls.gov" target="_blank"><h3>Full Dataset</h3></a>
+                    <p>MuseumStat’s entire dataset of over 33,000 US museums and other useful datasets can be downloaded for more advanced research and analysis. Access the data and other resources <a href="http://data.imls.gov" target="_blank">here</a>.</p>
+                </div>
+            </div>
+        </div> <!-- /.container-fluid -->
+    </div>
+</footer> <!-- /footer -->
+</div>
+    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
+     <script>
+       !function(A,n,g,u,l,a,r){A.GoogleAnalyticsObject=l,A[l]=A[l]||function(){
+       (A[l].q=A[l].q||[]).push(arguments)},A[l].l=+new Date,a=n.createElement(g),
+       r=n.getElementsByTagName(g)[0],a.src=u,r.parentNode.insertBefore(a,r)
+       }(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+       ga('create', 'UA-XXXXX-X');
+       ga('send', 'pageview');
+    </script>
+</body>
+</html>
