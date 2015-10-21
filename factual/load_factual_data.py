@@ -39,7 +39,7 @@ def get_social_urls(factual_api, factual_id):
     """
     urls = deepcopy(URLS_TEMPLATE)
 
-    factual_data = (factual_api.crosswalk()
+    factual_data = (factual_api.table('crosswalk-us')
                     .filters({'factual_id': factual_id})
                     .data())
     for entry in factual_data:
@@ -96,7 +96,7 @@ def main():
 
             update_template = "{column} = '{value}'"
             update = ', '.join([update_template.format(column=SOCIAL_COLUMNS[key],
-                                                       value=value)
+                                                       value=value.replace("'", "''"))
                                 for key, value in social_urls.iteritems()])
             query = """UPDATE {cartodb_table}
                        SET {update}
