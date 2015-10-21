@@ -71,7 +71,7 @@
 
         function search(text) {
             ctl.loadingSearch = true;
-            return $q.all([Geocoder.search(text), Museum.suggest(text)]).then(function (results) {
+            return $q.all([Museum.suggest(text), Geocoder.search(text)]).then(function (results) {
                 $log.info(results);
                 return _.flatten(results);
             }).catch(function (error) {
