@@ -93,10 +93,10 @@
 }
 
 .cartodb-fullscreen {
-    // TODO: Fix these styles
+    // Cannot go below the zoom control, that's where the loading spinner lives
     position: absolute;
     display: block;
-    top: 70px;
+    top: 10px;
     left: 0;
 }
 
