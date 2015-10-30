@@ -9,7 +9,6 @@
                               Config, ACS, ACSGraphs, MapStyle, Museum) {
         var ctl = this;
 
-        var MAP_SLIDE_TRANSITION_MS = 400;
         var ONE_MILE_IN_M = 1609.344;
         var LOAD_TIMEOUT_MS = 300;
         var CUSTOM_RADIUS_VALUE = -1;
@@ -50,6 +49,7 @@
             ctl.tabState = ctl.tabStates.LOADING;
 
             ctl.onBackButtonClicked = onBackButtonClicked;
+            ctl.onMapExpanded = onMapExpanded;
             ctl.onRadiusChanged = onRadiusChanged;
             ctl.onStartDrawPolygon = onStartDrawPolygon;
             ctl.onStartDrawCircle = onStartDrawCircle;
@@ -63,6 +63,7 @@
         function onVisReady(event, newVis, newMap) {
             vis = newVis;
             map = newMap;
+            ctl.map = map;
 
             map.on('draw:created', onDrawCreated);
 
@@ -157,14 +158,14 @@
             });
         }
 
+        function onMapExpanded(isOpen) {
+            if (!isOpen && searchPolygon) {
+                map.fitBounds(searchPolygon.getBounds());
+            }
+        }
+
         function setMapExpanded(isExpanded) {
             ctl.mapExpanded = !!(isExpanded);
-            $timeout(function () {
-                map.invalidateSize();
-                if (searchPolygon) {
-                    map.fitBounds(searchPolygon.getBounds());
-                }
-            }, MAP_SLIDE_TRANSITION_MS * 1.5);
         }
 
         function onACSDataComplete(data) {

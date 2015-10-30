@@ -21,6 +21,7 @@
 
         function initialize() {
             ctl.list = [];
+            ctl.mapExpanded = false;
             ctl.safeList = [];
             ctl.states = {
                 DISCOVER: 0,
@@ -38,6 +39,7 @@
             ctl.search = search;
             $scope.$on('imls:vis:ready', function (e, vis, newMap) {
                 map = newMap;
+                ctl.map = map;
 
                 var lastSearched = $cookies.getObject(Config.cookies.LAST_SEARCHED);
                 if (lastSearched) {

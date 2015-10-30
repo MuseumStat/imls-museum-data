@@ -92,6 +92,13 @@
     }
 }
 
+.cartodb-fullscreen {
+    // TODO: Fix these styles
+    position: absolute;
+    display: block;
+    top: 70px;
+    left: 0;
+}
 
 // CartoDB Map
 .cartodb-map-wrapper {
