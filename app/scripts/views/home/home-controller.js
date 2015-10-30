@@ -39,7 +39,6 @@
             ctl.search = search;
             $scope.$on('imls:vis:ready', function (e, vis, newMap) {
                 map = newMap;
-                ctl.map = map;
 
                 var lastSearched = $cookies.getObject(Config.cookies.LAST_SEARCHED);
                 if (lastSearched) {

@@ -63,7 +63,6 @@
         function onVisReady(event, newVis, newMap) {
             vis = newVis;
             map = newMap;
-            ctl.map = map;
 
             map.on('draw:created', onDrawCreated);
 

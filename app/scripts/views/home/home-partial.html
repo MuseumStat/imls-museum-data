@@ -1,6 +1,4 @@
-<div ng-class="{'home-page': home.pageState === home.states.DISCOVER, 'empty-search': home.pageState === home.states.ERROR }"
-     fullscreen="home.mapExpanded"
-     fullscreen-map="home.map">
+<div ng-class="{'home-page': home.pageState === home.states.DISCOVER, 'empty-search': home.pageState === home.states.ERROR }">
     <div class="navbar action-bar">
         <div class="container-fluid">
             <div class="row">
@@ -44,7 +42,7 @@
         </div>
     </div>
 
-    <cartodb-vis demographics="true"></cartodb-vis>
+    <cartodb-vis demographics="true" vis-fullscreen="home.mapExpanded"></cartodb-vis>
 
     <div class="action-bar" action-bar-affix  ng-if="home.pageState === home.states.LIST">
         <div class="container-fluid">

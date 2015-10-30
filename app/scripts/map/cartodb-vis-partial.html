@@ -1,8 +1,8 @@
 <div class="map-container">
-    <div class="vis-layer-selector" 
+    <div class="vis-layer-selector"
          ng-if="vis.sublayers.length"
          ng-mouseleave="vis.layersVisible = false">
-        <div class="vis-layer-selector-button" 
+        <div class="vis-layer-selector-button"
              ng-class="{ 'visible': vis.layersVisible }"
              ng-click="vis.layersVisible = !vis.layersVisible">
             <i class="md-icon-layers"></i><span ng-show="vis.layersVisible">Demographics</span>
@@ -12,7 +12,7 @@
             <ul>
                 <li ng-repeat="sublayer in vis.sublayers">
                     <label>
-                        <input type="radio" 
+                        <input type="radio"
                                ng-model="vis.radio"
                                value="{{ $index }}"
                                ng-change="vis.onSublayerChange(sublayer)">
@@ -28,8 +28,9 @@
                     </label>
                 </li>
             </ul>
-        </div> 
+        </div>
     </div>
     <div id="map"></div>
+    <div class="cartodb-fullscreen"><a ng-click="vis.onFullscreenClicked()"></a></div>
 </div> <!-- /.map-container -->
 
