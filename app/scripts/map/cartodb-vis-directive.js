@@ -16,11 +16,13 @@
             search: false,
             fullscreen: false,
             scrollwheel: false,
+            tooltip: true,
             cartodb_logo: false
         };
         var ctl = this;
         var url;
         var map;
+        var demographicsVisible = false;
 
         initialize();
 
@@ -32,7 +34,6 @@
             ctl.layersVisible = false;
             ctl.visId = ctl.visId || Config.cartodb.visId;
             ctl.visOptions = ctl.visOptions || defaultOptions;
-            ctl.visOptions.tooltip = !ctl.demographics;
             ctl.visAccount = ctl.visAccount || Config.cartodb.account;
             url = 'https://' + ctl.visAccount + '.cartodb.com/api/v2/viz/' + ctl.visId + '/viz.json';
             cartodb.createVis('map', url, ctl.visOptions).done(onVisReady);
@@ -47,20 +48,32 @@
                 s.hide();
                 s.legend.set('visible', false);
             });
+            demographicsVisible = !!(sublayer);
             if (sublayer) {
                 sublayer.show();
                 sublayer.legend.set('visible', true);
             } else {
                 // Hide the sticky tooltip by clearing block styling...weee this is messy
-                $('div.cartodb-tooltip').css('display', '');
+                $('div.cartodb-tooltip .tooltip-tracts').parent().css('display', 'none');
             }
         }
 
         function onVisReady(vis) {
             map = vis.getNativeMap();
+            var layers = vis.getLayers();
+            // Pretty hacky, but simpler than other options:
+            //  If one of the demographics layers are visible, then we want to find the
+            //  tooltip-points tooltip and re-hide it as cartodbjs attempts to display it on
+            //  feature over
+            // Also have a check here to ensure we're listening to the points layer
+            if (layers.length >= 2 && layers[1].getSubLayers) {
+                layers[1].on('featureOver', onPointsLayerFeatureOver);
+            } else {
+                $log.error('vis.getLayers()[1] is not the points layer!');
+            }
 
             if (ctl.demographics) {
-                var demographicsOptions = angular.extend({}, defaultOptions, {tooltip: true});
+                var demographicsOptions = angular.extend({}, defaultOptions, {});
                 cartodb.createLayer(map, Config.cartodb.demographicVisUrl, demographicsOptions)
                 .addTo(map).done(function (layer) {
                     $('div.cartodb-legend-stack').filter(':first').css('bottom', '150px');
@@ -96,6 +109,12 @@
                     ctl.visFullscreenOnToggle()(isOpen);
                 }
             }, MAP_SLIDE_TRANSITION_MS * 1.2);
+        }
+
+        function onPointsLayerFeatureOver() {
+            if (demographicsVisible) {
+                $('div.cartodb-tooltip .tooltip-points').parent().css('display', 'none');
+            }
         }
     }
 
