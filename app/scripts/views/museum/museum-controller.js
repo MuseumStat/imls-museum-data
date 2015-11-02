@@ -16,6 +16,8 @@
         var vis = null;
         var map = null;
         var searchPolygon = null;
+        var lastSearchPolygon = null;
+        var drawHandler = null;
         var searchPolygonStyle = angular.extend({}, MapStyle.circle, {
             dashArray: '8',
         });
@@ -117,7 +119,8 @@
             ctl.acsRadius = -1;
             clearSearchPolygon();
             var polygonDrawOptions = {};
-            new L.Draw.Polygon(map, polygonDrawOptions).enable();
+            drawHandler = new L.Draw.Polygon(map, polygonDrawOptions);
+            drawHandler.enable();
             setMapExpanded(true);
         }
 
@@ -126,7 +129,8 @@
             ctl.acsRadius = -1;
             clearSearchPolygon();
             var circleDrawOptions = {};
-            new L.Draw.Circle(map, circleDrawOptions).enable();
+            drawHandler = new L.Draw.Circle(map, circleDrawOptions);
+            drawHandler.enable();
             setMapExpanded(true);
         }
 
@@ -158,8 +162,17 @@
         }
 
         function onMapExpanded(isOpen) {
-            if (!isOpen && searchPolygon) {
-                map.fitBounds(searchPolygon.getBounds());
+            if (!isOpen) {
+                if (searchPolygon) {
+                    map.fitBounds(searchPolygon.getBounds());
+                // User is in the middle of drawing, cancel drawing and restore last used
+                // searchPolygon
+                } else if (drawHandler) {
+                    drawHandler.disable();
+                    searchPolygon = lastSearchPolygon;
+                    lastSearchPolygon = null;
+                    map.addLayer(searchPolygon);
+                }
             }
         }
 
@@ -222,6 +235,7 @@
 
         function clearSearchPolygon() {
             if (searchPolygon) {
+                lastSearchPolygon = searchPolygon;
                 map.removeLayer(searchPolygon);
                 searchPolygon = null;
             }
