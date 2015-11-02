@@ -1,4 +1,4 @@
-<div class="museum-page" ng-class="{'map-expanded': museum.mapExpanded}">
+<div class="museum-page">
     <div class="navbar action-bar">
         <div class="container-fluid">
             <div class="row">
@@ -13,7 +13,9 @@
             </div>
         </div>
     </div>
-    <cartodb-vis demographics="true"></cartodb-vis>
+    <cartodb-vis demographics="true"
+                 vis-fullscreen="museum.mapExpanded"
+                 vis-fullscreen-on-toggle="museum.onMapExpanded"></cartodb-vis>
 
     <div class="action-bar" action-bar-affix>
         <div class="museum-info">

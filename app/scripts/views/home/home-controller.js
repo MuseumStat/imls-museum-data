@@ -21,6 +21,7 @@
 
         function initialize() {
             ctl.list = [];
+            ctl.mapExpanded = false;
             ctl.safeList = [];
             ctl.states = {
                 DISCOVER: 0,

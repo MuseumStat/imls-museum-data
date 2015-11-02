@@ -9,7 +9,6 @@
                               Config, ACS, ACSGraphs, MapStyle, Museum) {
         var ctl = this;
 
-        var MAP_SLIDE_TRANSITION_MS = 400;
         var ONE_MILE_IN_M = 1609.344;
         var LOAD_TIMEOUT_MS = 300;
         var CUSTOM_RADIUS_VALUE = -1;
@@ -17,6 +16,8 @@
         var vis = null;
         var map = null;
         var searchPolygon = null;
+        var lastSearchPolygon = null;
+        var drawHandler = null;
         var searchPolygonStyle = angular.extend({}, MapStyle.circle, {
             dashArray: '8',
         });
@@ -50,6 +51,7 @@
             ctl.tabState = ctl.tabStates.LOADING;
 
             ctl.onBackButtonClicked = onBackButtonClicked;
+            ctl.onMapExpanded = onMapExpanded;
             ctl.onRadiusChanged = onRadiusChanged;
             ctl.onStartDrawPolygon = onStartDrawPolygon;
             ctl.onStartDrawCircle = onStartDrawCircle;
@@ -117,7 +119,8 @@
             ctl.acsRadius = -1;
             clearSearchPolygon();
             var polygonDrawOptions = {};
-            new L.Draw.Polygon(map, polygonDrawOptions).enable();
+            drawHandler = new L.Draw.Polygon(map, polygonDrawOptions);
+            drawHandler.enable();
             setMapExpanded(true);
         }
 
@@ -126,7 +129,8 @@
             ctl.acsRadius = -1;
             clearSearchPolygon();
             var circleDrawOptions = {};
-            new L.Draw.Circle(map, circleDrawOptions).enable();
+            drawHandler = new L.Draw.Circle(map, circleDrawOptions);
+            drawHandler.enable();
             setMapExpanded(true);
         }
 
@@ -157,14 +161,23 @@
             });
         }
 
-        function setMapExpanded(isExpanded) {
-            ctl.mapExpanded = !!(isExpanded);
-            $timeout(function () {
-                map.invalidateSize();
+        function onMapExpanded(isOpen) {
+            if (!isOpen) {
                 if (searchPolygon) {
                     map.fitBounds(searchPolygon.getBounds());
+                // User is in the middle of drawing, cancel drawing and restore last used
+                // searchPolygon
+                } else if (drawHandler) {
+                    drawHandler.disable();
+                    searchPolygon = lastSearchPolygon;
+                    lastSearchPolygon = null;
+                    map.addLayer(searchPolygon);
                 }
-            }, MAP_SLIDE_TRANSITION_MS * 1.5);
+            }
+        }
+
+        function setMapExpanded(isExpanded) {
+            ctl.mapExpanded = !!(isExpanded);
         }
 
         function onACSDataComplete(data) {
@@ -222,6 +235,7 @@
 
         function clearSearchPolygon() {
             if (searchPolygon) {
+                lastSearchPolygon = searchPolygon;
                 map.removeLayer(searchPolygon);
                 searchPolygon = null;
             }

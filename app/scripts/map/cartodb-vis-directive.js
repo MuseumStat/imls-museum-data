@@ -1,12 +1,15 @@
 /**
  * Directive for displaying IMLS cartodb visualizations
  * To show demographic data on the map, add the attribute `demographics="true"`
+ * See directive definition for other scope vars/attrs
  */
 (function () {
     'use strict';
 
     /* ngInject */
-    function VisController($attrs, $log, $q, $scope, Config) {
+    function VisController($attrs, $log, $q, $scope, $timeout, Config) {
+
+        var MAP_SLIDE_TRANSITION_MS = 400;
 
         var defaultOptions = {
             shareable: false,
@@ -23,6 +26,7 @@
 
         function initialize() {
             ctl.demographics = !!($scope.$eval($attrs.demographics));
+            ctl.visFullscreenClass = $attrs.visFullscreenClass || 'map-expanded';
             ctl.sublayers = [];
             ctl.radio = '-1';
             ctl.layersVisible = false;
@@ -33,7 +37,9 @@
             url = 'https://' + ctl.visAccount + '.cartodb.com/api/v2/viz/' + ctl.visId + '/viz.json';
             cartodb.createVis('map', url, ctl.visOptions).done(onVisReady);
 
+            ctl.onFullscreenClicked = onFullscreenClicked;
             ctl.onSublayerChange = onSublayerChange;
+            $scope.$watch(function () { return ctl.visFullscreen; }, onVisFullscreenChanged);
         }
 
         function onSublayerChange(sublayer) {
@@ -73,6 +79,24 @@
 
             $scope.$emit('imls:vis:ready', vis, map);
         }
+
+        function onFullscreenClicked() {
+            ctl.visFullscreen = !ctl.visFullscreen;
+        }
+
+        function onVisFullscreenChanged(newValue) {
+            var isOpen = !!(newValue);
+            // Toggle class on body:
+            //  Putting the 'overflow: hidden' on the body automatically hides scrollbars
+            // Yes this is ugly but it keeps everything in the controller
+            $('body').toggleClass(ctl.visFullscreenClass, isOpen);
+            $timeout(function () {
+                map.invalidateSize();
+                if (ctl.visFullscreenOnToggle()) {
+                    ctl.visFullscreenOnToggle()(isOpen);
+                }
+            }, MAP_SLIDE_TRANSITION_MS * 1.2);
+        }
     }
 
     /* ngInject */
@@ -83,7 +107,14 @@
             scope: {
                 visId: '@',
                 visAccount: '@',
-                visOptions: '='
+                visOptions: '=',
+                visFullscreen: '=',
+                visFullscreenOnToggle: '&'
+                // attrs
+                // visFullscreenClass: 'string', class to use for the fullscreen map class
+                //                     default: 'map-expanded'
+                // demographics: bool, should the demographics layers be shown on the map
+                //                     default: false
             },
             templateUrl: 'scripts/map/cartodb-vis-partial.html',
             controller: 'VisController',

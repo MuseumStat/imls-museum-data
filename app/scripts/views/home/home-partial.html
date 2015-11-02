@@ -1,4 +1,4 @@
-<div ng-class="{'map-expanded': home.mapExpanded, 'home-page': home.pageState === home.states.DISCOVER, 'empty-search': home.pageState === home.states.ERROR }">
+<div ng-class="{'home-page': home.pageState === home.states.DISCOVER, 'empty-search': home.pageState === home.states.ERROR }">
     <div class="navbar action-bar">
         <div class="container-fluid">
             <div class="row">
@@ -38,11 +38,11 @@
                         <a style="display: none;" ng-click="home.onSearchClicked()" class="btn btn-primary">Search</a>
                     </form> <!-- /form -->
                 </div>
+            </div>
         </div>
     </div>
-</div>
 
-    <cartodb-vis demographics="true"></cartodb-vis>
+    <cartodb-vis demographics="true" vis-fullscreen="home.mapExpanded"></cartodb-vis>
 
     <div class="action-bar" action-bar-affix  ng-if="home.pageState === home.states.LIST">
         <div class="container-fluid">
