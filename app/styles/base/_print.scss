@@ -22,6 +22,7 @@
         }
 
         .cartodb-zoom,
+        .cartodb-fullscreen,
         .vis-layer-selector,
         .leaflet-bottom.leaflet-right {
             display: none;
@@ -119,9 +120,17 @@
                     text-align: center;
                     font-size: 18pt !important;
                     li:last-child,
-                    li:nth-child(4),
-                    li:nth-child(3), {
+                    li:nth-child(4), {
                         display: none;
+                    }
+
+                    a.url-link {
+                        font-size:0;
+
+                        &:after {
+                            font-size: 14pt;
+                            content: attr(href);
+                        }
                     }
                 }
             }
