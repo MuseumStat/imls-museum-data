@@ -80,6 +80,8 @@
                     ctl.sublayers = layer.getSubLayers();
                     ctl.onSublayerChange(ctl.sublayers[-1]);
                     $scope.$apply();
+
+                    layer.on('featureOver', onDemographicsLayerFeatureOver);
                 });
             }
 
@@ -114,6 +116,12 @@
         function onPointsLayerFeatureOver() {
             if (demographicsVisible) {
                 $('div.cartodb-tooltip .tooltip-points').parent().css('display', 'none');
+            }
+        }
+
+        function onDemographicsLayerFeatureOver() {
+            if (demographicsVisible) {
+                $('div.cartodb-tooltip .tooltip-tracts').parent().css('display', 'block');
             }
         }
     }
