@@ -92,6 +92,18 @@
     }
 }
 
+.cartodb-fullscreen {
+    // Cannot go below the zoom control, that's where the loading spinner lives
+    position: absolute;
+    display: block;
+    top: 10px;
+    left: 0;
+
+    a {
+        // override default transition for a tags set in _base.scss
+        transition: unset;
+    }
+}
 
 // CartoDB Map
 .cartodb-map-wrapper {

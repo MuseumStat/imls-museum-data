@@ -1,4 +1,4 @@
-<div class="museum-page" ng-class="{'map-expanded': museum.mapExpanded}">
+<div class="museum-page">
     <div class="navbar action-bar">
         <div class="container-fluid">
             <div class="row">
@@ -13,7 +13,9 @@
             </div>
         </div>
     </div>
-    <cartodb-vis demographics="true"></cartodb-vis>
+    <cartodb-vis demographics="true"
+                 vis-fullscreen="museum.mapExpanded"
+                 vis-fullscreen-on-toggle="museum.onMapExpanded"></cartodb-vis>
 
     <div class="action-bar" action-bar-affix>
         <div class="museum-info">
@@ -37,7 +39,7 @@
                         <!-- TODO: Filter to properly format phone number -->
                         <li ng-if="museum.museum.phone"><strong>Phone:</strong> {{ ::museum.museum.phone | tel }}</li>
                         <!-- TODO: Verify for bad data -->
-                        <li ng-if="museum.museum.weburl"><a href="{{ ::museum.museum.weburl }}" target="_blank">Visit Museum Website</a></li>
+                        <li ng-if="museum.museum.weburl"><a class="url-link" href="{{ ::museum.museum.weburl }}" target="_blank">Visit Museum Website</a></li>
                         <li ng-if="museum.museum.mid"><a href="mailto:info@museumstat.org?subject=Museum%20Update:%20{{ ::museum.museum.mid }}">Submit Museum Update</a></li>
                         <li><a ng-click="museum.onPrintClicked()">Print This Report</a></li>
                     </ul>
