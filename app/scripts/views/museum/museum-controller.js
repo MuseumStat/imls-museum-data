@@ -5,8 +5,8 @@
      * Controller for the imls app home view
      */
     /* ngInject */
-    function MuseumController($cookies, $log, $scope, $state, $stateParams, $timeout, $window, resize,
-                              Config, ACS, ACSGraphs, MapStyle, Museum) {
+    function MuseumController($cookies, $filter, $log, $scope, $state, $stateParams, $timeout, $window, resize,
+                              Config, ACS, ACSGraphs, MapStyle, Museum, Area) {
         var ctl = this;
 
         var ONE_MILE_IN_M = 1609.344;
@@ -46,6 +46,7 @@
                 ERROR: 2
             };
             ctl.acsRadius = ctl.acsRadiusOptions[0].value;
+            setACSArea(Area.circle(ctl.acsRadius));
             ctl.mapExpanded = false;
             ctl.activeTab = 'people';
             ctl.tabState = ctl.tabStates.LOADING;
@@ -140,10 +141,9 @@
             var nearbyRequest;
             if (event.layerType === 'polygon') {
                 var points = layer.toGeoJSON().geometry.coordinates[0];
-                $log.info(points);
                 acsRequest = ACS.getPolygon(points);
                 nearbyRequest = Museum.byTypeInPolygon(points);
-                setACSSearchPolygon(_.map(points, function (p) { return [p[1], p[0]]; }), {
+                setACSSearchPolygon(points, {
                     resetBounds: false
                 });
                 setMapExpanded(false);
@@ -193,9 +193,11 @@
         function setACSSearchPolygon(points, options) {
             var defaults = { resetBounds: true };
             var opts = angular.extend({}, defaults, options);
+            var latLngPoints = _.map(points, function (p) { return [p[1], p[0]]; });
             clearSearchPolygon();
-            searchPolygon = L.polygon(points, searchPolygonStyle);
+            searchPolygon = L.polygon(latLngPoints, searchPolygonStyle);
             map.addLayer(searchPolygon);
+            setACSArea(Area.polygon([points]));
             if (opts.resetBounds) {
                 map.fitBounds(searchPolygon.getBounds());
             }
@@ -207,6 +209,7 @@
             clearSearchPolygon();
             searchPolygon = L.circle(center, radius, searchPolygonStyle);
             map.addLayer(searchPolygon);
+            setACSArea(Area.circle(radius));
             if (opts.resetBounds) {
                 map.fitBounds(searchPolygon.getBounds());
             }
@@ -226,6 +229,17 @@
                 // Set expiry to 12hrs from set time
                 expires: new Date(new Date().getTime() + 12 * 3600 * 1000)
             });
+        }
+
+        function setACSArea(areaMeters) {
+            var areaMiles = Math.abs(areaMeters) * 0.000621371 * 0.000621371;
+            var decimalPlaces = 2;
+            if (areaMiles > 10) {
+                decimalPlaces = 0;
+            } else if (areaMiles > 1) {
+                decimalPlaces = 1;
+            }
+            ctl.acsArea = $filter('number')(areaMiles, decimalPlaces);
         }
 
         function onBackButtonClicked() {

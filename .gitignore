@@ -5,3 +5,4 @@ dist
 bower_components
 .DS_Store
 *.swp
+npm-debug.log
