@@ -17,7 +17,9 @@
             fullscreen: false,
             scrollwheel: false,
             tooltip: true,
+            /* jshint camelcase:false */
             cartodb_logo: false
+            /* jshint camelcase:true */
         };
         var ctl = this;
         var url;
