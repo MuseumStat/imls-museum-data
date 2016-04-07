@@ -6,7 +6,7 @@
                     <imls-brand></imls-brand>
                     <nav>
                         <a ui-sref="about">About</a>
-                        <a ui-sref="help">Help</a>
+                        <a ui-sref="help">Getting Started</a>
                         <a ui-sref="contact">Contact</a>
                     </nav>
                 </div>
@@ -41,7 +41,7 @@
                         <!-- TODO: Verify for bad data -->
                         <li ng-if="museum.museum.weburl"><a class="url-link" href="{{ ::museum.museum.weburl }}" target="_blank">Visit Museum Website</a></li>
                         <li ng-if="museum.museum.mid"><a href="mailto:info@museumstat.org?subject=Museum%20Update:%20{{ ::museum.museum.mid }}">Submit Museum Update</a></li>
-                        <li><a ng-click="museum.onPrintClicked()">Print This Report</a></li>
+                        <li><a ng-click="museum.onPrintClicked()">Print the Report (4 Pages)</a></li>
                     </ul>
                 </div>
             </div>
