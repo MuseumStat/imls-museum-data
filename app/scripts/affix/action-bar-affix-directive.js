@@ -14,13 +14,10 @@
         function link(scope, element) {
 
             //caches a jQuery object containing the header element
-            /*var $header = element;
-            var navHeight = $header.parent().find('.navbar.action-bar').innerHeight();
-            var mapHeight = $header.parent().find('.map-container').innerHeight();*/
             setTimeout(function(){
                 var $header = element;
-                var navHeight = $header.parent().find('.navbar.action-bar').outerHeight();
-                var mapHeight = $header.parent().find('.map-container').outerHeight();
+                var navHeight = $('body').find('.navbar.action-bar').outerHeight();
+                var mapHeight = $('body').find('.map-container').outerHeight();
 
                 $(window).scroll(function() {
                     var scroll = $(window).scrollTop();

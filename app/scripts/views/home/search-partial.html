@@ -1,0 +1,61 @@
+    <div class="action-bar" action-bar-affix  ng-if="home.pageState === home.states.LIST">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xs-8">
+                    <h3>{{ search.list.length }} Results Found</h3>
+                </div>
+                <div class="col-xs-4 text-right">
+                    <div class="dropdown" dropdown>
+                        <span class="dropdown-toggle" dropdown-toggle>
+                            Download Museum Info <i class="md-icon-down-mini"></i>
+                        </span>
+                        <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dropdownMenu1">
+                            <li role="menuitem"><a ng-click="search.onDownloadRowClicked()">Search Results</a></li>
+                            <li role="menuitem"><a href="http://www.imls.gov/research/museum_universe_data_file.aspx" target="_blank">Full Museum Dataset</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- /.container-fluid -->
+    </div> <!-- /.action-bar -->
+
+    <section class="main-content">
+        <div class="container-fluid" ng-if="home.pageState === home.states.LOADING">
+            <div class="preloader large"></div>
+        </div>
+        <div class="container-fluid" ng-if="home.pageState === home.states.ERROR">
+            <img class="museum-icon" src="/images/museum-icon.svg">
+            <h3>Sorry, your search has returned no museums. <br> Please refine your search.</h3>
+        </div>
+        <table st-table="search.safeList" st-safe-src="search.list" ng-if="home.pageState === home.states.LIST" class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Museum Name</th>
+                    <th>City/State</th>
+                    <th>Type</th>
+                    <th>Revenue</th>
+                    <th width="230px"></th>
+                </tr>
+            </thead> <!-- /thead -->
+            <tbody>
+                <tr ng-repeat="row in search.safeList">
+                    <td>{{ ::row.commonname }}</td>
+                    <td>{{ ::row.adcity }}, {{ ::row.adstate }}</td>
+                    <td>{{ ::row.description }}</td>
+                    <td>{{ ::row.revenue | currency }}</td>
+                    <td><a ui-sref="museum({ museum: row.mid })" class="btn btn-primary-ghost">View &amp; Analyze</a></td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="6" class="text-center">
+                        <div st-pagination=""
+                             st-template="/scripts/views/home/pagination-partial.html"
+                             st-items-by-page="search.rowsPerPage"
+                             st-displayed-pages="5">
+                        </div>
+                    </td>
+                </tr>
+        </tfoot>
+        </table>
+    </section> <!-- /.main-content -->

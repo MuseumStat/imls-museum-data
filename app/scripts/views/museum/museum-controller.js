@@ -5,7 +5,7 @@
      * Controller for the imls app home view
      */
     /* ngInject */
-    function MuseumController($cookies, $filter, $log, $scope, $state, $stateParams, $timeout, $window, resize,
+    function MuseumController($filter, $log, $scope, $state, $stateParams, $timeout, $window, resize,
                               Config, ACS, ACSGraphs, MapStyle, Museum, Area) {
         var ctl = this;
 
@@ -215,22 +215,6 @@
             }
         }
 
-        function setLastPositionCookie() {
-            if (!ctl.museum) {
-                return;
-            }
-            $cookies.putObject(Config.cookies.LAST_SEARCHED, {
-                text: ctl.museum.commonname || '',
-                position: {
-                    x: ctl.museum.longitude,
-                    y: ctl.museum.latitude
-                }
-            }, {
-                // Set expiry to 12hrs from set time
-                expires: new Date(new Date().getTime() + 12 * 3600 * 1000)
-            });
-        }
-
         function setACSArea(areaMeters) {
             var areaMiles = Math.abs(areaMeters) * 0.000621371 * 0.000621371;
             var decimalPlaces = 2;
@@ -243,8 +227,7 @@
         }
 
         function onBackButtonClicked() {
-            setLastPositionCookie();
-            $state.go('home');
+            $window.history.back();
         }
 
         function clearSearchPolygon() {
