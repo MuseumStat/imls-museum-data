@@ -256,7 +256,7 @@
         }
 
         function addCustomRadiusOption() {
-            if (!_.find(ctl.acsRadiusOptions, function (option) { option.value === CUSTOM_RADIUS_VALUE })) {
+            if (!_.find(ctl.acsRadiusOptions, function (option) { return option.value === CUSTOM_RADIUS_VALUE; })) {
                 ctl.acsRadiusOptions.splice(0, 0, { value: CUSTOM_RADIUS_VALUE, label: 'Custom' });
             }
         }
@@ -264,7 +264,7 @@
         function clearCustomRadiusOption() {
             _.remove(ctl.acsRadiusOptions, function (option) {
                 return option.value === CUSTOM_RADIUS_VALUE;
-            })
+            });
         }
 
         function attachSpinner(dfd) {
