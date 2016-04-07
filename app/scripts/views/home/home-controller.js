@@ -30,8 +30,6 @@
             ctl.onSearchClicked = onSearchClicked;
             ctl.onTypeaheadSelected = onTypeaheadSelected;
             ctl.getMap = getMap;
-            ctl.addSearchLocationMarker = addSearchLocationMarker;
-            ctl.clearSearchLocationMarker = clearSearchLocationMarker;
 
             $scope.$on('imls:vis:ready', function (e, vis, newMap) {
                 mapDfd.resolve(newMap);
@@ -79,44 +77,20 @@
             if (item.ismuseum) {
                 $state.go('museum', {museum: item.id});
             } else if (item.feature) {
-                // TODO: Additional handling to pass extent to requestNearbyMuseums?
-                requestNearbyMuseums(item.feature.geometry);
+                requestNearbyMuseums(item.feature);
             } else {
                 $log.error('No valid handlers for typeahead item:', item);
                 ctl.pageState = ctl.states.ERROR;
             }
         }
 
-        function requestNearbyMuseums(position) {
-            if (position && position.x && position.y) {
-                $state.go('search', {lat: position.y, lon: position.x });
-            }
-        }
-
-        function addSearchLocationMarker(position) {
-            clearSearchLocationMarker();
-            var icon = L.icon({
-                iconUrl: 'images/map-marker-icon.png',
-                iconSize: [25, 41],
-                iconAnchor: [12, 41]
-            });
-            searchMarker = L.marker([position.y, position.x], {
-                clickable: false,
-                keyboard: false,
-                icon: icon
-            });
-            getMap().then(function (map) {
-                searchMarker.addTo(map);
-            });
-        }
-
-        function clearSearchLocationMarker() {
-            if (searchMarker) {
-                getMap().then(function (map) {
-                    map.removeLayer(searchMarker);
-                    searchMarker = null;
-                });
-            }
+        function requestNearbyMuseums(feature) {
+            var attributes = { 'city': 'City', 'state': 'Region', 'zip': 'Postal' };
+            attributes = _(attributes)
+                .mapValues(function (v) { return feature.attributes[v]; })
+                .pick(function (v) { return !!(v); })
+                .value();
+            $state.go('search', attributes);
         }
     }
 

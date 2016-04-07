@@ -23,6 +23,11 @@
             'Subregion',
             'Primary Postal'
         ].join(',');
+        var outFields = [
+            'City',
+            'Region',
+            'Postal'
+        ].join(',');
 
         // Public Interface
         // TODO: Expose the bbox, outFields and categories vars as config options
@@ -53,6 +58,7 @@
             var defaults = {
                 text: text,
                 bbox: boundingBox,
+                outFields: outFields,
                 category: searchCategories,
                 maxLocations: maxResults,
                 sourceCountry: sourceCountry,
