@@ -45,10 +45,9 @@
                 enableHighAccuracy: true,
                 maximumAge: 0
             }).then(function (position) {
-                requestNearbyMuseums({
-                    x: position.coords.longitude,
-                    y: position.coords.latitude
-                });
+                return Geocoder.reverse(position.coords.longitude, position.coords.latitude);
+            }).then(function (data) {
+                requestNearbyMuseums(data.feature);
             })
             .catch(function (error) {
                 $log.error(error);
