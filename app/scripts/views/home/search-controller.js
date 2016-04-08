@@ -26,7 +26,7 @@
             var city = $stateParams.city || '';
             var state = $stateParams.state || '';
             var zip = $stateParams.zip || '';
-            ctl.nearText = city || zip || state;
+            ctl.nearText = zip || city || state;
 
             if (city || state || zip) {
                 requestNearbyMuseums(Museum.listByCity, {

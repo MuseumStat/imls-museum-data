@@ -7,7 +7,7 @@
      */
     /* ngInject */
     function HomeController($log, $q, $scope, $timeout,
-                            $geolocation, $modal, $state, Config, Geocoder, Museum) {
+                            $geolocation, $modal, $state, Config, Geocoder, Museum, StateAbbrev) {
         var ctl = this;
         var mapDfd = $q.defer();
         var searchMarker = null;
@@ -69,8 +69,30 @@
         function search(text) {
             ctl.loadingSearch = true;
             return $q.all([Museum.suggest(text), Geocoder.search(text)]).then(function (results) {
-                $log.info(results);
-                return _.flatten(results);
+                $log.debug(results);
+                var museums = results[0];
+                var features = _.filter(results[1], function (f) {
+                    // Remove county results from geocoder response
+                    return f.feature.attributes.Addr_type !== 'SubAdmin';
+                });
+                angular.forEach(features, function (f) {
+                    var addressType = f.feature.attributes.Addr_type;
+                    // Clean up name if this is a city feature, shorten state name
+                    //  and display county in parenthesis
+                    if (addressType === 'Locality') {
+                        var subregion = f.feature.attributes.Subregion;
+                        var city = f.feature.attributes.City;
+                        var state = f.feature.attributes.Region;
+                        if (state) {
+                            state = StateAbbrev[state.toLowerCase()] || state;
+                        }
+                        f.name = city + ', ' + state;
+                        if (city && subregion && subregion.toLowerCase() !== city.toLowerCase()) {
+                            f.name += ' (' + subregion + ')';
+                        }
+                    }
+                });
+                return museums.concat(features);
             }).catch(function (error) {
                 ctl.pageState = ctl.states.ERROR;
                 $log.error(error);

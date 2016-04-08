@@ -27,7 +27,9 @@
         var outFields = [
             'City',
             'Region',
-            'Postal'
+            'Subregion',
+            'Postal',
+            'Addr_type'
         ].join(',');
 
         // Public Interface
