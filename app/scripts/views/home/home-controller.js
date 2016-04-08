@@ -25,6 +25,7 @@
                 ERROR: -1
             };
 
+            ctl.loadingGeolocation = false;
             ctl.search = search;
             ctl.onLocationClicked = onLocationClicked;
             ctl.onSearchClicked = onSearchClicked;
@@ -41,6 +42,7 @@
         }
 
         function onLocationClicked() {
+            var loadingGeoTimeout = $timeout(function () { ctl.loadingGeolocation = true}, 150);
             $geolocation.getCurrentPosition({
                 enableHighAccuracy: true,
                 maximumAge: 0
@@ -52,6 +54,11 @@
             .catch(function (error) {
                 $log.error(error);
                 ctl.pageState = ctl.states.ERROR;
+            }).finally(function () {
+                if (loadingGeoTimeout) {
+                    $timeout.cancel(loadingGeoTimeout);
+                }
+                ctl.loadingGeolocation = false;
             });
         }
 
