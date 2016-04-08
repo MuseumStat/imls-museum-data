@@ -105,10 +105,16 @@
 	}
 
 	.form-group:last-child .form-control {
-		border-right: 1px solid $base-darker;
 		border-bottom-right-radius: $border-radius-base;
 		border-top-right-radius: $border-radius-base;
 	}
+
+    .form-control {
+        &:active,
+        &:focus {
+            border-color: $brand-primary;
+        }
+    }
 }
 
 // Define the width of the search bar
