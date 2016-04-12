@@ -2,7 +2,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-xs-8">
-                    <h3>{{ search.list.length }} Results Found</h3>
+                    <h3>{{ search.list.length }} Results Found <span ng-show="search.nearText">near {{ search.nearText }}</span></h3>
                 </div>
                 <div class="col-xs-4 text-right">
                     <div class="dropdown" dropdown>

@@ -8,6 +8,7 @@
         // Private variables
         var searchUrl = 'http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/find';
         var suggestUrl = 'http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/suggest';
+        var reverseUrl = 'http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/reverseGeocode';
         var boundingBox = [
             Config.bounds.southWest.lng,
             Config.bounds.southWest.lat,
@@ -22,6 +23,13 @@
             'City',
             'Subregion',
             'Primary Postal'
+        ].join(',');
+        var outFields = [
+            'City',
+            'Region',
+            'Subregion',
+            'Postal',
+            'Addr_type'
         ].join(',');
 
         // Public Interface
@@ -41,7 +49,19 @@
              * @param {string} The text string to search
              * @return {array} An array of matching strings that relate to the searched text
              */
-            suggest: suggest
+            suggest: suggest,
+
+            /**
+             * Perform a geocoder reverse, by taking a lat/lon and returning a nearby street address
+             * Returns a feature object of the same form as the search endpoint
+             *
+             * @param {number} lat latitude to search
+             * @param {number} lon longitude to search
+             * @param {object} options Additional options to directly pass through to the
+             *                         ESRI reverse geocode request
+             *
+             */
+            reverse: reverse
         };
 
         return module;
@@ -53,6 +73,7 @@
             var defaults = {
                 text: text,
                 bbox: boundingBox,
+                outFields: outFields,
                 category: searchCategories,
                 maxLocations: maxResults,
                 sourceCountry: sourceCountry,
@@ -91,6 +112,24 @@
             });
 
             return dfd.promise;
+        }
+
+        function reverse(lon, lat, options) {
+            var defaults = {
+                location: [lon, lat].join(','),
+                f: 'json'
+            };
+            var opts = angular.extend({}, defaults, options);
+            return $http.get(reverseUrl, {
+                params: opts
+            }).then(function (result) {
+                return {
+                    feature: {
+                        attributes: result.data.address || {},
+                        geometry: result.data.location || {}
+                    }
+                };
+            });
         }
 
         // Helper function transforms response to array of suggested string locations

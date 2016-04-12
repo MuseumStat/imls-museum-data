@@ -22,7 +22,6 @@
                 ];
                 map.fitBounds(bounds);
             });
-            homeCtl.clearSearchLocationMarker();
         }
     }
 

@@ -32,7 +32,8 @@
                                 data-placement="bottom"
                                 ng-click="home.onLocationClicked()"
                                 title="Your Location">
-                                <i class="md-icon-location"></i>
+                                <i class="md-icon-location" ng-if="!home.loadingGeolocation"></i>
+                                <div class="preloader small margin-auto" ng-if="home.loadingGeolocation"></div>
                             </button>
                         </div>
                         <a style="display: none;" ng-click="home.onSearchClicked()" class="btn btn-primary">Search</a>
