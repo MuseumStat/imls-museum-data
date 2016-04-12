@@ -24,7 +24,6 @@
     }
 
     angular.module('imls.views.museum', [
-        'ngCookies',
         'rt.resize',
         'ui.router',
         'imls.acs',

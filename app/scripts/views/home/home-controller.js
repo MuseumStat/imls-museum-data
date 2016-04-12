@@ -6,16 +6,11 @@
      * Controller for the imls app home view
      */
     /* ngInject */
-    function HomeController($cookies, $log, $q, $scope, $timeout,
-                            $geolocation, $modal, $state,
-                            Config, Geocoder, Museum) {
+    function HomeController($log, $q, $scope, $timeout,
+                            $geolocation, $modal, $state, Config, Geocoder, Museum) {
         var ctl = this;
-
-        var map = null;
+        var mapDfd = $q.defer();
         var searchMarker = null;
-        var LOADING_TIMEOUT_MS = 300;
-
-        var SEARCH_DIST_METERS = 1609.34;  // 1 mile
 
         initialize();
 
@@ -29,25 +24,22 @@
                 LOADING: 2,
                 ERROR: -1
             };
-            ctl.pageState = ctl.states.DISCOVER;
-            ctl.rowsPerPage = 10;
 
+            ctl.search = search;
             ctl.onLocationClicked = onLocationClicked;
             ctl.onSearchClicked = onSearchClicked;
             ctl.onTypeaheadSelected = onTypeaheadSelected;
-            ctl.onDownloadRowClicked = onDownloadRowClicked;
-            ctl.search = search;
-            $scope.$on('imls:vis:ready', function (e, vis, newMap) {
-                map = newMap;
+            ctl.getMap = getMap;
+            ctl.addSearchLocationMarker = addSearchLocationMarker;
+            ctl.clearSearchLocationMarker = clearSearchLocationMarker;
 
-                var lastSearched = $cookies.getObject(Config.cookies.LAST_SEARCHED);
-                if (lastSearched) {
-                    ctl.pageState = ctl.states.LIST;
-                    ctl.searchText = lastSearched.text;
-                    requestNearbyMuseums(lastSearched.position);
-                    $cookies.remove(Config.cookies.LAST_SEARCHED);
-                }
+            $scope.$on('imls:vis:ready', function (e, vis, newMap) {
+                mapDfd.resolve(newMap);
             });
+        }
+
+        function getMap() {
+            return mapDfd.promise;
         }
 
         function onLocationClicked() {
@@ -95,27 +87,10 @@
             }
         }
 
-        // position is an object with x and y keys
         function requestNearbyMuseums(position) {
-            var timeoutId = $timeout(function () {
-                ctl.pageState = ctl.states.LOADING;
-            }, LOADING_TIMEOUT_MS);
-            Museum.list(position, SEARCH_DIST_METERS).then(function (rows) {
-                if (rows.length) {
-                    ctl.list = rows;
-                    ctl.pageState = ctl.states.LIST;
-                } else {
-                    ctl.pageState = ctl.states.ERROR;
-                }
-            }).catch(function (error) {
-                $log.error(error);
-                ctl.pageState = ctl.states.ERROR;
-            }).finally(function () {
-                $timeout.cancel(timeoutId);
-
-                map.setView([position.y, position.x], Config.detailZoom);
-                addSearchLocationMarker(position);
-            });
+            if (position && position.x && position.y) {
+                $state.go('search', {lat: position.y, lon: position.x });
+            }
         }
 
         function addSearchLocationMarker(position) {
@@ -130,32 +105,18 @@
                 keyboard: false,
                 icon: icon
             });
-            searchMarker.addTo(map);
+            getMap().then(function (map) {
+                searchMarker.addTo(map);
+            });
         }
 
         function clearSearchLocationMarker() {
             if (searchMarker) {
-                map.removeLayer(searchMarker);
-                searchMarker = null;
+                getMap().then(function (map) {
+                    map.removeLayer(searchMarker);
+                    searchMarker = null;
+                });
             }
-        }
-
-        function onDownloadRowClicked() {
-            if (!ctl.list.length) {
-                return;
-            }
-            $modal.open({
-                templateUrl: 'scripts/views/download/download-partial.html',
-                controller: 'DownloadController',
-                controllerAs: 'dl',
-                bindToController: true,
-                size: 'sm',
-                resolve: {
-                    datalist: function () {
-                        return ctl.list;
-                    }
-                }
-            });
         }
     }
 

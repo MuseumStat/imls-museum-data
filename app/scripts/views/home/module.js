@@ -4,15 +4,29 @@
     /* ngInject */
     function StateConfig($stateProvider) {
         $stateProvider.state('home', {
-            url: '/',
+            abstract: true,
             templateUrl: 'scripts/views/home/home-partial.html',
             controller: 'HomeController',
             controllerAs: 'home'
         });
+        $stateProvider.state('discover', {
+            parent: 'home',
+            url: '/',
+            templateUrl: 'scripts/views/home/discover-partial.html',
+            controller: 'DiscoverController',
+            controllerAs: 'discover'
+        });
+        $stateProvider.state('search', {
+            parent: 'home',
+            url: '/search?q&lon&lat',
+            templateUrl: 'scripts/views/home/search-partial.html',
+            controller: 'SearchController',
+            controllerAs: 'search'
+        });
+
     }
 
     angular.module('imls.views.home', [
-        'ngCookies',
         'ngGeolocation',
         'smart-table',
         'ui.router',

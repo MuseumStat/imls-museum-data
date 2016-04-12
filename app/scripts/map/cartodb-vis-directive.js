@@ -108,7 +108,9 @@
             // Yes this is ugly but it keeps everything in the controller
             $('body').toggleClass(ctl.visFullscreenClass, isOpen);
             $timeout(function () {
-                map.invalidateSize();
+                if (map) {
+                    map.invalidateSize();
+                }
                 if (ctl.visFullscreenOnToggle()) {
                     ctl.visFullscreenOnToggle()(isOpen);
                 }
