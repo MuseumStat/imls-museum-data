@@ -83,7 +83,7 @@
                 legalname: cols.legalname,
                 geom: cols.geom,
                 limit: Config.typeahead.results,
-                text: text
+                text: text.replace('\'', '\'\'')
             });
             return Util.makeRequest(sql, query);
         }
@@ -115,7 +115,7 @@
                     if (k === 'gstate' && v.length !== 2) {
                         v = getStateAbbrev(v);
                     }
-                    return Util.strFormat('{k} ILIKE \'%{v}%\'', {k: k, v: v});
+                    return Util.strFormat('{k} ILIKE \'%{v}%\'', {k: k, v: v.replace('\'', '\'\'')});
                 })
                 .value();
             if (whereArray.length < 1) {
@@ -133,7 +133,7 @@
         function detail(museumId) {
             var query = Util.strFormat(detailTemplate, {
                 tablename: Config.cartodb.tableName,
-                mid: museumId
+                mid: museumId.replace('\'', '\'\'')
             });
             return Util.makeRequest(sql, query);
         }
@@ -168,7 +168,7 @@
         function byTypeInState(state) {
             var query = Util.strFormat(relatedTemplate('gstate = \'{state}\''), {
                 tablename: Config.cartodb.tableName,
-                state: state
+                state: state.replace('\'', '\'\'')
             });
             return Util.makeRequest(sql, query).then(transformLabels);
         }
