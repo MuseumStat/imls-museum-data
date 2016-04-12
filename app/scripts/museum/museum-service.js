@@ -3,7 +3,7 @@
     'use strict';
 
     /* ngInject */
-    function Museum ($log, $q, Config, LegendMap, Util) {
+    function Museum ($log, $q, Config, LegendMap, StateAbbrev, Util) {
 
         var suggestTemplate = [
             'SELECT {id} as id, {name} as name, ',
@@ -19,29 +19,34 @@
         var socialTemplate = _.map(Config.socialSites, function (site) {
             return site + '_url';
         }).join(', ');
+        var listSelectColumns =
+            'mid, commonname, legalname, altname, akadba, ' +
+            'adstreet, adcity, adstate, adzip, adzip5, ' +
+            'phstreet, phcity, phstate, phzip, phzip5, ' +
+            'phone, weburl, discipl, ein, nteec, taxper, incomecd, income, revenue, ipeds, ' +
+            'instname, naics, longitude, latitude, aamreg, beareg, locale4, fipsst, fipsco, ' +
+            'centract, cenblock, congdist, fullfips, ' +
+            'gstreet, gcity, gstate, gzip, gzip5, bmf15_f, description, ' +
+            socialTemplate + ' ';
+
+
         var listTemplate = [
             // Include all relevant rows, we don't want to download and columns added by cartodb
             //  e.g. cartodb_id, the_geom, the_geom_webmercator, created_at, modified_at, etc.
-            'SELECT mid, commonname, legalname, altname, akadba, ',
-                'adstreet, adcity, adstate, adzip, adzip5, ',
-                'phstreet, phcity, phstate, phzip, phzip5, ',
-                'phone, weburl, discipl, ein, nteec, taxper, incomecd, income, revenue, ipeds, ',
-                'instname, naics, longitude, latitude, aamreg, beareg, locale4, fipsst, fipsco, ',
-                'centract, cenblock, congdist, fullfips, ',
-                'gstreet, gcity, gstate, gzip, gzip5, bmf15_f, description, ',
-                socialTemplate,
-                ' ',
+            'SELECT ',
+            listSelectColumns,
             'FROM {tablename} ',
             'WHERE ST_DWithin({geom}::geography, ST_SetSRID(ST_MakePoint({x}, {y}), {srid})::geography, {radius}) ',
             'ORDER BY ',
             '  ST_Distance({geom}::geography, ST_SetSRID(ST_MakePoint({x}, {y}), {srid})::geography)'
         ].join('');
+        var listByCityTemplate = [
+            'SELECT ',
+            listSelectColumns,
+            'FROM {tablename} ',
+            'WHERE {where}'
+        ].join('');
         var detailTemplate = 'SELECT * from {tablename} WHERE mid = {mid}';
-
-        function relatedTemplate(where) {
-            return 'SELECT discipl as label, COUNT(discipl) as value FROM {tablename} ' +
-                   'WHERE ' + where + ' GROUP BY discipl';
-        }
 
         var sql = new cartodb.SQL({ user: Config.cartodb.account });
         var cols = {
@@ -55,6 +60,7 @@
         var module = {
             suggest: suggest,
             list: list,
+            listByCity: listByCity,
             detail: detail,
             byTypeInRadius: byTypeInRadius,
             byTypeInPolygon: byTypeInPolygon,
@@ -77,7 +83,7 @@
                 legalname: cols.legalname,
                 geom: cols.geom,
                 limit: Config.typeahead.results,
-                text: text
+                text: text.replace('\'', '\'\'')
             });
             return Util.makeRequest(sql, query);
         }
@@ -100,10 +106,34 @@
             return Util.makeRequest(sql, query);
         }
 
+        function listByCity(params) {
+            var attributes = { 'gcity': 'city', 'gstate': 'state', 'gzip': 'zip' };
+            var whereArray = _(attributes)
+                .mapValues(function (v) { return params[v]; })
+                .pick(function (v) { return !!(v); })
+                .map(function (v, k) {
+                    if (k === 'gstate' && v.length !== 2) {
+                        v = getStateAbbrev(v);
+                    }
+                    return Util.strFormat('{k} ILIKE \'%{v}%\'', {k: k, v: v.replace('\'', '\'\'')});
+                })
+                .value();
+            if (whereArray.length < 1) {
+                whereArray = ['0 == 1'];
+            }
+            var where = whereArray.join(' AND ');
+
+            var query = Util.strFormat(listByCityTemplate, {
+                tablename: Config.cartodb.tableName,
+                where: where
+            });
+            return Util.makeRequest(sql, query);
+        }
+
         function detail(museumId) {
             var query = Util.strFormat(detailTemplate, {
                 tablename: Config.cartodb.tableName,
-                mid: museumId
+                mid: museumId.replace('\'', '\'\'')
             });
             return Util.makeRequest(sql, query);
         }
@@ -138,9 +168,19 @@
         function byTypeInState(state) {
             var query = Util.strFormat(relatedTemplate('gstate = \'{state}\''), {
                 tablename: Config.cartodb.tableName,
-                state: state
+                state: state.replace('\'', '\'\'')
             });
             return Util.makeRequest(sql, query).then(transformLabels);
+        }
+
+        function relatedTemplate(where) {
+            return 'SELECT discipl as label, COUNT(discipl) as value FROM {tablename} ' +
+                   'WHERE ' + where + ' GROUP BY discipl';
+        }
+
+        function getStateAbbrev(stateName) {
+            if (!stateName) { return null; }
+            return StateAbbrev[stateName.toLowerCase()] || null;
         }
     }
 

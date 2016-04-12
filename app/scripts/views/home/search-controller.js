@@ -23,13 +23,19 @@
             ctl.onDownloadRowClicked = onDownloadRowClicked;
             homeCtl.pageState = homeCtl.states.LOADING;
 
-            var lat = parseFloat($stateParams.lat);
-            var lon = parseFloat($stateParams.lon);
+            var city = $stateParams.city || '';
+            var state = $stateParams.state || '';
+            var zip = $stateParams.zip || '';
+            ctl.nearText = zip || city || state;
 
-            if (!isNaN(lat) && !isNaN(lon)) {
-                requestNearbyMuseums({ x: lon, y: lat });
+            if (city || state || zip) {
+                requestNearbyMuseums(Museum.listByCity, {
+                    city: city,
+                    state: state,
+                    zip: zip
+                });
             } else {
-                homeCtl.pageState = homeCtl.states.ERROR;
+                setErrorState();
             }
         }
 
@@ -51,29 +57,65 @@
             });
         }
 
-        // position is an object with x and y keys
-        function requestNearbyMuseums(position) {
+        function requestNearbyMuseums(func, params) {
             var timeoutId = $timeout(function () {
                 homeCtl.pageState = homeCtl.states.LOADING;
             }, LOADING_TIMEOUT_MS);
-            Museum.list(position, SEARCH_DIST_METERS).then(function (rows) {
+            func(params).then(function (rows) {
                 if (rows.length) {
                     ctl.list = rows;
+                    var extent = extentForList(ctl.list);
+                    homeCtl.getMap().then(function (map) {
+                        map.fitBounds(extent);
+                    });
                     homeCtl.pageState = homeCtl.states.LIST;
                 } else {
-                    homeCtl.pageState = homeCtl.states.ERROR;
+                    setErrorState();
                 }
             }).catch(function (error) {
-                $log.error(error);
-                homeCtl.pageState = homeCtl.states.ERROR;
+                setErrorState(error);
             }).finally(function () {
                 $timeout.cancel(timeoutId);
-
-                homeCtl.getMap().then(function (map) {
-                    map.setView([position.y, position.x], Config.detailZoom);
-                    homeCtl.addSearchLocationMarker(position);
-                });
             });
+        }
+
+        function setErrorState(error) {
+            homeCtl.pageState = homeCtl.states.ERROR;
+            if (error) {
+                $log.error(error);
+            }
+            homeCtl.getMap().then(function (map) {
+                var bounds = [
+                    [Config.bounds.southWest.lat, Config.bounds.southWest.lng],
+                    [Config.bounds.northEast.lat, Config.bounds.northEast.lng]
+                ];
+                map.fitBounds(bounds);
+            });
+        }
+
+        function extentForList(museumList) {
+            if (!(museumList && museumList.length)) {
+                return null;
+            }
+            var minLat = museumList[0].latitude;
+            var maxLat = museumList[0].latitude;
+            var minLon = museumList[0].longitude;
+            var maxLon = museumList[0].longitude;
+            angular.forEach(museumList, function (m) {
+                if (m.latitude < minLat) {
+                    minLat = m.latitude;
+                }
+                if (m.latitude > maxLat) {
+                    maxLat = m.latitude;
+                }
+                if (m.longitude < minLon) {
+                    minLon = m.longitude;
+                }
+                if (m.longitude > maxLon) {
+                    maxLon = m.longitude;
+                }
+            });
+            return [[minLat, minLon], [maxLat, maxLon]];
         }
     }
 
