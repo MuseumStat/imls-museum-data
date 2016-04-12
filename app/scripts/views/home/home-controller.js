@@ -114,10 +114,10 @@
 
         function requestNearbyMuseums(feature) {
             var attributes = { 'city': 'City', 'state': 'Region', 'zip': 'Postal' };
-            attributes = _(attributes)
-                .mapValues(function (v) { return feature.attributes[v]; })
-                .pick(function (v) { return !!(v); })
-                .value();
+            attributes = _.mapValues(attributes, function (v) {
+                // Explicitly set undefined for missing attributes, as this resets the $stateParam
+                return feature.attributes[v] || undefined;
+            });
             $state.go('search', attributes);
         }
     }
