@@ -40,7 +40,7 @@
             <tbody>
                 <tr ng-repeat="row in search.safeList">
                     <td>{{ ::row.commonname }}</td>
-                    <td>{{ ::row.adcity }}, {{ ::row.adstate }}</td>
+                    <td>{{ ::row.gcity }}, {{ ::row.gstate }}</td>
                     <td>{{ ::row.description }}</td>
                     <td>{{ ::row.revenue | currency }}</td>
                     <td><a ui-sref="museum({ museum: row.mid })" class="btn btn-primary-ghost">View &amp; Analyze</a></td>
