@@ -97,21 +97,21 @@
             if (!(museumList && museumList.length)) {
                 return null;
             }
-            var minLat = museumList[0].latitude;
-            var maxLat = museumList[0].latitude;
-            var minLon = museumList[0].longitude;
-            var maxLon = museumList[0].longitude;
+            var minLat = null;
+            var maxLat = null;
+            var minLon = null;
+            var maxLon = null;
             angular.forEach(museumList, function (m) {
-                if (m.latitude < minLat) {
+                if (_.isNumber(m.latitude) && (m.latitude < minLat || minLat === null)) {
                     minLat = m.latitude;
                 }
-                if (m.latitude > maxLat) {
+                if (_.isNumber(m.latitude) && (m.latitude > maxLat || maxLat === null)) {
                     maxLat = m.latitude;
                 }
-                if (m.longitude < minLon) {
+                if (_.isNumber(m.longitude) && (m.longitude < minLon || minLon === null)) {
                     minLon = m.longitude;
                 }
-                if (m.longitude > maxLon) {
+                if (_.isNumber(m.longitude) && (m.longitude > maxLon || maxLon === null)) {
                     maxLon = m.longitude;
                 }
             });
