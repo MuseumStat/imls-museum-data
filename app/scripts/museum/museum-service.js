@@ -115,7 +115,9 @@
                     if (k === 'gstate' && v.length !== 2) {
                         v = getStateAbbrev(v);
                     }
-                    return Util.strFormat('{k} ILIKE \'%{v}%\'', {k: k, v: v.replace('\'', '\'\'')});
+                    var comparator = k === 'gzip' ? '{v}%' : '{v}';
+                    var value = Util.strFormat(comparator, {v: v.replace('\'', '\'\'')});
+                    return Util.strFormat('{k} ILIKE \'{value}\'', {k: k, value: value});
                 })
                 .value();
             if (whereArray.length < 1) {
