@@ -1,0 +1,37 @@
+<p>Analysis Area ({{ aac.area }} mi&sup2;)</p>
+<form class="form-inline">
+    <div class="action-group">
+        <div class="form-group">
+            <select ng-model="aac.acsRadius"
+                    ng-change="aac._onRadiusChanged()"
+                    ng-options="opt.value as opt.label for opt in aac.acsRadiusOptions"
+                    class="form-control">
+            </select>
+        </div>
+    </div>
+
+    <div class="action-group">
+        <div class="form-group">
+            <button type="button"
+                    class="form-control mapExpand"
+                    data-toggle="tooltip"
+                    data-placement="bottom"
+                    ng-click="aac.onStartDrawPolygon()"
+                    title="Draw custom area">
+                <i class="md-icon-polygon-draw"></i>
+            </button>
+        </div>
+    </div>
+    <div class="action-group">
+        <div class="form-group">
+            <button type="button"
+                    class="form-control mapExpand"
+                    data-toggle="tooltip"
+                    data-placement="bottom"
+                    ng-click="aac.onStartDrawCircle()"
+                    title="Draw custom radius">
+                <i class="md-icon-polygon-circle"></i>
+            </button>
+        </div>
+    </div>
+</form>

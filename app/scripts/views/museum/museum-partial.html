@@ -13,7 +13,7 @@
             </div>
         </div>
     </div>
-    <cartodb-vis demographics="true"
+    <cartodb-vis demographics="true" draw-control="true"
                  vis-fullscreen="museum.mapExpanded"
                  vis-fullscreen-on-toggle="museum.onMapExpanded"></cartodb-vis>
 
@@ -46,45 +46,6 @@
                 </div>
             </div>
         </div> <!-- /.museum-info -->
-        <div class="museum-boundary">
-            <p>Analysis Area ({{ museum.acsArea }} mi&sup2;)</p>
-            <form class="form-inline">
-                <div class="action-group">
-                    <div class="form-group">
-                        <select ng-model="museum.acsRadius"
-                                ng-change="museum.onRadiusChanged()"
-                                ng-options="opt.value as opt.label for opt in museum.acsRadiusOptions"
-                                class="form-control">
-                        </select>
-                    </div>
-                </div>
-
-                <div class="action-group">
-                    <div class="form-group">
-                        <button type="button"
-                                class="form-control mapExpand"
-                                data-toggle="tooltip"
-                                data-placement="bottom"
-                                ng-click="museum.onStartDrawPolygon()"
-                                title="Draw custom area">
-                            <i class="md-icon-polygon-draw"></i>
-                        </button>
-                    </div>
-                </div>
-                <div class="action-group">
-                    <div class="form-group">
-                        <button type="button"
-                                class="form-control mapExpand"
-                                data-toggle="tooltip"
-                                data-placement="bottom"
-                                ng-click="museum.onStartDrawCircle()"
-                                title="Draw custom radius">
-                            <i class="md-icon-polygon-circle"></i>
-                        </button>
-                    </div>
-                </div>
-            </form>
-        </div> <!-- /museum-boundary -->
     </div> <!-- /.action-bar -->
 
     <section class="main-content">

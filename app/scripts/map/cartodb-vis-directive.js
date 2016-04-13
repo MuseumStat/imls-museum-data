@@ -30,6 +30,7 @@
 
         function initialize() {
             ctl.demographics = !!($scope.$eval($attrs.demographics));
+            ctl.drawControl = !!($scope.$eval($attrs.drawControl));
             ctl.visFullscreenClass = $attrs.visFullscreenClass || 'map-expanded';
             ctl.sublayers = [];
             ctl.radio = '-1';
@@ -42,6 +43,7 @@
 
             ctl.onFullscreenClicked = onFullscreenClicked;
             ctl.onSublayerChange = onSublayerChange;
+
             $scope.$watch(function () { return ctl.visFullscreen; }, onVisFullscreenChanged);
         }
 
@@ -84,6 +86,10 @@
                     $scope.$apply();
 
                     layer.on('featureOver', onDemographicsLayerFeatureOver);
+                    // Need to slide demographics control up if both draw/demographics are active
+                    if (ctl.drawControl) {
+                        $('div.vis-layer-selector').css('bottom', '140px');
+                    }
                 });
             }
 
@@ -95,6 +101,7 @@
             }
 
             $scope.$emit('imls:vis:ready', vis, map);
+            $scope.$broadcast('imls:vis:ready', vis, map);
         }
 
         function onFullscreenClicked() {
@@ -145,6 +152,8 @@
                 // visFullscreenClass: 'string', class to use for the fullscreen map class
                 //                     default: 'map-expanded'
                 // demographics: bool, should the demographics layers be shown on the map
+                //                     default: false
+                // drawControl: bool, should the area analysis draw control be shown on the map
                 //                     default: false
             },
             templateUrl: 'scripts/map/cartodb-vis-partial.html',
