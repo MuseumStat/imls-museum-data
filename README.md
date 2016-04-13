@@ -1,8 +1,29 @@
-# imls-museum-data
+# IMLS Museum Data
 
-https://travis-ci.org/azavea/imls-museum-data.svg?branch=develop
+[![Build Status](https://travis-ci.org/azavea/imls-museum-data.svg?branch=develop)](https://travis-ci.org/azavea/imls-museum-data)
 
-IMLS Museum Data
+## Development
+
+#### Prerequisites
+- nodejs 0.12+
+- ruby
+- ruby gem package manager
+
+#### Install dependencies
+
+Note: sudo might be required depending on where these tools are installed
+```
+gem install sass compass
+npm install -g bower grunt-cli
+npm install
+bower install
+```
+
+#### Grunt tasks
+
+- `grunt server`: Run the development server, watching for js/css/html changes
+- `grunt test`: Run the test suite
+
 
 ## Deploying
 
