@@ -64,17 +64,18 @@
         }
 
         function onDrawCancel() {
-            drawHandler.disable();
-            drawHandler = null;
+            clearDrawHandler();
         }
 
         function _onRadiusChanged() {
+            clearDrawHandler();
             clearCustomRadiusOption();
             setArea(Area.circle(ctl.acsRadius));
             $scope.$emit('imls:area-analysis-control:radius:changed', ctl.acsRadius);
         }
 
         function onStartDrawPolygon() {
+            clearDrawHandler();
             addCustomRadiusOption();
             ctl.acsRadius = -1;
             var polygonDrawOptions = {};
@@ -85,6 +86,7 @@
         }
 
         function onStartDrawCircle() {
+            clearDrawHandler();
             addCustomRadiusOption();
             ctl.acsRadius = -1;
             var circleDrawOptions = {};
@@ -127,6 +129,13 @@
                 decimalPlaces = 1;
             }
             ctl.area = $filter('number')(areaMiles, decimalPlaces);
+        }
+
+        function clearDrawHandler() {
+            if (drawHandler) {
+                drawHandler.disable();
+                drawHandler = null;
+            }
         }
     }
 
