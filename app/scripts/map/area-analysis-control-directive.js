@@ -76,8 +76,6 @@
 
         function onStartDrawPolygon() {
             clearDrawHandler();
-            addCustomRadiusOption();
-            ctl.acsRadius = -1;
             var polygonDrawOptions = {};
             drawHandler = new L.Draw.Polygon(map, polygonDrawOptions);
             drawHandler.enable();
@@ -87,8 +85,6 @@
 
         function onStartDrawCircle() {
             clearDrawHandler();
-            addCustomRadiusOption();
-            ctl.acsRadius = -1;
             var circleDrawOptions = {};
             drawHandler = new L.Draw.Circle(map, circleDrawOptions);
             drawHandler.enable();
@@ -97,6 +93,7 @@
 
         function addCustomRadiusOption() {
             if (!_.find(ctl.acsRadiusOptions, function (option) { return option.value === CUSTOM_RADIUS_VALUE; })) {
+                ctl.acsRadius = CUSTOM_RADIUS_VALUE;
                 ctl.acsRadiusOptions.splice(0, 0, { value: CUSTOM_RADIUS_VALUE, label: 'Custom' });
             }
         }
@@ -112,9 +109,11 @@
             if (event.layerType === 'polygon') {
                 var points = layer.toGeoJSON().geometry.coordinates[0];
                 setArea(Area.polygon([points]));
+                addCustomRadiusOption();
             } else if (event.layerType === 'circle') {
                 var radius = layer.getRadius();
                 setArea(Area.circle(radius));
+                addCustomRadiusOption();
             }
 
             $scope.$emit('imls:area-analysis-control:draw:complete', event);
