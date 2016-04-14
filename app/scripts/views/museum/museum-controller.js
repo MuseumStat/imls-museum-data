@@ -74,7 +74,7 @@
                 ctl.nearbyInState = response;
             });
             addLocationMarker({x: ctl.museum.longitude, y: ctl.museum.latitude});
-            $log.info(ctl.museum);
+            $log.debug(ctl.museum);
             onRadiusChanged();
         }
 
