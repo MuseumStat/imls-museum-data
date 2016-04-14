@@ -87,7 +87,7 @@
         }
     }
 
-    angular.module('imls.util')
+    angular.module('imls.geo')
     .service('Area', Area);
 
 })();

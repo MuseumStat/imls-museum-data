@@ -3,7 +3,7 @@
 
     /** @ngInject */
     function SearchController($log, $q, $scope, $timeout, $modal, $stateParams,
-                              Config, Museum) {
+                              Config, Geo, Museum) {
         var LOADING_TIMEOUT_MS = 300;
         var SEARCH_DIST_METERS = 1609.34;  // 1 mile
 
@@ -64,7 +64,7 @@
             func(params).then(function (rows) {
                 if (rows.length) {
                     ctl.list = rows;
-                    var extent = extentForList(ctl.list);
+                    var extent = Geo.extent(ctl.list);
                     homeCtl.getMap().then(function (map) {
                         map.fitBounds(extent);
                     });
@@ -93,30 +93,6 @@
             });
         }
 
-        function extentForList(museumList) {
-            if (!(museumList && museumList.length)) {
-                return null;
-            }
-            var minLat = null;
-            var maxLat = null;
-            var minLon = null;
-            var maxLon = null;
-            angular.forEach(museumList, function (m) {
-                if (_.isNumber(m.latitude) && (m.latitude < minLat || minLat === null)) {
-                    minLat = m.latitude;
-                }
-                if (_.isNumber(m.latitude) && (m.latitude > maxLat || maxLat === null)) {
-                    maxLat = m.latitude;
-                }
-                if (_.isNumber(m.longitude) && (m.longitude < minLon || minLon === null)) {
-                    minLon = m.longitude;
-                }
-                if (_.isNumber(m.longitude) && (m.longitude > maxLon || maxLon === null)) {
-                    maxLon = m.longitude;
-                }
-            });
-            return [[minLat, minLon], [maxLat, maxLon]];
-        }
     }
 
     angular.module('imls.views.home')

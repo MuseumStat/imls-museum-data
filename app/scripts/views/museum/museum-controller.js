@@ -6,7 +6,7 @@
      */
     /* ngInject */
     function MuseumController($filter, $log, $scope, $state, $stateParams, $timeout, $window, resize,
-                              Config, ACS, ACSGraphs, MapStyle, Museum, Area) {
+                              Config, ACS, ACSGraphs, MapStyle, Museum) {
         var ctl = this;
 
         var LOAD_TIMEOUT_MS = 300;

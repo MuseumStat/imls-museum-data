@@ -31,6 +31,7 @@
         'smart-table',
         'ui.router',
         'ui.bootstrap',
+        'imls.geo',
         'imls.geocoder',
         'imls.museum',
         'imls.brand',
