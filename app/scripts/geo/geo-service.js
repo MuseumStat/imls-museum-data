@@ -8,6 +8,10 @@
         };
         return module;
 
+        /**
+         * Takes array of objects with latitude and longitude properties, and generates
+         * an extent of the form [[minLat, minLon], [maxLat, maxLon]];
+         */
         function extent(list) {
             if (!(list && list.length)) {
                 return null;
@@ -30,6 +34,9 @@
                     maxLon = m.longitude;
                 }
             });
+            if (minLat === null || maxLat === null || minLon === null || maxLon === null) {
+                return null;
+            }
             return [[minLat, minLon], [maxLat, maxLon]];
         }
     }
