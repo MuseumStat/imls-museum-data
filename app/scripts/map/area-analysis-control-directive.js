@@ -64,19 +64,18 @@
         }
 
         function onDrawCancel() {
-            drawHandler.disable();
-            drawHandler = null;
+            clearDrawHandler();
         }
 
         function _onRadiusChanged() {
+            clearDrawHandler();
             clearCustomRadiusOption();
             setArea(Area.circle(ctl.acsRadius));
             $scope.$emit('imls:area-analysis-control:radius:changed', ctl.acsRadius);
         }
 
         function onStartDrawPolygon() {
-            addCustomRadiusOption();
-            ctl.acsRadius = -1;
+            clearDrawHandler();
             var polygonDrawOptions = {};
             drawHandler = new L.Draw.Polygon(map, polygonDrawOptions);
             drawHandler.enable();
@@ -85,8 +84,7 @@
         }
 
         function onStartDrawCircle() {
-            addCustomRadiusOption();
-            ctl.acsRadius = -1;
+            clearDrawHandler();
             var circleDrawOptions = {};
             drawHandler = new L.Draw.Circle(map, circleDrawOptions);
             drawHandler.enable();
@@ -95,6 +93,7 @@
 
         function addCustomRadiusOption() {
             if (!_.find(ctl.acsRadiusOptions, function (option) { return option.value === CUSTOM_RADIUS_VALUE; })) {
+                ctl.acsRadius = CUSTOM_RADIUS_VALUE;
                 ctl.acsRadiusOptions.splice(0, 0, { value: CUSTOM_RADIUS_VALUE, label: 'Custom' });
             }
         }
@@ -110,9 +109,11 @@
             if (event.layerType === 'polygon') {
                 var points = layer.toGeoJSON().geometry.coordinates[0];
                 setArea(Area.polygon([points]));
+                addCustomRadiusOption();
             } else if (event.layerType === 'circle') {
                 var radius = layer.getRadius();
                 setArea(Area.circle(radius));
+                addCustomRadiusOption();
             }
 
             $scope.$emit('imls:area-analysis-control:draw:complete', event);
@@ -127,6 +128,13 @@
                 decimalPlaces = 1;
             }
             ctl.area = $filter('number')(areaMiles, decimalPlaces);
+        }
+
+        function clearDrawHandler() {
+            if (drawHandler) {
+                drawHandler.disable();
+                drawHandler = null;
+            }
         }
     }
 

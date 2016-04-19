@@ -2,6 +2,7 @@
     'use strict';
 
     angular.module('imls.map', [
-        'imls.config'
+        'imls.config',
+        'imls.geo'
     ]);
 })();

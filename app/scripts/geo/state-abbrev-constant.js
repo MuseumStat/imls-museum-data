@@ -63,7 +63,7 @@
         'wyoming': 'WY'
     };
 
-    angular.module('imls.util')
+    angular.module('imls.geo')
     .constant('StateAbbrev', StateAbbrev);
 
 })();
