@@ -6,16 +6,11 @@
      * Controller for the imls app home view
      */
     /* ngInject */
-    function HomeController($cookies, $log, $q, $scope, $timeout,
-                            $geolocation, $modal, $state,
-                            Config, Geocoder, Museum) {
+    function HomeController($log, $q, $scope, $timeout,
+                            $geolocation, $modal, $state, Config, Geocoder, Museum, StateAbbrev) {
         var ctl = this;
-
-        var map = null;
+        var mapDfd = $q.defer();
         var searchMarker = null;
-        var LOADING_TIMEOUT_MS = 300;
-
-        var SEARCH_DIST_METERS = 1609.34;  // 1 mile
 
         initialize();
 
@@ -29,40 +24,41 @@
                 LOADING: 2,
                 ERROR: -1
             };
-            ctl.pageState = ctl.states.DISCOVER;
-            ctl.rowsPerPage = 10;
 
+            ctl.loadingGeolocation = false;
+            ctl.search = search;
             ctl.onLocationClicked = onLocationClicked;
             ctl.onSearchClicked = onSearchClicked;
             ctl.onTypeaheadSelected = onTypeaheadSelected;
-            ctl.onDownloadRowClicked = onDownloadRowClicked;
-            ctl.search = search;
-            $scope.$on('imls:vis:ready', function (e, vis, newMap) {
-                map = newMap;
+            ctl.getMap = getMap;
 
-                var lastSearched = $cookies.getObject(Config.cookies.LAST_SEARCHED);
-                if (lastSearched) {
-                    ctl.pageState = ctl.states.LIST;
-                    ctl.searchText = lastSearched.text;
-                    requestNearbyMuseums(lastSearched.position);
-                    $cookies.remove(Config.cookies.LAST_SEARCHED);
-                }
+            $scope.$on('imls:vis:ready', function (e, vis, newMap) {
+                mapDfd.resolve(newMap);
             });
         }
 
+        function getMap() {
+            return mapDfd.promise;
+        }
+
         function onLocationClicked() {
+            var loadingGeoTimeout = $timeout(function () { ctl.loadingGeolocation = true}, 150);
             $geolocation.getCurrentPosition({
                 enableHighAccuracy: true,
                 maximumAge: 0
             }).then(function (position) {
-                requestNearbyMuseums({
-                    x: position.coords.longitude,
-                    y: position.coords.latitude
-                });
+                return Geocoder.reverse(position.coords.longitude, position.coords.latitude);
+            }).then(function (data) {
+                requestNearbyMuseums(data.feature);
             })
             .catch(function (error) {
                 $log.error(error);
                 ctl.pageState = ctl.states.ERROR;
+            }).finally(function () {
+                if (loadingGeoTimeout) {
+                    $timeout.cancel(loadingGeoTimeout);
+                }
+                ctl.loadingGeolocation = false;
             });
         }
 
@@ -73,8 +69,30 @@
         function search(text) {
             ctl.loadingSearch = true;
             return $q.all([Museum.suggest(text), Geocoder.search(text)]).then(function (results) {
-                $log.info(results);
-                return _.flatten(results);
+                $log.debug(results);
+                var museums = results[0];
+                var features = _.filter(results[1], function (f) {
+                    // Remove county results from geocoder response
+                    return f.feature.attributes.Addr_type !== 'SubAdmin';
+                });
+                angular.forEach(features, function (f) {
+                    var addressType = f.feature.attributes.Addr_type;
+                    // Clean up name if this is a city feature, shorten state name
+                    //  and display county in parenthesis
+                    if (addressType === 'Locality') {
+                        var subregion = f.feature.attributes.Subregion;
+                        var city = f.feature.attributes.City;
+                        var state = f.feature.attributes.Region;
+                        if (state) {
+                            state = StateAbbrev[state.toLowerCase()] || state;
+                        }
+                        f.name = city + ', ' + state;
+                        if (city && subregion && subregion.toLowerCase() !== city.toLowerCase()) {
+                            f.name += ' (' + subregion + ')';
+                        }
+                    }
+                });
+                return museums.concat(features);
             }).catch(function (error) {
                 ctl.pageState = ctl.states.ERROR;
                 $log.error(error);
@@ -87,75 +105,20 @@
             if (item.ismuseum) {
                 $state.go('museum', {museum: item.id});
             } else if (item.feature) {
-                // TODO: Additional handling to pass extent to requestNearbyMuseums?
-                requestNearbyMuseums(item.feature.geometry);
+                requestNearbyMuseums(item.feature);
             } else {
                 $log.error('No valid handlers for typeahead item:', item);
                 ctl.pageState = ctl.states.ERROR;
             }
         }
 
-        // position is an object with x and y keys
-        function requestNearbyMuseums(position) {
-            var timeoutId = $timeout(function () {
-                ctl.pageState = ctl.states.LOADING;
-            }, LOADING_TIMEOUT_MS);
-            Museum.list(position, SEARCH_DIST_METERS).then(function (rows) {
-                if (rows.length) {
-                    ctl.list = rows;
-                    ctl.pageState = ctl.states.LIST;
-                } else {
-                    ctl.pageState = ctl.states.ERROR;
-                }
-            }).catch(function (error) {
-                $log.error(error);
-                ctl.pageState = ctl.states.ERROR;
-            }).finally(function () {
-                $timeout.cancel(timeoutId);
-
-                map.setView([position.y, position.x], Config.detailZoom);
-                addSearchLocationMarker(position);
+        function requestNearbyMuseums(feature) {
+            var attributes = { 'city': 'City', 'state': 'Region', 'zip': 'Postal' };
+            attributes = _.mapValues(attributes, function (v) {
+                // Explicitly set undefined for missing attributes, as this resets the $stateParam
+                return feature.attributes[v] || undefined;
             });
-        }
-
-        function addSearchLocationMarker(position) {
-            clearSearchLocationMarker();
-            var icon = L.icon({
-                iconUrl: 'images/map-marker-icon.png',
-                iconSize: [25, 41],
-                iconAnchor: [12, 41]
-            });
-            searchMarker = L.marker([position.y, position.x], {
-                clickable: false,
-                keyboard: false,
-                icon: icon
-            });
-            searchMarker.addTo(map);
-        }
-
-        function clearSearchLocationMarker() {
-            if (searchMarker) {
-                map.removeLayer(searchMarker);
-                searchMarker = null;
-            }
-        }
-
-        function onDownloadRowClicked() {
-            if (!ctl.list.length) {
-                return;
-            }
-            $modal.open({
-                templateUrl: 'scripts/views/download/download-partial.html',
-                controller: 'DownloadController',
-                controllerAs: 'dl',
-                bindToController: true,
-                size: 'sm',
-                resolve: {
-                    datalist: function () {
-                        return ctl.list;
-                    }
-                }
-            });
+            $state.go('search', attributes);
         }
     }
 

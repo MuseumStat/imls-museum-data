@@ -17,7 +17,7 @@
         return module;
 
         function makeRequest(sql, query) {
-            $log.info(query);
+            $log.debug(query);
             var dfd = $q.defer();
             sql.execute(query).done(function (data) {
                 dfd.resolve(data.rows);

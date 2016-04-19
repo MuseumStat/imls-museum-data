@@ -16,9 +16,6 @@
                 lng: -124.849
             }
         },
-        cookies: {
-            LAST_SEARCHED: 'imls:lastsearched'
-        },
         detailZoom: 14,
         cartodb: {
             visId: '53d43566-4ff1-11e5-93fd-0e9d821ea90d',

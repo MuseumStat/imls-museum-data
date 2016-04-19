@@ -30,7 +30,15 @@
 }
 
 .map-container {
-    .vis-layer-selector {
+
+    .vis-draw-control {
+        p {
+            padding-left: 4px;
+        }
+    }
+
+    .vis-layer-selector,
+    .vis-draw-control {
         padding: 10px;
         position: absolute;
         bottom: 20px;

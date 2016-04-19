@@ -26,7 +26,7 @@
         return module;
 
         function preLink(scope) {
-            scope.brandLink = scope.brandLink || 'home';
+            scope.brandLink = scope.brandLink || 'discover';
         }
     }
 

@@ -35,7 +35,6 @@ module.exports = function(config) {
       'bower_components/angular-smart-table/dist/smart-table.js',
       'bower_components/d3/d3.js',
       'bower_components/nvd3/build/nv.d3.js',
-      'bower_components/angular-cookies/angular-cookies.js',
       'bower_components/angular-resize/dist/angular-resize.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
@@ -45,6 +44,8 @@ module.exports = function(config) {
       'app/scripts/affix/*.js',
       'app/scripts/brand/module.js',
       'app/scripts/brand/*.js',
+      'app/scripts/geo/module.js',
+      'app/scripts/geo/*.js',
       'app/scripts/geocoder/module.js',
       'app/scripts/geocoder/*.js',
       'app/scripts/museum/module.js',

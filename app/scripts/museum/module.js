@@ -3,7 +3,8 @@
 
     angular.module('imls.museum', [
         'imls.util',
-        'imls.config'
+        'imls.config',
+        'imls.geo'
     ]);
 
 })();

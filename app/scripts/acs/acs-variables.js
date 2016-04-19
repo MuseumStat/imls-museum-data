@@ -50,7 +50,7 @@
         // attainment to higher attainment."
 
         // Per Capita Income -- number
-        'B19301_001E':   'Per capita income in the past 12 months (in 2013 inflation-adjusted dollars)',
+        'B19301_001E':   'Per capita income in the past 12 months (in 2014 inflation-adjusted dollars)',
 
         // Employment Status -- column
         'B23025_004E':   'Employed',
@@ -71,7 +71,7 @@
         'B11001_007E':   'Nonfamily households',
 
         // Median Household Income -- number
-        'B19013_001E':   'Median household income in the past 12 months (in 2013 inflation-adjusted dollars)',
+        'B19013_001E':   'Median household income in the past 12 months (in 2014 inflation-adjusted dollars)',
 
         // Household Language -- column
         'B16002_002E':   'English only',
