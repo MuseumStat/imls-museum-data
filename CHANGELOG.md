@@ -1,3 +1,10 @@
+## v1.2.1
+
+ - Update text on About page
+ - Update text on Contact page
+ - Update text in footer
+
+
 ## v1.2.0
 
  - Update to ACS 2010-2014 data
