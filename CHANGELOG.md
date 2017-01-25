@@ -1,3 +1,8 @@
+## v1.2.2
+
+ - Minor text change to About page
+ - Add developer support for reading deployment keys from .env file
+
 ## v1.2.1
 
  - Update text on About page

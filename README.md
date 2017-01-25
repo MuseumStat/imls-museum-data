@@ -37,7 +37,9 @@ Then, build the minified app with:
 grunt build
 ```
 
-Configure s3_website for deployment by setting the following ENV variables:
+Copy the environment example file: `cp .env.example .env`
+
+Configure s3_website for deployment by setting the following ENV variables in `.env`:
   - IMLS_ACCESS_KEY
   - IMLS_SECRET_KEY
 
