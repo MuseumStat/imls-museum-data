@@ -6,6 +6,9 @@
      * @type {Object}
      */
     var config = {
+        censusApi: {
+            key: 'add your API key here'
+        },
         bounds: {
             northEast: {
                 lat: 49.384,
