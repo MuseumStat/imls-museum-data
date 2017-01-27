@@ -39,6 +39,10 @@
          * @return {promise}      Promise which resolves to an object of the format described above
          */
         function getACSData(where) {
+            if (!(Config.censusApi && Config.censusApi.key)) {
+                return $q.reject('Census API key missing. See README for setup instructions.');
+            }
+
             var queryTemplate = [
                 'SELECT {state} as state, {county} as county, {tract} as tract ',
                 'FROM {tablename} ',
@@ -66,6 +70,7 @@
                     return $http.get(acsUrl, {
                         cache: true,
                         params: {
+                            key: Config.censusApi.key,
                             get: _.keys(ACSVariables).join(','),
                             for: 'tract:' + value,
                             in: key

@@ -7,3 +7,6 @@ bower_components
 *.swp
 npm-debug.log
 .env
+
+# Ignore app JS config file
+app/scripts/config.js

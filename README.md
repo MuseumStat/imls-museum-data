@@ -19,6 +19,14 @@ npm install
 bower install
 ```
 
+#### Set up ACS API key
+
+First copy the example js config file: `cp app/scripts/config.js.example app/scripts/config.js`
+
+If at Azavea, an API key for use is stored in the company password manager. Otherwise, you'll need to [sign up for a key](http://api.census.gov/data/key_signup.html).
+
+Once you have your key, add it to the appropriate spot at the top of the `app/scripts/config.js` file.
+
 #### Grunt tasks
 
 - `grunt server`: Run the development server, watching for js/css/html changes
@@ -31,6 +39,8 @@ First, ensure bower components are up to date:
 ```
 bower install
 ```
+
+Double-check that `app/scripts/config.js` has the appropriate custom values for the environment being deployed.
 
 Then, build the minified app with:
 ```
