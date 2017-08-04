@@ -1,3 +1,8 @@
+## v1.3.0
+
+ - Update Census API requests to use HTTPS
+
+
 ## v1.2.3
 
  - Add ACS API key to ACS API requests
