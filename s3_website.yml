@@ -1,5 +1,5 @@
-s3_id: <%= ENV['IMLS_ACCESS_KEY'] %>
-s3_secret: <%= ENV['IMLS_SECRET_KEY'] %>
+s3_id: <%= ENV['IVP_ACCESS_KEY'] %>
+s3_secret: <%= ENV['IVP_SECRET_KEY'] %>
 s3_bucket: museumstat.org
 
 # Below are examples of all the available configurations.

@@ -1,6 +1,6 @@
-# IMLS Museum Data
+# ImpactView Philly
 
-[![Build Status](https://travis-ci.org/azavea/imls-museum-data.svg?branch=develop)](https://travis-ci.org/azavea/imls-museum-data)
+[![Build Status](https://travis-ci.org/ImpactView/impact-view-philly.svg?branch=develop)](https://travis-ci.org/ImpactView/impact-view-philly)
 
 ## Development
 
@@ -29,7 +29,7 @@ Once you have your key, add it to the appropriate spot at the top of the `app/sc
 
 #### Grunt tasks
 
-- `grunt server`: Run the development server, watching for js/css/html changes
+- `grunt serve`: Run the development server, watching for js/css/html changes
 - `grunt test`: Run the test suite
 
 
@@ -50,8 +50,8 @@ grunt build
 Copy the environment example file: `cp .env.example .env`
 
 Configure s3_website for deployment by setting the following ENV variables in `.env`:
-  - IMLS_ACCESS_KEY
-  - IMLS_SECRET_KEY
+  - IVP_ACCESS_KEY
+  - IVP_SECRET_KEY
 
 Once the AWS access keys are set in your environment, deploy the app:
 ```
