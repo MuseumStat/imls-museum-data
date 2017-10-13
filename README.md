@@ -53,16 +53,46 @@ Configure s3_website for deployment by setting the following ENV variables in `.
   - IVP_ACCESS_KEY
   - IVP_SECRET_KEY
 
+The user deploying the application must have write access to the S3 buckets that this site deploys to.
+See [IAM S3 Full Access Policy](#IAM-S3-Full-Access-Policy) below.
+
 Once the AWS access keys are set in your environment, deploy the app:
+
 ```
-s3_website push --force
+# staging
+./scripts/infra staging
+
+# production
+./scripts/infra production
 ```
 
-If you want to change the bucket the app deploys to, edit the `s3_bucket` setting in s3_website.yml
+### Creating a new site
 
-If you change the bucket, ensure that you do the following:
-  - Add the bucket to the IAM S3-Full-Access policy for the user's access keys
-  - Run `s3_bucket cfg apply` to create a new bucket and apply the proper settings. Choose 'N' for 'Would you like to deliver your website via CloudFront'.
+To create an environment, perform the following steps.
+
+1. Create new s3_website.yml template with `s3_website cfg create`
+
+2. Copy config to `./config/<environment>/s3_website.yml`, then update it as desired. Ensure you update the value for `s3_bucket` at least, along with the CNAME value in the cloudfront aliases section.
+
+3. Create the S3 buckets along with a CloudFront distribution for each by running:
+
+```
+s3_website cfg apply --config-dir="config/<environment>" --autocreate-cloudfront-dist
+```
+
+4. Once the CloudFront distribution has the "Deployed" status, go to CloudFront -> Distribution Settings -> Behaviors and create a new behavior for path `*` that redirects HTTP to HTTPS.
+
+5. Open Route53 and add a CNAME alias for the domain you're setting up, pointing to the CloudFront distribution you just created with s3_website
+
+6. Create a new SSL cert for your environment via AWS Certificate Manager. Wait for the email, then approve it.
+
+7. Go to CloudFront -> Distribution Settings -> Edit -> SSL Certificate and select "Custom SSL Certificate". Choose the cert you just approved from the dropdown, then Save the changes on the page.
+
+Once the Route53 and CloudFront changes have had a chance to take effect, you'll be able to hit your new domain and see the site served via HTTPS!
+
+Repeat for each environment. This project was initialized by performing these steps for the environments:
+- `staging=staging.impactview.org`
+- `production=impactview.org`
 
 #### IAM S3 Full Access Policy
 

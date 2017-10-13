@@ -1,11 +1,11 @@
 s3_id: <%= ENV['IVP_ACCESS_KEY'] %>
 s3_secret: <%= ENV['IVP_SECRET_KEY'] %>
-s3_bucket: museumstat.org
+s3_bucket: impactview.org
 
 # Below are examples of all the available configurations.
 # See README for more detailed info on each of them.
 
-site: dist/
+site: ../../dist/
 
 index_document: index.html
 error_document: 404.html
@@ -29,17 +29,19 @@ gzip: true
 #   - those_folders_of_stuff
 #   - i_wouldnt_want_to_upload
 
-# s3_reduced_redundancy: true
+s3_reduced_redundancy: true
 
-# cloudfront_distribution_id: your-dist-id
+cloudfront_distribution_id: <%= ENV['CLOUDFRONT_ID_PRODUCTION'] %>
 
-# cloudfront_distribution_config:
-#   default_cache_behavior:
-#     min_TTL: <%= 60 * 60 * 24 %>
-#   aliases:
-#     quantity: 1
-#     items:
-#       CNAME: your.website.com
+cloudfront_distribution_config:
+  default_cache_behavior:
+    min_ttl: <%= 60 * 60 * 24 %>
+  aliases:
+    quantity: 1
+    items:
+      - impactview.org
+
+cloudfront_wildcard_invalidation: true
 
 # cloudfront_invalidate_root: true
 
