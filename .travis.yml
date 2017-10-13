@@ -17,5 +17,8 @@ install:
   - bower install
   - npm install
 
+before_script:
+  - cp app/scripts/config.js.example app/scripts/config.js
+
 script:
   - grunt test
