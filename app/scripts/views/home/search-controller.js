@@ -2,7 +2,7 @@
     'use strict';
 
     /** @ngInject */
-    function SearchController($log, $q, $scope, $timeout, $modal, $stateParams,
+    function SearchController($log, $q, $scope, $timeout, $uibModal, $stateParams,
                               Config, Geo, Museum) {
         var LOADING_TIMEOUT_MS = 300;
         var SEARCH_DIST_METERS = 1609.34;  // 1 mile
@@ -43,7 +43,7 @@
             if (!ctl.list.length) {
                 return;
             }
-            $modal.open({
+            $uibModal.open({
                 templateUrl: 'scripts/views/download/download-partial.html',
                 controller: 'DownloadController',
                 controllerAs: 'dl',

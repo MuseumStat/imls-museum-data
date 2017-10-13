@@ -7,7 +7,7 @@
      */
     /* ngInject */
     function HomeController($log, $q, $scope, $timeout,
-                            $geolocation, $modal, $state, Config, Geocoder, Museum, StateAbbrev) {
+                            $geolocation, $state, Config, Geocoder, Museum, StateAbbrev) {
         var ctl = this;
         var mapDfd = $q.defer();
         var searchMarker = null;

@@ -86,9 +86,9 @@
             var dfd = $q.defer();
             $http.get(searchUrl, {
                 params: params
-            }).success(function (data) {
+            }).then(function (data) {
                 dfd.resolve(data.locations);
-            }).error(function (error) {
+            }, function (error) {
                 dfd.reject('Error attempting to geocode address.');
                 console.error('Geocoder.search(): ', error);
             });
@@ -104,9 +104,9 @@
                     searchExtent: boundingBox,
                     text: text
                 }
-            }).success(function (data) {
+            }).then(function (data) {
                 dfd.resolve(suggestToList(data));
-            }).error(function (data) {
+            }, function (data) {
                 dfd.resolve([]);
                 console.error('Geocoder.suggest(): ', data);
             });
