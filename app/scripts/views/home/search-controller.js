@@ -5,11 +5,9 @@
     function SearchController($log, $q, $scope, $timeout, $uibModal, $stateParams,
                               Config, Geo, Museum) {
         var LOADING_TIMEOUT_MS = 300;
-        var SEARCH_DIST_METERS = 1609.34;  // 1 mile
 
         var ctl = this;
         var homeCtl = $scope.home;
-        var searchMarker = null;
         initialize();
 
         function initialize() {

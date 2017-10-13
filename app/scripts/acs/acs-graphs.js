@@ -69,7 +69,7 @@
                         var percent = numberFilter(d.data.value / total * 100, 1);
                         return ['<b>', d.data.label, ': </b>', numberFilter(d.data.value),
                                 ' (', percent, '%)'].join('');
-                    })
+                    });
                 } else {
                     chart = nv.models.discreteBarChart()
                         .x(function(d) { return addElipses(d.label, opts.labelCharacters); })
