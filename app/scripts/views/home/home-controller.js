@@ -7,10 +7,9 @@
      */
     /* ngInject */
     function HomeController($log, $q, $scope, $timeout,
-                            $geolocation, $modal, $state, Config, Geocoder, Museum, StateAbbrev) {
+                            $geolocation, $state, Config, Geocoder, Museum, StateAbbrev) {
         var ctl = this;
         var mapDfd = $q.defer();
-        var searchMarker = null;
 
         initialize();
 
@@ -42,7 +41,7 @@
         }
 
         function onLocationClicked() {
-            var loadingGeoTimeout = $timeout(function () { ctl.loadingGeolocation = true}, 150);
+            var loadingGeoTimeout = $timeout(function () { ctl.loadingGeolocation = true; }, 150);
             $geolocation.getCurrentPosition({
                 enableHighAccuracy: true,
                 maximumAge: 0
@@ -73,10 +72,14 @@
                 var museums = results[0];
                 var features = _.filter(results[1], function (f) {
                     // Remove county results from geocoder response
+                    /* jshint camelcase:false */
                     return f.feature.attributes.Addr_type !== 'SubAdmin';
+                    /* jshint camelcase:true */
                 });
                 angular.forEach(features, function (f) {
+                    /* jshint camelcase:false */
                     var addressType = f.feature.attributes.Addr_type;
+                    /* jshint camelcase:true */
                     // Clean up name if this is a city feature, shorten state name
                     //  and display county in parenthesis
                     if (addressType === 'Locality') {

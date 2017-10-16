@@ -9,6 +9,8 @@
 
 module.exports = function (grunt) {
 
+  var servestatic = require('serve-static');
+
   // Load grunt tasks automatically
   require('load-grunt-tasks')(grunt);
 
@@ -76,16 +78,16 @@ module.exports = function (grunt) {
           open: true,
           middleware: function (connect) {
             return [
-              connect.static('.tmp'),
+              servestatic('.tmp'),
               connect().use(
                 '/bower_components',
-                connect.static('./bower_components')
+                servestatic('./bower_components')
               ),
               connect().use(
                 '/app/styles',
-                connect.static('./app/styles')
+                servestatic('./app/styles')
               ),
-              connect.static(appConfig.app)
+              servestatic(appConfig.app)
             ];
           }
         }
@@ -95,13 +97,13 @@ module.exports = function (grunt) {
           port: 9010,
           middleware: function (connect) {
             return [
-              connect.static('.tmp'),
-              connect.static('test'),
+              servestatic('.tmp'),
+              servestatic('test'),
               connect().use(
                 '/bower_components',
-                connect.static('./bower_components')
+                servestatic('./bower_components')
               ),
-              connect.static(appConfig.app)
+              servestatic(appConfig.app)
             ];
           }
         }

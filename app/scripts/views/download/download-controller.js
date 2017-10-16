@@ -3,7 +3,7 @@
     'use strict';
 
     /* ngInject */
-    function DownloadController($timeout, $window, $modalInstance, datalist) {
+    function DownloadController($timeout, $window, $uibModalInstance, datalist) {
 
         var ctl = this;
         initialize();
@@ -15,12 +15,12 @@
 
         function onDownloadCSV() {
             download('csv', 'text/csv', csvTransform);
-            $modalInstance.close();
+            $uibModalInstance.close();
         }
 
         function onDownloadJSON() {
             download('json', 'application/json', jsonTransform);
-            $modalInstance.close();
+            $uibModalInstance.close();
         }
 
         function download(ext, mimeType, transformFunction) {
