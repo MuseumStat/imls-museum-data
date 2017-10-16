@@ -5,7 +5,7 @@
 ## Development
 
 #### Prerequisites
-- nodejs 0.12+
+- nodejs 6+
 - ruby
 - ruby gem package manager
 
