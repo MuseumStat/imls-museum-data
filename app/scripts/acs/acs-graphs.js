@@ -65,11 +65,6 @@
                         .margin(opts.margin)
                         .showControls(false)
                         .showLegend(false);
-                    chart.tooltip.contentGenerator(function (d) {
-                        var percent = numberFilter(d.data.value / total * 100, 1);
-                        return ['<b>', d.data.label, ': </b>', numberFilter(d.data.value),
-                                ' (', percent, '%)'].join('');
-                    });
                 } else {
                     chart = nv.models.discreteBarChart()
                         .x(function(d) { return addElipses(d.label, opts.labelCharacters); })
@@ -77,12 +72,10 @@
                         .staggerLabels(true)
                         .color(function () { return '#bc5405'; })
                         .margin(opts.margin);
-                    chart.tooltip.contentGenerator(function (d) {
-                        var percent = numberFilter(d.data.value / total * 100, 1);
-                        return ['<b>', d.data.label, ': </b>', numberFilter(d.data.value),
-                                ' (', percent, '%)'].join('');
-                    });
                 }
+                chart.tooltip.contentGenerator(function (d) {
+                    return generateTooltipLabel(d, total);
+                });
                 chart.yAxis.tickFormat(function (n) { return numberFilter(n, 0); });
                 if(max < 10) {
                     chart.yAxis.tickValues([0,1,2,3,4,5,6,7,8,9]);
@@ -110,9 +103,7 @@
                     .margin({top: 0, left: 10, bottom: 0, right: 10})
                     .showLegend(false);
                 chart.tooltip.contentGenerator(function (d) {
-                    var percent = $filter('number')(d.data.value / total * 100, 1);
-                    return ['<b>', d.data.label, ': </b>', numberFilter(d.data.value),
-                            ' (', percent, '%)'].join('');
+                    return generateTooltipLabel(d, total);
                 });
                 charts[key] = chart;
             }
@@ -128,6 +119,12 @@
                     label: ACSVariables[variable]
                 };
             });
+        }
+
+        function generateTooltipLabel(d, total) {
+            var percent = numberFilter(d.data.value / total * 100, 1);
+            return ['<b>', d.data.label, ': </b>', numberFilter(d.data.value),
+                    ' (', percent, '%)'].join('');
         }
     }
 
