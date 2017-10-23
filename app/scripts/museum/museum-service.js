@@ -20,13 +20,7 @@
             return site + '_url';
         }).join(', ');
         var listSelectColumns =
-            'mid, commonname, legalname, altname, akadba, ' +
-            'adstreet, adcity, adstate, adzip, adzip5, ' +
-            'phstreet, phcity, phstate, phzip, phzip5, ' +
-            'phone, weburl, discipl, ein, nteec, taxper, incomecd, income, revenue, ipeds, ' +
-            'instname, naics, longitude, latitude, aamreg, beareg, locale4, fipsst, fipsco, ' +
-            'centract, cenblock, congdist, fullfips, ' +
-            'gstreet, gcity, gstate, gzip, gzip5, bmf15_f, description, ' +
+            'ein' + 'ntee_org_type' + 'ntee_group' + 'organization' + 'source' +
             socialTemplate + ' ';
 
 
@@ -46,7 +40,7 @@
             'FROM {tablename} ',
             'WHERE {where}'
         ].join('');
-        var detailTemplate = 'SELECT * from {tablename} WHERE mid = {mid}';
+        var detailTemplate = 'SELECT * from {tablename} WHERE ein = {mid}';
 
         var sql = new cartodb.SQL({ user: Config.cartodb.account });
         var cols = {

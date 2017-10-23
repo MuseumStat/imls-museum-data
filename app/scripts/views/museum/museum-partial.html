@@ -23,7 +23,7 @@
                 <div class="col-xs-9">
                     <div ng-if="museum.museum">
                         <a class="back-to-results" ng-click="museum.onBackButtonClicked()"><i class="md-icon-left-big"></i></a>
-                        <h1>{{ ::museum.museum.commonname }} </h1>
+                        <h1>{{ ::museum.museum.organization }} </h1>
                         <!--
                             TODO: Create address via filter, so we can use proper version of the address
                                   There is a physical, geocoded, and source address in the response
@@ -35,7 +35,8 @@
                 <div class="col-xs-3">
                     <ul class="list-unstyled">
                         <!-- TODO: Verify this value and make it more useful to user -->
-                        <li ng-if="museum.museum.discipl"><strong>Category:</strong> {{ museum.museum.discipl | imlsCategory }}</li>
+                        <li ng-if="museum.museum.ntee_org_type"><strong>Category:</strong> {{ museum.museum.ntee_org_type | imlsCategory }}</li>
+                        <li ng-if="museum.museum.ntee_group"><strong>Group:</strong> {{ museum.museum.ntee_group }}</li>
                         <!-- TODO: Filter to properly format phone number -->
                         <li ng-if="museum.museum.phone"><strong>Phone:</strong> {{ ::museum.museum.phone | tel }}</li>
                         <!-- TODO: Verify for bad data -->

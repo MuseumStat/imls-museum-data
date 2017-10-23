@@ -1,3 +1,4 @@
+
 (function() {
     'use strict';
 
@@ -11,38 +12,34 @@
         },
         bounds: {
             northEast: {
-                lat: 49.384,
-                lng: -66.8854
+                lat: 40.137992,
+                lng: -75.280266
             },
             southWest: {
-                lat: 24.3963,
-                lng: -124.849
+                lat: 39.867004,
+                lng: -74.955763
             }
+
+            // , , ,
         },
         detailZoom: 14,
         cartodb: {
-            visId: '53d43566-4ff1-11e5-93fd-0e9d821ea90d',
-            account: 'museumstat',
-            tableName: 'mudf15q3pub',
-            tractsTableName: 'tracts',
-            demographicVisUrl: 'https://museumstat.cartodb.com/api/v2/viz/fef9775c-4ff7-11e5-b0ab-0e4fddd5de28/viz.json'
+            visId: '3ce8f35c-81d3-4b72-83ae-b2d9c87b475e',
+            account: 'npecosystem',
+            tableName: 'impactviewphilly_fordemomaps_singlesheet',
+            tractsTableName: 'philly_census_tracts_2010',
+            demographicVisUrl: 'https://npecosystem.carto.com/api/v2/viz/dfa88f97-3a97-4ac5-838c-337fb912f29e/viz.json'
+            demographicVisColumns: 'cartodb_id, median_income, poverty_rate'
         },
-        // :site: will be replaced with each value of socialSites
-        socialColumn: ':site:_url',
+        // :site: will be replaced with each value of socialSites, set to null if no social data
+        // socialColumn: ':site:_url',
+        socialColumn: null,
         // The sites to pull factual social media urls from.
         //  these strings should be a subset of the options available here:
         //  http://developer.factual.com/places-crosswalk/#namespaces
         // The cartodb table for this app must then have a socialColumn manually added for
         //  each entry here, with the column name equal to the value used in socialColumn
-        socialSites: [
-            'facebook',
-            'twitter',
-            'google_plus',
-            'wikipedia',
-            'yelp',
-            'pinterest',
-            'foursquare'
-        ],
+        socialSites: [],
         typeahead: {
             results: 10
         },
@@ -59,3 +56,4 @@
     .constant('Config', config);
 
 })();
+
