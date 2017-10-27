@@ -48,30 +48,30 @@
     <section class="main-content">
         <div class="container-fluid">
             <div class="preloader large" ng-if="museum.tabState === museum.tabStates.LOADING"></div>
-            <tabset justified="true" ng-if="museum.tabState === museum.tabStates.TABS">
-                <tab class="tab-pane fade in" select="museum.activeTab = 'people'">
-                    <tab-heading>People</tab-heading>
+            <uib-tabset justified="true" ng-if="museum.tabState === museum.tabStates.TABS">
+                <uib-tab class="tab-pane fade in" select="museum.activeTab = 'people'">
+                    <uib-tab-heading>People</uib-tab-heading>
                     <imls-tab-people ng-if="museum.acsData"
                                      data="museum.acsData"
                                      is-tab-visible="museum.activeTab === 'people'">
                     </imls-tab-people>
-                </tab> <!-- /.tab-pane #people -->
-                <tab class="tab-pane fade in" select="museum.activeTab = 'households'">
-                    <tab-heading>Households</tab-heading>
+                </uib-tab> <!-- /.tab-pane #people -->
+                <uib-tab class="tab-pane fade in" select="museum.activeTab = 'households'">
+                    <uib-tab-heading>Households</uib-tab-heading>
                     <imls-tab-households ng-if="museum.acsData"
                                          data="museum.acsData"
                                          is-tab-visible="museum.activeTab === 'households'">
                     </imls-tab-households>
-                </tab>
-                <tab class="tab-pane fade in" select="museum.activeTab = 'similar'">
-                    <tab-heading>State &amp; Region</tab-heading>
+                </uib-tab>
+                <uib-tab class="tab-pane fade in" select="museum.activeTab = 'similar'">
+                    <uib-tab-heading>State &amp; Region</uib-tab-heading>
                     <imls-tab-nearby-museums ng-if="museum.nearbyInState && museum.nearbyInArea"
                                          state-data="museum.nearbyInState"
                                          area-data="museum.nearbyInArea"
                                          is-tab-visible="museum.activeTab === 'similar'">
                     </imls-tab-nearby-museums>
-                </tab>
-            </tabset>
+                </uib-tab>
+            </uib-tabset>
             <div ng-if="museum.tabState === museum.tabStates.ERROR">
                 <div class="panel panel-default">
                     <div class="panel-body text-center">

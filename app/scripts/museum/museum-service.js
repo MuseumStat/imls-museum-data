@@ -148,7 +148,7 @@
         function transformLabels(rows) {
             return _.map(rows, function(row) {
                 return {
-                    label: LegendMap[row.label],
+                    label: row.label,
                     value: row.value
                 };
             });

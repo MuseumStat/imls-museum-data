@@ -70,7 +70,7 @@
 
         function setMuseum(rows) {
             ctl.museum = rows[0];
-            Museum.byTypeInState('PA').then(function (response) {
+            Museum.byTypeInState(ctl.museum.org_state_new).then(function (response) {
                 ctl.nearbyInState = response;
             });
             addLocationMarker({x: ctl.museum.longitude, y: ctl.museum.latitude});
