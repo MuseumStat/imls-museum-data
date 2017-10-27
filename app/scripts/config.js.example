@@ -24,11 +24,11 @@
         },
         detailZoom: 14,
         cartodb: {
-            visId: '3ce8f35c-81d3-4b72-83ae-b2d9c87b475e',
+            visId: '08f82c62-7824-48a3-a039-53b303bff0ff',
             account: 'npecosystem',
-            tableName: 'impactviewphilly_fordemomaps_singlesheet',
+            tableName: 'impactviewphilly_102617',
             tractsTableName: 'philly_census_tracts_2010',
-            demographicVisUrl: 'https://npecosystem.carto.com/api/v2/viz/dfa88f97-3a97-4ac5-838c-337fb912f29e/viz.json'
+            demographicVisUrl: 'https://npecosystem.carto.com/api/v2/viz/dfa88f97-3a97-4ac5-838c-337fb912f29e/viz.json',
             demographicVisColumns: 'cartodb_id, median_income, poverty_rate'
         },
         // :site: will be replaced with each value of socialSites, set to null if no social data
