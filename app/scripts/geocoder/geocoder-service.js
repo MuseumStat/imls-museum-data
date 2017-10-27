@@ -6,9 +6,9 @@
     function Geocoder ($http, $log, $q, Config) {
 
         // Private variables
-        var searchUrl = 'http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/find';
-        var suggestUrl = 'http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/suggest';
-        var reverseUrl = 'http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/reverseGeocode';
+        var searchUrl = 'https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/findAddressCandidates';
+        var suggestUrl = 'https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/suggest';
+        var reverseUrl = 'https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/reverseGeocode';
         var boundingBox = [
             Config.bounds.southWest.lng,
             Config.bounds.southWest.lat,
@@ -20,8 +20,6 @@
         var searchCategories = [
             'Street Address',
             'Neighborhood',
-            'City',
-            'Subregion',
             'Primary Postal'
         ].join(',');
         var outFields = [
@@ -71,12 +69,13 @@
         function search(text, magicKey, options) {
             options = options || {};
             var defaults = {
-                text: text,
+                singleLine: text,
                 bbox: boundingBox,
                 outFields: outFields,
                 category: searchCategories,
                 maxLocations: maxResults,
                 sourceCountry: sourceCountry,
+                region: 'Pennsylvania',
                 f: 'pjson'
             };
             var params = angular.extend({}, defaults, options);
@@ -87,7 +86,7 @@
             $http.get(searchUrl, {
                 params: params
             }).then(function (data) {
-                dfd.resolve(data.locations);
+                dfd.resolve(data.data.candidates);
             }, function (error) {
                 dfd.reject('Error attempting to geocode address.');
                 console.error('Geocoder.search(): ', error);
