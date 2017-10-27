@@ -11,18 +11,27 @@
                 'ST_Y({geom}) as latitude, true as ismuseum ',
             'FROM {tablename} ',
             'WHERE ',
-                '{name} ILIKE \'%{text}%\' or ',
-                '{legalname} ILIKE \'%{text}%\' or ',
-                '{altname} ILIKE \'%{text}%\'',
+                '{name} ILIKE \'%{text}%\'',
             'LIMIT {limit}'
         ].join('');
         var socialTemplate = _.map(Config.socialSites, function (site) {
             return site + '_url';
         }).join(', ');
-        var listSelectColumns =
-            'ein' + 'ntee_org_type' + 'ntee_group' + 'organization' + 'source' +
-            socialTemplate + ' ';
-
+        var listSelectColumns = [
+            'ein_new',
+            'organization_new',
+            'ntee_org_type_new',
+            'org_address1_new',
+            'org_address2_new',
+            'org_city_new',
+            'org_state_new',
+            'org_zip_new',
+            'org_size_label_new',
+            'org_website_new',
+            'org_website_new',
+            'latitude',
+            'longitude'
+        ].join(', ') + socialTemplate + ' ';
 
         var listTemplate = [
             // Include all relevant rows, we don't want to download and columns added by cartodb
@@ -40,14 +49,12 @@
             'FROM {tablename} ',
             'WHERE {where}'
         ].join('');
-        var detailTemplate = 'SELECT * from {tablename} WHERE ein = {mid}';
+        var detailTemplate = 'SELECT * from {tablename} WHERE ein_new = {mid}';
 
         var sql = new cartodb.SQL({ user: Config.cartodb.account });
         var cols = {
-            id: 'mid',
-            name: 'commonname',
-            altname: 'altname',
-            legalname: 'legalname',
+            id: 'ein_new',
+            name: 'organization_new',
             geom: 'the_geom'
         };
 
@@ -73,8 +80,6 @@
                 tablename: Config.cartodb.tableName,
                 id: cols.id,
                 name: cols.name,
-                altname: cols.altname,
-                legalname: cols.legalname,
                 geom: cols.geom,
                 limit: Config.typeahead.results,
                 text: text.replace('\'', '\'\'')
@@ -101,17 +106,23 @@
         }
 
         function listByCity(params) {
-            var attributes = { 'gcity': 'city', 'gstate': 'state', 'gzip': 'zip' };
+            var attributes = {
+                'org_zip_new': 'zip'
+            };
             var whereArray = _(attributes)
                 .mapValues(function (v) { return params[v]; })
                 .pick(function (v) { return !!(v); })
                 .map(function (v, k) {
-                    if (k === 'gstate' && v.length !== 2) {
+                    if (k === 'org_state_new' && v.length !== 2) {
                         v = getStateAbbrev(v);
                     }
-                    var comparator = k === 'gzip' ? '{v}%' : '{v}';
+                    var comparator = '{v}';
                     var value = Util.strFormat(comparator, {v: v.replace('\'', '\'\'')});
-                    return Util.strFormat('{k} ILIKE \'{value}\'', {k: k, value: value});
+                    var formatStr = '{k} ILIKE \'{value}\'';
+                    if (k === 'org_zip_new') {
+                        formatStr = '{k} = {value}';
+                    }
+                    return Util.strFormat(formatStr, {k: k, value: value});
                 })
                 .value();
             if (whereArray.length < 1) {
@@ -162,7 +173,7 @@
         }
 
         function byTypeInState(state) {
-            var query = Util.strFormat(relatedTemplate('gstate = \'{state}\''), {
+            var query = Util.strFormat(relatedTemplate('org_state_new = \'{state}\''), {
                 tablename: Config.cartodb.tableName,
                 state: state.replace('\'', '\'\'')
             });
@@ -170,8 +181,12 @@
         }
 
         function relatedTemplate(where) {
-            return 'SELECT discipl as label, COUNT(discipl) as value FROM {tablename} ' +
-                   'WHERE ' + where + ' GROUP BY discipl';
+            return 'SELECT ' +
+                    'ntee_org_type_new as label, ' +
+                    'COUNT(ntee_org_type_new) as value ' +
+                'FROM {tablename} ' +
+                'WHERE ' + where + ' ' +
+                'GROUP BY ntee_org_type_new';
         }
 
         function getStateAbbrev(stateName) {

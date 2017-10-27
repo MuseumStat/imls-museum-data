@@ -13,7 +13,7 @@
             </div>
         </div>
     </div>
-    <cartodb-vis demographics="true" draw-control="true"
+    <cartodb-vis draw-control="true"
                  vis-fullscreen="museum.mapExpanded"
                  vis-fullscreen-on-toggle="museum.onMapExpanded"></cartodb-vis>
 
@@ -23,25 +23,21 @@
                 <div class="col-xs-9">
                     <div ng-if="museum.museum">
                         <a class="back-to-results" ng-click="museum.onBackButtonClicked()"><i class="md-icon-left-big"></i></a>
-                        <h1>{{ ::museum.museum.organization }} </h1>
-                        <!--
-                            TODO: Create address via filter, so we can use proper version of the address
-                                  There is a physical, geocoded, and source address in the response
-                         -->
+                        <h1>{{ ::museum.museum.organization_new }} </h1>
                         <h5>{{ ::museum.museum | imlsAddress }}</h5>
+                        <p ng-if="museum.museum.org_miission_new">{{ ::museum.museum.org_miission_new }}</p>
                         <imls-social-links museum="museum.museum"></imls-social-links>
                     </div>
                 </div>
                 <div class="col-xs-3">
                     <ul class="list-unstyled">
-                        <!-- TODO: Verify this value and make it more useful to user -->
-                        <li ng-if="museum.museum.ntee_org_type"><strong>Category:</strong> {{ museum.museum.ntee_org_type | imlsCategory }}</li>
-                        <li ng-if="museum.museum.ntee_group"><strong>Group:</strong> {{ museum.museum.ntee_group }}</li>
-                        <!-- TODO: Filter to properly format phone number -->
-                        <li ng-if="museum.museum.phone"><strong>Phone:</strong> {{ ::museum.museum.phone | tel }}</li>
+                        <li ng-if="museum.museum.ntee_org_type_new"><strong>Category:</strong> {{ ::museum.museum.ntee_org_type_new }}</li>
+                        <li ng-if="museum.museum.org_size_label_new"><strong>Budget Size: </strong>{{ ::museum.museum.org_size_label_new }}</li>
+                        <li ng-if="museum.museum.year_founded_990"><strong>Year Founded: </strong>{{ ::museum.museum.year_founded_990 }}</li>
+                        <li ng-if="museum.museum.org_phone_new"><strong>Phone:</strong> {{ ::museum.museum.org_phone_new | tel }}</li>
                         <!-- TODO: Verify for bad data -->
-                        <li ng-if="museum.museum.weburl"><a class="url-link" href="{{ ::museum.museum.weburl }}" target="_blank">Visit Museum Website</a></li>
-                        <li ng-if="museum.museum.mid"><a href="mailto:info@museumstat.org?subject=Museum%20Update:%20{{ ::museum.museum.mid }}">Submit Museum Update</a></li>
+                        <li ng-if="museum.museum.org_website_new"><a class="url-link" href="{{ ::museum.museum.org_website_new }}" target="_blank">Visit Museum Website</a></li>
+                        <li ng-if="museum.museum.ein_new"><a href="mailto:info@museumstat.org?subject=Museum%20Update:%20{{ ::museum.museum.ein_new }}">Submit Organization Update</a></li>
                         <li><a ng-click="museum.onPrintClicked()">Print the Report (4 Pages)</a></li>
                     </ul>
                 </div>

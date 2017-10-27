@@ -7,7 +7,7 @@
 
         var cartodbsql = new cartodb.SQL({ user: Config.cartodb.account });
         var cols = {
-            id: 'mid',
+            id: 'ein_new',
             state: 'statefp10',
             county: 'countyfp10',
             tract: 'tractce10',
