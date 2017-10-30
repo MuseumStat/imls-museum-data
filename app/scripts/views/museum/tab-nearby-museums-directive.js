@@ -16,7 +16,6 @@
             $scope.$watch(function () { return ctl.isTabVisible; }, onTabVisibleChanged);
         }
 
-        // adds missing museum types and sorts alphabetically
         function prepareBarChartData(data) {
             return _.sortBy(data, function (item) { return item.label; });
         }

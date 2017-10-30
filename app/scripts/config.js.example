@@ -19,8 +19,6 @@
                 lat: 39.867004,
                 lng: -74.955763
             }
-
-            // , , ,
         },
         detailZoom: 14,
         cartodb: {

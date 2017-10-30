@@ -35,7 +35,6 @@
                         <li ng-if="museum.museum.org_size_label_new"><strong>Budget Size: </strong>{{ ::museum.museum.org_size_label_new }}</li>
                         <li ng-if="museum.museum.year_founded_990"><strong>Year Founded: </strong>{{ ::museum.museum.year_founded_990 }}</li>
                         <li ng-if="museum.museum.org_phone_new"><strong>Phone:</strong> {{ ::museum.museum.org_phone_new | tel }}</li>
-                        <!-- TODO: Verify for bad data -->
                         <li ng-if="museum.museum.org_website_new"><a class="url-link" href="{{ ::museum.museum.org_website_new }}" target="_blank">Visit Museum Website</a></li>
                         <li ng-if="museum.museum.ein_new"><a href="mailto:info@museumstat.org?subject=Museum%20Update:%20{{ ::museum.museum.ein_new }}">Submit Organization Update</a></li>
                         <li><a ng-click="museum.onPrintClicked()">Print the Report (4 Pages)</a></li>
