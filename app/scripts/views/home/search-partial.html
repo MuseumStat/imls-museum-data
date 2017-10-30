@@ -31,20 +31,20 @@
         <table st-table="search.safeList" st-safe-src="search.list" ng-if="home.pageState === home.states.LIST" class="table table-striped">
             <thead>
                 <tr>
-                    <th>Museum Name</th>
-                    <th>City/State</th>
+                    <th>Organization Name</th>
                     <th>Type</th>
-                    <th>Revenue</th>
+                    <th>Budget Size</th>
+                    <th>URL</th>
                     <th width="230px"></th>
                 </tr>
             </thead> <!-- /thead -->
             <tbody>
                 <tr ng-repeat="row in search.safeList">
-                    <td>{{ ::row.commonname }}</td>
-                    <td>{{ ::row.gcity }}, {{ ::row.gstate }}</td>
-                    <td>{{ ::row.description }}</td>
-                    <td>{{ ::row.revenue | currency }}</td>
-                    <td><a ui-sref="museum({ museum: row.mid })" class="btn btn-primary-ghost">View &amp; Analyze</a></td>
+                    <td>{{ ::row.organization_new }}</td>
+                    <td>{{ ::row.ntee_org_type_new }}</td>
+                    <td>{{ ::row.org_size_label_new }}</td>
+                    <td><a href="http://{{ ::row.org_website_new }}">{{ ::row.org_website_new }}</a></td>
+                    <td><a ui-sref="museum({ museum: row.ein_new })" class="btn btn-primary-ghost">View &amp; Analyze</a></td>
                 </tr>
             </tbody>
             <tfoot>

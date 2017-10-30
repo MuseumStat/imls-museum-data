@@ -7,10 +7,10 @@
 
         var cartodbsql = new cartodb.SQL({ user: Config.cartodb.account });
         var cols = {
-            id: 'mid',
-            state: 'state_fips',
-            county: 'cnty_fips',
-            tract: 'tract',
+            id: 'ein_new',
+            state: 'statefp10',
+            county: 'countyfp10',
+            tract: 'tractce10',
             geom: 'the_geom'
         };
         var acsUrl = 'https://api.census.gov/data/2014/acs5';

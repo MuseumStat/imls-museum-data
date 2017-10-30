@@ -22,7 +22,7 @@
                                    placeholder="Search by museum, city or zip"
                                    class="form-control search-field"
                                    ng-model="home.searchText"
-                                   typeahead="location as location.name for location in home.search($viewValue)"
+                                   uib-typeahead="location as location.name for location in home.search($viewValue)"
                                    typeahead-on-select="home.onTypeaheadSelected($item)"
                                    typeahead-wait-ms="300"
                                    typeahead-min-length="3" />
@@ -43,7 +43,7 @@
         </div>
     </div>
 
-    <cartodb-vis demographics="true" vis-fullscreen="home.mapExpanded"></cartodb-vis>
+    <cartodb-vis vis-fullscreen="home.mapExpanded"></cartodb-vis>
 
     <ui-view></ui-view>
 

@@ -73,25 +73,26 @@
                 var features = _.filter(results[1], function (f) {
                     // Remove county results from geocoder response
                     /* jshint camelcase:false */
-                    return f.feature.attributes.Addr_type !== 'SubAdmin';
+                    return f.attributes.Addr_type !== 'SubAdmin';
                     /* jshint camelcase:true */
                 });
                 angular.forEach(features, function (f) {
                     /* jshint camelcase:false */
-                    var addressType = f.feature.attributes.Addr_type;
+                    var addressType = f.attributes.Addr_type;
+                    f.name = f.address;
                     /* jshint camelcase:true */
                     // Clean up name if this is a city feature, shorten state name
                     //  and display county in parenthesis
                     if (addressType === 'Locality') {
-                        var subregion = f.feature.attributes.Subregion;
-                        var city = f.feature.attributes.City;
-                        var state = f.feature.attributes.Region;
+                        var subregion = f.attributes.Subregion;
+                        var city = f.attributes.City;
+                        var state = f.attributes.Region;
                         if (state) {
                             state = StateAbbrev[state.toLowerCase()] || state;
                         }
                         f.name = city + ', ' + state;
                         if (city && subregion && subregion.toLowerCase() !== city.toLowerCase()) {
-                            f.name += ' (' + subregion + ')';
+                            f.address += ' (' + subregion + ')';
                         }
                     }
                 });
@@ -107,8 +108,8 @@
         function onTypeaheadSelected(item) {
             if (item.ismuseum) {
                 $state.go('museum', {museum: item.id});
-            } else if (item.feature) {
-                requestNearbyMuseums(item.feature);
+            } else if (item.address) {
+                requestNearbyMuseums(item);
             } else {
                 $log.error('No valid handlers for typeahead item:', item);
                 ctl.pageState = ctl.states.ERROR;

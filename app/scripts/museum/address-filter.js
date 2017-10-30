@@ -11,12 +11,16 @@
      * For now, default to geocoded address since that's what seems to always be populated
      */
     /* ngInject */
-    function AddressFilter() {
+    function AddressFilter(Config) {
         return function (input) {
-            var address = input.gstreet;
-            var city = input.gcity;
-            var state = input.gstate;
-            var zip = input.gzip;
+            var addressConfig = Config.fields.address;
+            var address = input[addressConfig.line1];
+            if (input[addressConfig.line2]) {
+                address += ' ' + input[addressConfig.line2];
+            }
+            var city = input[addressConfig.city];
+            var state = input[addressConfig.state];
+            var zip = input[addressConfig.zip];
 
             return address + ', ' + city + ', ' + state + ' ' + zip;
         };
