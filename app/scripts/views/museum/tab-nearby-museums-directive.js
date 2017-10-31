@@ -2,9 +2,8 @@
     'use strict';
 
     /* ngInject */
-    function NearbyMuseumsTabController($log, $scope, $timeout, ACSGraphs, LegendMap) {
+    function NearbyMuseumsTabController($log, $scope, $timeout, ACSGraphs) {
         var ctl = this;
-        var museumTypes;
 
         initialize();
 
