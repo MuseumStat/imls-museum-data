@@ -3,7 +3,7 @@
     'use strict';
 
     /* ngInject */
-    function Museum ($log, $q, Config, LegendMap, StateAbbrev, Util) {
+    function Museum ($log, $q, Config, StateAbbrev, Util) {
 
         var suggestTemplate = [
             'SELECT {id} as id, {name} as name, ',

@@ -23,6 +23,7 @@
     "angular": false,
     "d3": false,
     "cartodb": false,
+    "cdb": false,
     "jQuery": false,
     "L": false,
     "nv": false

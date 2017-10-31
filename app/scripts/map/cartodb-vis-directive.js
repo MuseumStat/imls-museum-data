@@ -17,7 +17,7 @@
             /* jshint camelcase:true */
             fullscreen: false,
             https: true,
-            legends: true,
+            legends: false,
             scrollwheel: false,
             search: false,
             shareable: false,
@@ -26,6 +26,7 @@
         var ctl = this;
         var url;
         var map;
+        var mapDomId = 'map';
         var demographicsVisible = false;
 
         initialize();
@@ -41,7 +42,7 @@
             ctl.visOptions = ctl.visOptions || defaultOptions;
             ctl.visAccount = ctl.visAccount || Config.cartodb.account;
             url = 'https://' + ctl.visAccount + '.carto.com/api/v2/viz/' + ctl.visId + '/viz.json';
-            cartodb.createVis('map', url, ctl.visOptions).done(onVisReady);
+            cartodb.createVis(mapDomId, url, ctl.visOptions).done(onVisReady);
 
             ctl.onFullscreenClicked = onFullscreenClicked;
             ctl.onSublayerChange = onSublayerChange;
@@ -67,6 +68,11 @@
         function onVisReady(vis) {
             map = vis.getNativeMap();
             var layers = vis.getLayers();
+
+            if (Config.cartodb.legend) {
+                var legend = new cdb.geo.ui.Legend.Category(Config.cartodb.legend);
+                  $('#' + mapDomId + ' .leaflet-container').append(legend.render().el);
+            }
             // Pretty hacky, but simpler than other options:
             //  If one of the demographics layers are visible, then we want to find the
             //  tooltip-points tooltip and re-hide it as cartodbjs attempts to display it on
@@ -81,7 +87,7 @@
                 var demographicsOptions = angular.extend({}, defaultOptions, {});
                 cartodb.createLayer(map, Config.cartodb.demographicVisUrl, demographicsOptions)
                 .addTo(map).done(function (layer) {
-                    $('div.cartodb-legend-stack').filter(':first').css('bottom', '150px');
+                    $('div.cartodb-legend').filter(':first').css('bottom', '150px');
                     ctl.sublayers = layer.getSubLayers();
                     angular.forEach(ctl.sublayers, function (sublayer) {
                         sublayer.setInteraction(true);
