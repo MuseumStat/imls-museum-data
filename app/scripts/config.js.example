@@ -27,7 +27,28 @@
             tableName: 'impactviewphilly_102617',
             tractsTableName: 'philly_census_tracts_2010',
             demographicVisUrl: 'https://npecosystem.carto.com/api/v2/viz/dfa88f97-3a97-4ac5-838c-337fb912f29e/viz.json',
-            demographicVisColumns: 'cartodb_id, median_income, poverty_rate'
+            demographicVisColumns: 'cartodb_id, median_income, poverty_rate',
+            // This object should conform to the config object passed to
+            //   cdb.geo.ui.Legend.Category
+            // demonstrated here: https://gist.github.com/javisantana/6410678#file-index-html-L54-L61
+            // If the categories displayed in Config.cartodb.visId are changed, this legend config
+            //   should also be updated
+            legend: {
+                title: 'Organizations by Type',
+                data: [
+                    { name: 'Human Services', value: '#5F4690'},
+                    { name: 'Education', value: '#1D6996'},
+                    { name: 'Arts, Culture and Humanities', value: '#38A6A5'},
+                    { name: 'Public, Societal Benefit', value: '#0F8554'},
+                    { name: 'Health', value: '#73AF48'},
+                    { name: 'Religion Related', value: '#EDAD08'},
+                    { name: 'Environment and Animals', value: '#E17C05'},
+                    { name: 'International, Foreign Affairs', value: '#CC503E'},
+                    { name: 'Unknown, Unclassified', value: '#94346E'},
+                    { name: 'Mutual/Membership Benefit', value: '#6F4070'},
+                    { name: 'Others', value: '#666666'}
+                ]
+            }
         },
         // :site: will be replaced with each value of socialSites, set to null if no social data
         // socialColumn: ':site:_url',
