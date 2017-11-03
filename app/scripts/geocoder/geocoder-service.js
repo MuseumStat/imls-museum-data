@@ -70,12 +70,11 @@
             options = options || {};
             var defaults = {
                 singleLine: text,
-                bbox: boundingBox,
+                searchExtent: boundingBox,
                 outFields: outFields,
                 category: searchCategories,
                 maxLocations: maxResults,
                 sourceCountry: sourceCountry,
-                region: 'Pennsylvania',
                 f: 'pjson'
             };
             var params = angular.extend({}, defaults, options);

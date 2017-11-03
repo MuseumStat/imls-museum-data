@@ -13,11 +13,11 @@
         bounds: {
             northEast: {
                 lat: 40.137992,
-                lng: -75.280266
+                lng: -74.955763
             },
             southWest: {
                 lat: 39.867004,
-                lng: -74.955763
+                lng: -75.280266
             }
         },
         detailZoom: 14,
