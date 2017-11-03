@@ -1,0 +1,54 @@
+#!/bin/bash
+
+set -e
+
+if [[ -n "${IVP_DEBUG}" ]]; then
+    set -x
+fi
+
+set -u
+
+DIR="$(dirname "$0")"
+
+function usage() {
+    echo -n \
+"Usage: $(basename "$0") ENV
+Execute deployment commands based on environment via s3_website.
+
+ENV must be one of staging|production
+"
+}
+
+if [ "${BASH_SOURCE[0]}" = "${0}" ]; then
+    ENVIRONMENT=${1:-unknown}
+    if [ "${1:-}" = "--help" ]; then
+        usage
+    else
+        DEPLOYMENT_DIR="${DIR}/../"
+        echo
+        echo "Attempting to deploy env [${ENVIRONMENT}]..."
+        echo "-----------------------------------------------------"
+        echo
+    fi
+    pushd "${DEPLOYMENT_DIR}"
+
+    source .env
+
+    case "${ENVIRONMENT}" in
+        staging)
+            s3_website push --config-dir="config/staging"
+            ;;
+        production)
+            s3_website push --config-dir="config/production"
+
+            ;;
+        *)
+            echo "ERROR: I don't have support for that environment!"
+            usage
+            exit 1
+            ;;
+    esac
+
+
+    popd
+fi

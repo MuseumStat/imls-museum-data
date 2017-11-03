@@ -61,11 +61,6 @@
                     chart = nv.models.multiBarHorizontalChart()
                         .x(function(d) { return addElipses(d.label, opts.labelCharacters); })
                         .y(function(d) { return d.value; })
-                        .tooltipContent(function(d) {
-                            var percent = numberFilter(d.data.value / total * 100, 1);
-                            return ['<b>', d.data.label, ': </b>', numberFilter(d.data.value),
-                                    ' (', percent, '%)'].join('');
-                        })
                         .color(function () { return '#bc5405'; })
                         .margin(opts.margin)
                         .showControls(false)
@@ -74,15 +69,13 @@
                     chart = nv.models.discreteBarChart()
                         .x(function(d) { return addElipses(d.label, opts.labelCharacters); })
                         .y(function(d) { return d.value; })
-                        .tooltipContent(function(d) {
-                            var percent = numberFilter(d.data.value / total * 100, 1);
-                            return ['<b>', d.data.label, ': </b>', numberFilter(d.data.value),
-                                    ' (', percent, '%)'].join('');
-                        })
                         .staggerLabels(true)
                         .color(function () { return '#bc5405'; })
                         .margin(opts.margin);
                 }
+                chart.tooltip.contentGenerator(function (d) {
+                    return generateTooltipLabel(d, total);
+                });
                 chart.yAxis.tickFormat(function (n) { return numberFilter(n, 0); });
                 if(max < 10) {
                     chart.yAxis.tickValues([0,1,2,3,4,5,6,7,8,9]);
@@ -106,14 +99,12 @@
                 var chart = nv.models.pieChart()
                     .x(function(d) { return addElipses(d.label, 10); })
                     .y(function(d) { return d.value; })
-                    .tooltipContent(function(d) {
-                        var percent = $filter('number')(d.data.value / total * 100, 1);
-                        return ['<b>', d.data.label, ': </b>', numberFilter(d.data.value),
-                                ' (', percent, '%)'].join('');
-                    })
                     .color(function () { return '#bc5405'; })
                     .margin({top: 0, left: 10, bottom: 0, right: 10})
                     .showLegend(false);
+                chart.tooltip.contentGenerator(function (d) {
+                    return generateTooltipLabel(d, total);
+                });
                 charts[key] = chart;
             }
             d3.select('#pie-chart-' + key + ' svg')
@@ -128,6 +119,12 @@
                     label: ACSVariables[variable]
                 };
             });
+        }
+
+        function generateTooltipLabel(d, total) {
+            var percent = numberFilter(d.data.value / total * 100, 1);
+            return ['<b>', d.data.label, ': </b>', numberFilter(d.data.value),
+                    ' (', percent, '%)'].join('');
         }
     }
 

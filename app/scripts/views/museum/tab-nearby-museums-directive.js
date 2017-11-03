@@ -2,9 +2,8 @@
     'use strict';
 
     /* ngInject */
-    function NearbyMuseumsTabController($log, $scope, $timeout, ACSGraphs, LegendMap) {
+    function NearbyMuseumsTabController($log, $scope, $timeout, ACSGraphs) {
         var ctl = this;
-        var museumTypes;
 
         initialize();
 
@@ -14,23 +13,10 @@
             $scope.$watch(function () { return ctl.stateData; }, onStateDataChanged);
             $scope.$watch(function () { return ctl.areaData; }, onAreaDataChanged);
             $scope.$watch(function () { return ctl.isTabVisible; }, onTabVisibleChanged);
-            museumTypes = _.values(LegendMap);
         }
 
-        // adds missing museum types and sorts alphabetically
         function prepareBarChartData(data) {
-            var zeroCounts = [];
-            _.forEach(museumTypes, function (museumType) {
-                // if not in data, add a zero count to out
-                if (!_.find(data, function (item) { return item.label === museumType; })) {
-                    zeroCounts.push({
-                        label: museumType,
-                        series: 0,
-                        value: 0
-                    });
-                }
-            });
-            return _.sortBy(zeroCounts.concat(data), function (item) { return item.label; });
+            return _.sortBy(data, function (item) { return item.label; });
         }
 
         function onStateDataChanged(newData) {
@@ -65,7 +51,7 @@
             var barOpts = {
                 forceRedraw: forceRedraw,
                 margin: {
-                    left: 150,
+                    left: 200,
                     right: 30
                 },
                 labelCharacters: null

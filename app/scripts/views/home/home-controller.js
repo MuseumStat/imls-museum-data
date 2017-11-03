@@ -7,10 +7,9 @@
      */
     /* ngInject */
     function HomeController($log, $q, $scope, $timeout,
-                            $geolocation, $modal, $state, Config, Geocoder, Museum, StateAbbrev) {
+                            $geolocation, $state, Config, Geocoder, Museum, StateAbbrev) {
         var ctl = this;
         var mapDfd = $q.defer();
-        var searchMarker = null;
 
         initialize();
 
@@ -42,7 +41,7 @@
         }
 
         function onLocationClicked() {
-            var loadingGeoTimeout = $timeout(function () { ctl.loadingGeolocation = true}, 150);
+            var loadingGeoTimeout = $timeout(function () { ctl.loadingGeolocation = true; }, 150);
             $geolocation.getCurrentPosition({
                 enableHighAccuracy: true,
                 maximumAge: 0
@@ -73,22 +72,27 @@
                 var museums = results[0];
                 var features = _.filter(results[1], function (f) {
                     // Remove county results from geocoder response
-                    return f.feature.attributes.Addr_type !== 'SubAdmin';
+                    /* jshint camelcase:false */
+                    return f.attributes.Addr_type !== 'SubAdmin';
+                    /* jshint camelcase:true */
                 });
                 angular.forEach(features, function (f) {
-                    var addressType = f.feature.attributes.Addr_type;
+                    /* jshint camelcase:false */
+                    var addressType = f.attributes.Addr_type;
+                    f.name = f.address;
+                    /* jshint camelcase:true */
                     // Clean up name if this is a city feature, shorten state name
                     //  and display county in parenthesis
                     if (addressType === 'Locality') {
-                        var subregion = f.feature.attributes.Subregion;
-                        var city = f.feature.attributes.City;
-                        var state = f.feature.attributes.Region;
+                        var subregion = f.attributes.Subregion;
+                        var city = f.attributes.City;
+                        var state = f.attributes.Region;
                         if (state) {
                             state = StateAbbrev[state.toLowerCase()] || state;
                         }
                         f.name = city + ', ' + state;
                         if (city && subregion && subregion.toLowerCase() !== city.toLowerCase()) {
-                            f.name += ' (' + subregion + ')';
+                            f.address += ' (' + subregion + ')';
                         }
                     }
                 });
@@ -104,8 +108,8 @@
         function onTypeaheadSelected(item) {
             if (item.ismuseum) {
                 $state.go('museum', {museum: item.id});
-            } else if (item.feature) {
-                requestNearbyMuseums(item.feature);
+            } else if (item.address) {
+                requestNearbyMuseums(item);
             } else {
                 $log.error('No valid handlers for typeahead item:', item);
                 ctl.pageState = ctl.states.ERROR;

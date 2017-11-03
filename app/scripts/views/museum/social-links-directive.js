@@ -12,7 +12,14 @@
             ctl.urls = {};
 
             ctl.iconForKey = iconForKey;
-            setSocialUrls();
+
+            ctl.$onChanges = $onChanges;
+        }
+
+        function $onChanges(changes) {
+            if (changes.museum) {
+                setSocialUrls();
+            }
         }
 
         function iconForKey(key) {
@@ -42,7 +49,7 @@
             controller: 'SocialLinksController',
             controllerAs: 'links',
             scope: {
-                museum: '='
+                museum: '<'
             },
             bindToController: true
         };

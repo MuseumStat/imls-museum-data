@@ -3,7 +3,6 @@
 
     /** @ngInject */
     function DiscoverController($log, $scope, Config) {
-        var ctl = this;
         var homeCtl = $scope.home;
         initialize();
 

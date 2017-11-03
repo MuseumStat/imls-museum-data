@@ -6,9 +6,7 @@ cache:
         - bower_components
 
 node_js:
-  - '0.12'
-  - '4.2'
-  - '5.1'
+  - '6'
 
 before_install:
   - npm --version
@@ -18,6 +16,9 @@ install:
   - npm install -g bower grunt-cli
   - bower install
   - npm install
+
+before_script:
+  - cp app/scripts/config.js.example app/scripts/config.js
 
 script:
   - grunt test

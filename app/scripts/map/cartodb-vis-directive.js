@@ -12,18 +12,21 @@
         var MAP_SLIDE_TRANSITION_MS = 400;
 
         var defaultOptions = {
-            shareable: false,
-            search: false,
-            fullscreen: false,
-            scrollwheel: false,
-            tooltip: true,
             /* jshint camelcase:false */
-            cartodb_logo: false
+            cartodb_logo: false,
             /* jshint camelcase:true */
+            fullscreen: false,
+            https: true,
+            legends: false,
+            scrollwheel: false,
+            search: false,
+            shareable: false,
+            tooltip: true
         };
         var ctl = this;
         var url;
         var map;
+        var mapDomId = 'map';
         var demographicsVisible = false;
 
         initialize();
@@ -38,8 +41,8 @@
             ctl.visId = ctl.visId || Config.cartodb.visId;
             ctl.visOptions = ctl.visOptions || defaultOptions;
             ctl.visAccount = ctl.visAccount || Config.cartodb.account;
-            url = 'https://' + ctl.visAccount + '.cartodb.com/api/v2/viz/' + ctl.visId + '/viz.json';
-            cartodb.createVis('map', url, ctl.visOptions).done(onVisReady);
+            url = 'https://' + ctl.visAccount + '.carto.com/api/v2/viz/' + ctl.visId + '/viz.json';
+            cartodb.createVis(mapDomId, url, ctl.visOptions).done(onVisReady);
 
             ctl.onFullscreenClicked = onFullscreenClicked;
             ctl.onSublayerChange = onSublayerChange;
@@ -50,12 +53,12 @@
         function onSublayerChange(sublayer) {
             angular.forEach(ctl.sublayers, function (s) {
                 s.hide();
-                s.legend.set('visible', false);
+                //s.legend.set('visible', false);
             });
             demographicsVisible = !!(sublayer);
             if (sublayer) {
                 sublayer.show();
-                sublayer.legend.set('visible', true);
+                // sublayer.legend.set('visible', true);
             } else {
                 // Hide the sticky tooltip by clearing block styling...weee this is messy
                 $('div.cartodb-tooltip .tooltip-tracts').parent().css('display', 'none');
@@ -65,6 +68,11 @@
         function onVisReady(vis) {
             map = vis.getNativeMap();
             var layers = vis.getLayers();
+
+            if (Config.cartodb.legend) {
+                var legend = new cdb.geo.ui.Legend.Category(Config.cartodb.legend);
+                  $('#' + mapDomId + ' .leaflet-container').append(legend.render().el);
+            }
             // Pretty hacky, but simpler than other options:
             //  If one of the demographics layers are visible, then we want to find the
             //  tooltip-points tooltip and re-hide it as cartodbjs attempts to display it on
@@ -75,13 +83,16 @@
             } else {
                 $log.error('vis.getLayers()[1] is not the points layer!');
             }
-
             if (ctl.demographics) {
                 var demographicsOptions = angular.extend({}, defaultOptions, {});
                 cartodb.createLayer(map, Config.cartodb.demographicVisUrl, demographicsOptions)
                 .addTo(map).done(function (layer) {
-                    $('div.cartodb-legend-stack').filter(':first').css('bottom', '150px');
+                    $('div.cartodb-legend').filter(':first').css('bottom', '150px');
                     ctl.sublayers = layer.getSubLayers();
+                    angular.forEach(ctl.sublayers, function (sublayer) {
+                        sublayer.setInteraction(true);
+                        sublayer.setInteractivity(Config.cartodb.demographicVisColumns || '');
+                    });
                     ctl.onSublayerChange(ctl.sublayers[-1]);
                     $scope.$apply();
 
