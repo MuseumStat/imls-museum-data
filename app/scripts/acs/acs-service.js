@@ -13,7 +13,7 @@
             tract: 'tract',
             geom: 'the_geom'
         };
-        var acsUrl = 'https://api.census.gov/data/2014/acs5';
+        var acsUrl = 'https://api.census.gov/data/2014/acs/acs5';
 
         var module = {
             getPolygon: getPolygon,
