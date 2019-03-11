@@ -1,3 +1,7 @@
+## v1.4.0
+
+ - Update Census API URL to match new format
+
 ## v1.3.0
 
  - Update Census API requests to use HTTPS
