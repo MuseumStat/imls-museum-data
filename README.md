@@ -5,7 +5,7 @@
 ## Development
 
 #### Prerequisites
-- nodejs 0.12+
+- nodejs >0.12 and <12 . Node 8 seems to work. You will likely need to install nvm to use an older version of node.
 - ruby
 - ruby gem package manager
 
