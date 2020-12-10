@@ -1,3 +1,7 @@
+## v1.5.0
+
+ - Update geocoder requests to use HTTPS
+
 ## v1.4.0
 
  - Update Census API URL to match new format
