@@ -6,9 +6,9 @@
     function Geocoder ($http, $log, $q, Config) {
 
         // Private variables
-        var searchUrl = 'http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/find';
-        var suggestUrl = 'http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/suggest';
-        var reverseUrl = 'http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/reverseGeocode';
+        var searchUrl = 'https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/find';
+        var suggestUrl = 'https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/suggest';
+        var reverseUrl = 'https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/reverseGeocode';
         var boundingBox = [
             Config.bounds.southWest.lng,
             Config.bounds.southWest.lat,
