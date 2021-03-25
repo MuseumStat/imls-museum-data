@@ -1,2 +1,2 @@
-PyYAML==3.11
+PyYAML==5.4
 factual-api==1.6.1
